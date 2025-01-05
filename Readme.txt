@@ -1,186 +1,53 @@
-================================================================================
-                           NextStation Beta v0.2.2.0
+## Tá»•ng quan
+NextStation lÃ  pháº§n má»m mÃ´ phá»ng thiáº¿t bá»‹ hiá»ƒn thá»‹ thÃ´ng tin LCD trong tÃ u Ä‘iá»‡n, nhÆ° trÃªn cÃ¡c tÃ u E233 cá»§a JR East, trÃªn PC. ThÃ´ng tin vá» tuyáº¿n vÃ  tÃ u cÃ³ thá»ƒ Ä‘Æ°á»£c Ä‘á»‹nh nghÄ©a trong tá»‡p XML vÃ  thay Ä‘á»•i tuyáº¿n/tÃ u báº±ng cÃ¡ch thay tháº¿ tá»‡p. NgoÃ i ra, giao diá»‡n cá»§a nhiá»u loáº¡i tÃ u khÃ¡c nhau cÃ³ thá»ƒ Ä‘Æ°á»£c mÃ´ phá»ng báº±ng cÃ¡ch thay Ä‘á»•i tá»‡p chá»§ Ä‘á» viáº¿t báº±ng XAML.
 
-y»ìŽÒztokiensis
-y˜A—æznextstation@wataku-city.com
-y”z•zŒ³zhttp://wataku-city.com/software/NextStation/
-y“®ìŠÂ‹«zWindows Vista/7/8.x/10 .NET Framework 4.5 x86/x64‹¤’Ê
-yŠJ”­ŠÂ‹«zMicrosoft Visual Studio Community 2017
-================================================================================
+Chá»©c nÄƒng quáº£n lÃ½ cá»­a sá»• cho phÃ©p hiá»ƒn thá»‹ nhiá»u tÃ u cÃ¹ng lÃºc hoáº·c hiá»ƒn thá»‹ cho tá»«ng toa cá»§a cÃ¹ng má»™t tÃ u.
 
-¡ŠT—v
-JR“Œ“ú–{E233Œn“dŽÔ‚È‚Ç‚ÌƒhƒAã‚ÉÝ’u‚³‚ê‚Ä‚¢‚éLCDŽ®ŽÔ“àˆÄ“à•\Ž¦‘•’u‚ðPCã‚ÅÄŒ»‚·‚éƒ\ƒtƒgƒEƒFƒA‚Å‚·B
-˜HüE—ñŽÔ‚È‚Ç‚Ìî•ñ‚ÍXMLƒtƒ@ƒCƒ‹‚É‹Lq‚³‚êAŽQÆ‚·‚éƒtƒ@ƒCƒ‹‚ðØ‚è‘Ö‚¦‚é‚±‚Æ‚Å•\Ž¦‚·‚é˜HüE—ñŽÔ‚ð
-•ÏX‰Â”\‚Å‚·B‚Ü‚½AXAML‚Å‹Lq‚³‚ê‚½ƒe[ƒ}ƒtƒ@ƒCƒ‹‚ðØ‚è‘Ö‚¦‚é‚±‚Æ‚Å—lX‚ÈŽÔ—¼‚Ì•\Ž¦‘•’u‚ðÄŒ»‰Â”\‚Å‚·B
-‘½”‚ÌƒEƒBƒ“ƒhƒE‚ÌˆêŠ‡ŠÇ—‚ª‰Â”\‚ÅA•¡”—ñŽÔ‚Ì“¯Žž•\Ž¦‚âA“¯ˆê—ñŽÔ‚Ì¶‰EE†ŽÔ•Ê‚Ì•\Ž¦‚ªs‚¦‚Ü‚·B
+## HÆ°á»›ng dáº«n cÃ i Ä‘áº·t
+Giáº£i nÃ©n tá»‡p tin vÃ o vá»‹ trÃ­ mong muá»‘n.
+HÆ°á»›ng dáº«n gá»¡ cÃ i Ä‘áº·t
+XÃ³a toÃ n bá»™ cÃ¡c tá»‡p Ä‘Ã£ giáº£i nÃ©n.
+Pháº§n má»m khÃ´ng sá»­ dá»¥ng registry cá»§a há»‡ thá»‘ng.
+CÃ¡c thao tÃ¡c chÃ­nh
+Quáº£n lÃ½ cá»­a sá»• > Danh sÃ¡ch thiáº¿t láº­p tÃ u
 
-¡ƒCƒ“ƒXƒg[ƒ‹•û–@
-ƒA[ƒJƒCƒu‚ð”CˆÓ‚ÌêŠ‚É“WŠJ‚µ‚Ä‚­‚¾‚³‚¢B
+Space: ThÃªm vÃ o danh sÃ¡ch cá»­a sá»• (cÃ³ thá»ƒ thá»±c hiá»‡n báº±ng cÃ¡ch nháº¥p Ä‘Ãºp chuá»™t trÃ¡i).
+Quáº£n lÃ½ cá»­a sá»• > Danh sÃ¡ch cá»­a sá»•
 
-¡ƒAƒ“ƒCƒ“ƒXƒg[ƒ‹•û–@
-“WŠJ‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ð‚·‚×‚Äíœ‚µ‚Ä‚­‚¾‚³‚¢B–{ƒ\ƒtƒgƒEƒFƒA‚ÍƒŒƒWƒXƒgƒŠ‚ðŽg—p‚µ‚Ü‚¹‚ñB
+Space: Cháº¡y [F5] (hoáº·c nháº¥p Ä‘Ãºp chuá»™t trÃ¡i).
+Del: ÄÃ³ng cá»­a sá»• / XÃ³a khá»i danh sÃ¡ch (hoáº·c nháº¥p Ä‘Ãºp chuá»™t pháº£i).
+Cá»­a sá»• hiá»ƒn thá»‹ thÃ´ng tin
 
-¡Žå‚È‘€ì
-ŠÇ—ƒEƒBƒ“ƒhƒE > —ñŽÔÝ’èƒŠƒXƒg
-- Space	ƒEƒBƒ“ƒhƒEƒŠƒXƒg‚É’Ç‰Á <¶ƒ_ƒuƒ‹ƒNƒŠƒbƒN>‚Å‚à‘€ì‰Â”\
+Esc: ÄÃ³ng cá»­a sá»• [Alt+F4].
+F5: Cháº¡y/Dá»«ng [Space][Pause/Break].
+F6: Báº¯t Ä‘áº§u láº¡i tá»« ga Ä‘áº§u tiÃªn [BackSpace].
+F7: Báº­t/Táº¯t tá»± Ä‘á»™ng chuyá»ƒn Ä‘á»•i.
+F8: Chuyá»ƒn Ä‘á»•i hiá»ƒn thá»‹ trÃ¡i/pháº£i.
+F11: Cháº¿ Ä‘á»™ toÃ n mÃ n hÃ¬nh.
+â†’: Chuyá»ƒn tiáº¿p (hoáº·c [â†“][Enter]).
+â†: Quay láº¡i (hoáº·c [â†‘][Shift+Enter]).
+Num1: Hiá»ƒn thá»‹ chi tiáº¿t tuyáº¿n.
+Num2: Hiá»ƒn thá»‹ toÃ n tuyáº¿n.
+Num3: ThÃ´ng tin Ä‘Ã³ng/má»Ÿ cá»­a.
+Num4: ThÃ´ng tin báº¿n tÃ u.
+Num5: ThÃ´ng tin tuyáº¿n chuyá»ƒn Ä‘á»•i.
+Num6: Hiá»ƒn thá»‹ cáº£nh bÃ¡o.
+Num7: Hiá»ƒn thá»‹ chá»— ngá»“i Æ°u tiÃªn.
+Num8: Hiá»ƒn thá»‹ quy Ä‘á»‹nh vá» sá»­ dá»¥ng Ä‘iá»‡n thoáº¡i.
+Xem thÃªm chi tiáº¿t táº¡i: http://wataku-city.com/software/NextStation/reference/.
 
-ŠÇ—ƒEƒBƒ“ƒhƒE > ƒEƒBƒ“ƒhƒEƒŠƒXƒg
-- Space	ŽÀs [F5] <¶ƒ_ƒuƒ‹ƒNƒŠƒbƒN>‚Å‚à‘€ì‰Â”\
-- Del	ƒEƒBƒ“ƒhƒE‚ð•Â‚¶‚é / ƒŠƒXƒg‚©‚çíœ <‰Eƒ_ƒuƒ‹ƒNƒŠƒbƒN>‚Å‚à‘€ì‰Â”\
+Giáº¥y phÃ©p
+Báº£n quyá»n (C) 2015-2020 WatakuCity.
+Pháº§n má»m nÃ y miá»…n phÃ­ sá»­ dá»¥ng vÃ  cÃ³ thá»ƒ sao chÃ©p/phÃ¢n phá»‘i láº¡i tá»± do, vá»›i Ä‘iá»u kiá»‡n tÃªn tÃ¡c giáº£ Ä‘Æ°á»£c ghi rÃµ rÃ ng.
+Tá»‡p XML/XAML Ä‘i kÃ¨m cÃ³ thá»ƒ chá»‰nh sá»­a vÃ  phÃ¢n phá»‘i láº¡i.
+ThÆ° viá»‡n vÃ  mÃ£ nguá»“n sá»­ dá»¥ng
+Pháº§n má»m sá»­ dá»¥ng cÃ¡c thÆ° viá»‡n sau:
 
-•\Ž¦‘•’uƒEƒBƒ“ƒhƒE
-- Esc	ƒEƒBƒ“ƒhƒE‚ð•Â‚¶‚é [Alt+F4]‚Å‚à‘€ì‰Â”\
-- F5	ŽÀs/’âŽ~ [Space][Pause/Break]‚Å‚à‘€ì‰Â”\
-- F6	Žn”­‰w‚©‚çÄŠJ [BackSpace]‚Å‚à‘€ì‰Â”\
-- F7	Ž©“®Ø‘Ö‚Ì—LŒø‰»/–³Œø‰»
-- F8	¶‰E‚Ì•\Ž¦Ø‘Ö
-- F11	‘S‰æ–Ê•\Ž¦
-- ¨	ŽŸ‚ÉˆÚ“® [«][Enter]‚Å‚à‘€ì‰Â”\
-- ©	‘O‚ÉˆÚ“® [ª][Shift+Enter]‚Å‚à‘€ì‰Â”\
-- Num1	Ú×˜Hü•\Ž¦
-- Num2	‘S‹æŠÔ˜Hü•\Ž¦
-- Num3	ƒhƒAŠJ•Âî•ñ•\Ž¦
-- Num4	ƒvƒ‰ƒbƒgƒz[ƒ€î•ñ•\Ž¦
-- Num5	æ‚èŠ·‚¦˜Hü•\Ž¦
-- Num6	Œx‰úŽÀŽ{•\Ž¦
-- Num7	—DæÈˆÄ“à•\Ž¦
-- Num8	Œg‘Ñ“d˜bŽæˆµ•\Ž¦
+Tategaki ver.2.1.0 (EH500é‡‘å¤ªéƒŽ).
+WaterTrans.TypeLoader.dll.
+TechED2010LT_OutlineTextSample_rev2.0.
+SharpVectors 1.0.
+Miá»…n trá»« trÃ¡ch nhiá»‡m
+NhÃ  phÃ¡t triá»ƒn khÃ´ng chá»‹u trÃ¡ch nhiá»‡m vá»›i báº¥t ká»³ hÆ° háº¡i, lá»—i hay sá»± cá»‘ nÃ o khi sá»­ dá»¥ng pháº§n má»m nÃ y. HÃ£y sá»­ dá»¥ng pháº§n má»m dÆ°á»›i trÃ¡ch nhiá»‡m cÃ¡ nhÃ¢n.
 
-Ú×‚É‚Â‚¢‚Ä‚Í http://wataku-city.com/software/NextStation/reference/ ‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-
-¡ƒ‰ƒCƒZƒ“ƒX
-Copyright (C) 2015-2020 WatakuCity All rights reserved.
-–{ƒ\ƒtƒgƒEƒFƒA‚Í–³ž‚ÅŽg—p‰Â”\‚Å‚·B‚Ü‚½AŽ©—R‚É•¡»EÄ”z•z‚ðs‚¦‚Ü‚·B
-Ä”z•z‚ÌÛ‚É‚Í’˜ìŒ ŽÒ‚ª–¾Ž¦‚³‚ê‚é•K—v‚ª‚ ‚è‚Ü‚·Buƒ\[ƒXƒR[ƒhEƒ‰ƒCƒuƒ‰ƒŠ‚ÌŽg—pv‚àŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-
-–{ƒ\ƒtƒgƒEƒFƒA‚É•t‘®‚µ‚Ä‚¢‚éXMLEXAMLƒtƒ@ƒCƒ‹‚Í‰ü•Ï‚µ‚Ä”z•z‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
-
-¡ƒ\[ƒXƒR[ƒhEƒ‰ƒCƒuƒ‰ƒŠ‚ÌŽg—p
-–{ƒ\ƒtƒgƒEƒFƒA‚ÍˆÈ‰º‚Ìƒ\[ƒXƒR[ƒhEƒ‰ƒCƒuƒ‰ƒŠ‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B
-
-- WPF—pc‘‚«ƒeƒLƒXƒgƒuƒƒbƒN Tategaki ver.2.1.0
-  Copyright (C) 2014-2015 EH500‹à‘¾˜Y
-  http://days-of-programming.blogspot.jp/2015/01/wpf-tategaki-ver210.html
-
-  c‘‚«ƒeƒLƒXƒg—pƒRƒ“ƒgƒ[ƒ‹‚Éƒ\[ƒXƒR[ƒh‚Ìˆê•”‚ð‰ü•Ï‚µ‚ÄŽg—p‚µ‚Ä‚¢‚Ü‚·B
-  Ä”z•z‚ÌÛ‚É‚Í’˜ìŒ ŽÒ–¼‚ð–¾Ž¦‚µ‚Ä‚­‚¾‚³‚¢B
-
-- WaterTrans.TypeLoader.dll
-  Copyright (c) 2010 WaterTrans
-  https://typeloader.codeplex.com/
-
-  c‘‚«ƒeƒLƒXƒg—pƒRƒ“ƒgƒ[ƒ‹‚Éƒ‰ƒCƒuƒ‰ƒŠ‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B
-  Ä”z•z‚ÌÛ‚É‚Í’˜ìŒ ŽÒ–¼‚ð–¾Ž¦‚µ‚Ä‚­‚¾‚³‚¢B
-
-- TechED2010LT_OutlineTextSample_rev2.0
-  MSDN‚ÅŒöŠJ‚³‚ê‚Ä‚¢‚é OutlineTextControl ‚ðANIM0506Žihttp://d.hatena.ne.jp/NIM0506/j‚ª‰ü—Ç‚µA
-  ŒöŠJ‚µ‚½ƒ\[ƒXƒR[ƒh‚ðA‰Žæ‚èƒeƒLƒXƒg—pƒRƒ“ƒgƒ[ƒ‹‚Å‰ü•Ï‚ÌãŽg—p‚µ‚Ä‚¢‚Ü‚·B
-
-  ‰f‘œE‰æ‘œƒAƒvƒŠƒNƒŠƒGƒCƒ^[‚Ì“ú•ñ "w‰Žæ‚è‚ÅƒAƒvƒŠ‚Ì•¶Žš‚ðŒ©‚â‚·‚­‚µ‚æ‚¤x‹ZpƒtƒHƒ["
-  http://d.hatena.ne.jp/NIM0506/20100830/1283152123
-
-  MSDN "Outlined Text Custom Control Sample"
-  http://msdn.microsoft.com/en-us/library/bb295245(VS.90).aspx
-
-- SharpVectors 1.0
-  Copyright (c) 2010, SharpVectorGraphics All rights reserved.
-  https://sharpvectors.codeplex.com/
-
-  Paul SelormeyŽì¬‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ðSVGƒCƒ[ƒW‚Ì•\Ž¦‚ÉŽg—p‚µ‚Ä‚¢‚Ü‚·B
-  ƒ‰ƒCƒZƒ“ƒXð€‚Í lib\SharpVectors - License.txt ‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B
-
-¡–ÆÓŽ–€
-–{ƒ\ƒtƒgƒEƒFƒA‚ðŽg—p‚µ‚½‚±‚Æ‚É‚æ‚Á‚Ä¶‚¶‚½‚·‚×‚Ä‚ÌáŠQE‘¹ŠQE•s‹ï‡“™‚ÉŠÖ‚µ‚ÄA
-»ìŽÒ‚Í‚»‚ÌˆêØ‚ÌÓ”C‚ð•‰‚¢‚Ü‚¹‚ñBŠeŽ©‚ÌÓ”C‚É‚¨‚¢‚ÄŽg—p‚µ‚Ä‚­‚¾‚³‚¢B
-
-¡XV—š—ð
-2020-04-01@v0.2.2.0
-- •\Ž¦‘•’uƒEƒBƒ“ƒhƒE‚ðEscƒL[‚Å•Â‚¶‚½ŽžAŠÇ—ƒEƒBƒ“ƒhƒE‚æ‚èŽè‘O‚É‚ ‚é‘¼‚ÌƒEƒBƒ“ƒhƒE‚à“¯Žž‚É•Â‚¶‚é•s‹ï‡‚ðC³
-- ƒfƒoƒCƒXÝ’è‚Ìsæ’è‹`‚Éƒiƒ“ƒoƒŠƒ“ƒO‚ðÝ’è‚Å‚«‚é‚æ‚¤‚É•ÏX
-- ŽRŽèüE235A‹ž•l“Œ–küE233-1000ƒf[ƒ^‚ð‚—ÖƒQ[ƒgƒEƒFƒCŠJ‹Æ‚É‘Î‰ž
-- é‹žüE233-7000ƒf[ƒ^‚ðŒ»sŽd—l‚Ì—DæÈEŒg‘Ñ“d˜b•\Ž¦“™‚É‘Î‰ž
-
-2018-04-01@v0.2.1.0
-- sæ‚ð–¢Ý’è‚É‚·‚é‚Æ“r’†‰w”­ŽÔŽž‚É“®ì‚ª’âŽ~‚·‚é–â‘è‚ðC³
-- ŽÀsŠJŽnÏ‚Ý‚Ì—ñŽÔÝ’è‚ðŽg—p‚µ‚ÄV‹KƒEƒBƒ“ƒhƒE‚ðì¬‚·‚é‚ÆŒ»Ý‰w‚Ìó‘Ô‚ªˆÙí‚É‚È‚é–â‘è‚ðC³
-- ˜Hü‚Ì‹N“_•ûŒü‚Öis‚·‚éÛ‚É•\Ž¦‘•’uƒEƒBƒ“ƒhƒEã‚Ì‘OŒãˆÚ“®ƒ{ƒ^ƒ“‚ªis•ûŒü‚Æ‹t‚É‚È‚é•s‹ï‡‚ðC³
-- SVGƒCƒ[ƒW•\Ž¦—pƒRƒ“ƒgƒ[ƒ‹‚ðŽÀ‘•
-- ƒfƒoƒCƒXÝ’è‚Éƒvƒ‰ƒbƒgƒz[ƒ€î•ñ‚ÌXV“ú‚ðŒÂ•Ê‚ÉÝ’è‚Å‚«‚é€–Ú‚ð’Ç‰Á
-- ‰wƒiƒ“ƒoƒŠƒ“ƒO•\Ž¦‚ÅJRŽñ“sŒ—ƒGƒŠƒA‚Ì3ƒŒƒ^[ƒR[ƒh‚É‘Î‰ž
-- ŽRŽèüE235Œn—pƒf[ƒ^‚Åƒvƒ‰ƒbƒgƒz[ƒ€ˆÄ“àA‰wƒiƒ“ƒoƒŠƒ“ƒOAŒ»sŽd—l‚Ì—DæÈEŒg‘Ñ“d˜b•\Ž¦“™‚É‘Î‰ž
-  ¦‚»‚Ì‘¼˜Hü‚Ì—DæÈEŒg‘Ñ“d˜b•\Ž¦‚Í¡Œã‚Ìƒo[ƒWƒ‡ƒ“‚Å‘Î‰ž—\’è
-- é‹žüE233-7000—pƒfƒoƒCƒXÝ’è‚Ì‹Lq˜R‚êiˆê•”‰w‚Åæ‚èŠ·‚¦˜Hü‚ª•\Ž¦‚³‚ê‚È‚¢j‚ðC³
-
-2017-04-01@v0.2.0.0
-- ŠÂó‰^“]ƒ‚[ƒh‚ÌŽÀ‘•
-- •\Ž¦‘•’uƒEƒBƒ“ƒhƒE‚Å‚Ì‹t•ûŒü‚Ö‚ÌˆÚ“®Eƒ}ƒEƒX‚É‚æ‚é‘€ì‚É‘Î‰ž
-- •\Ž¦‘•’uƒEƒBƒ“ƒhƒE‚Å‚ÌƒL[‘€ì€–Ú‚ð’Ç‰Á
-- æ‚èŠ·‚¦˜Hü‚Ì’è‹`•û–@‚ð•ÏX
-- “r’†‰wÈ—ª•\Ž¦‚ÌÝ’è•û–@‚ð•ÏX
-- —ñŽÔÝ’èƒtƒ@ƒCƒ‹ TrainInfo—v‘fˆÈ‰º‚Ì“à—e‚ðƒfƒoƒCƒXÝ’èƒtƒ@ƒCƒ‹‚ÉˆÚ“®
-- ç’·‚ÈXML‚Ì‹Lq‚ðŠÈ—ª‰» v0.1.x.x ‚Æ‚ÌŒÝŠ·«‚ª–³‚­‚È‚è‚Ü‚µ‚½
-- ‚»‚Ì‘¼Ý’èƒtƒ@ƒCƒ‹‚Ì\‘¢‚ð‘å•‚É•ÏX
-- c‘‚«ƒRƒ“ƒgƒ[ƒ‹‚ÅƒXƒ^ƒCƒ‹•Ê‚ÌƒtƒHƒ“ƒgƒtƒ@ƒCƒ‹“Ç‚Ýž‚Ý‚É‘Î‰ž
-  BoldSimulationAItalicSimulationƒvƒƒpƒeƒB‚ð’Ç‰Á
-- SVGƒCƒ[ƒW‚Ì•\Ž¦‚É‘Î‰žiŽb’èj
-- ‹ž•l“Œ–kªŠÝü—p˜Hüî•ñƒtƒ@ƒCƒ‹‚Ìƒf[ƒ^C³
-- ŽRŽèüE235Œn—pƒe[ƒ}E˜Hüî•ñEƒfƒoƒCƒXÝ’èƒtƒ@ƒCƒ‹‚ð’Ç‰Ái’´ŠÈˆÕ”Åj
-
-2015-11-20@v0.1.3.0
-- ƒEƒBƒ“ƒhƒEì¬Ï‚Ý‚Ì—ñŽÔÝ’è‚ð•ÒW‚µ‚æ‚¤‚Æ‚µ‚½Û‚ÌƒƒbƒZ[ƒW‚ð•ÏX
-- ŽÀs‚ªI—¹‚µ‚½ƒEƒBƒ“ƒhƒE‚ðŽ©“®“I‚É•Â‚¶‚é‚æ‚¤‚É‚·‚éÝ’è‚ð’Ç‰Á
-- —ñŽÔÝ’èƒGƒfƒBƒ^‚ÅƒŠƒXƒg‚ª‹ó‚ÌŽž‚É•ÒW€–Ú‚ð–³Œø‰»•\Ž¦‚·‚é‚æ‚¤‚É•ÏX
-- —ñŽÔÝ’èƒGƒfƒBƒ^‚Ì’âŽ~ˆÊ’uÝ’è‚Ì‰Šú’l‚ð•ÏX
-- —ñŽÔÝ’èƒtƒ@ƒCƒ‹ Car—v‘f‚É IsTrainHead‘®«AIsTrainTail‘®«‚ð’Ç‰Á
-  æ“ªŽÔ—¼‚ÌŒ`ó‚ð•ÏX‚·‚éê‡‚É‘Î‰ž
-
-2015-11-13@v0.1.2.0
-- —ñŽÔÝ’èƒGƒfƒBƒ^‚Ìƒ^ƒCƒgƒ‹ƒo[‚ªí‚ÉuV‹Kv‚É‚È‚é•s‹ï‡‚ðC³
-- c‘‚«ƒRƒ“ƒgƒ[ƒ‹‚É‰Žæ‚èü•`‰æ‹@”\‚ð’Ç‰Á
-- æ‚èŠ·‚¦˜Hü”z’u—pƒOƒŠƒbƒh‚É—]”’‚ðŠe—ñ‚ÉŠ„‚èU‚é‹@”\‚ð’Ç‰Á
-- —ñŽÔÝ’èƒtƒ@ƒCƒ‹ Station—v‘f‚É StopPosOffset‘®«‚ð’Ç‰Á
-  ƒvƒ‰ƒbƒgƒz[ƒ€î•ñ•\Ž¦ƒ‚[ƒh‚Å‚Ì—ñŽÔ’âŽ~ˆÊ’uÝ’è‚É‘Î‰ž
-- ƒfƒoƒCƒXÝ’èƒtƒ@ƒCƒ‹ TransferDisplay—v‘f‚É TargetMode‘®«ATargetLanguage‘®«‚ð’Ç‰Á
-- ˜Hüî•ñƒtƒ@ƒCƒ‹ ObjectGroup—v‘f‚É TargetExit‘®«‚ð’Ç‰Á
-- ‹ž•l“Œ–kªŠÝüE233-1000—pƒe[ƒ}E˜Hüî•ñEƒfƒoƒCƒXÝ’èƒtƒ@ƒCƒ‹‚ð’Ç‰Á
-
-2015-10-23@v0.1.1.1
-- —ñŽÔÝ’èƒGƒfƒBƒ^‚ÅƒfƒoƒCƒXÝ’èƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ª³‚µ‚­“ü—Í‚³‚ê‚È‚¢•s‹ï‡‚ðC³
-
-2015-10-20@v0.1.1.0
-- ˆê•”‚ÌŠÂ‹«‚Åc‘‚«ƒRƒ“ƒgƒ[ƒ‹‚ªƒtƒHƒ“ƒg‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚·‚é•s‹ï‡‚ðC³
-- s˜Hî•ñ‚ð—ñŽÔÝ’è‚É–¼Ì•ÏX ƒtƒHƒ‹ƒ_–¼AXML–¼‘O‹óŠÔ‚ª•ÏX‚³‚ê‚Ä‚¢‚Ü‚·
-- •\Ž¦‘•’uÝ’è‚ðƒfƒoƒCƒXÝ’è‚É–¼Ì•ÏX  ƒtƒHƒ‹ƒ_–¼AXML–¼‘O‹óŠÔAXML—v‘f–¼‚ª•ÏX‚³‚ê‚Ä‚¢‚Ü‚·
-- ˜Hüî•ñƒtƒ@ƒCƒ‹ Station—v‘f‚©‚ç Section‘®«‚ðíœ
-- ˜Hüî•ñƒtƒ@ƒCƒ‹ Station—v‘f‚É IsSectionBorder‘®«ALineColorIndex‘®«‚ð’Ç‰Á
-- —ñŽÔÝ’èƒtƒ@ƒCƒ‹ TrainType—v‘f‚É ColorIndex‘®«‚ð’Ç‰Á
-- —ñŽÔÝ’èƒGƒfƒBƒ^‚ÅŒo˜H‚É‰w‚ð’Ç‰Á‚µ‚½Û‚ÌŒp‘±ŽžŠÔ‚É‰Šú’l‚ðÝ’è‚·‚é‚æ‚¤‚É•ÏX
-- •t‘®ƒtƒ@ƒCƒ‹‚ðˆê•”C³
-
-2015-10-10@v0.1.0.0
-- ƒtƒ@ƒCƒ‹\‘¢‚ð‘å•‚É•ÏX v0.0.2.0 ‚Ü‚Å‚Ìƒtƒ@ƒCƒ‹‚ÍŽg—p‚Å‚«‚È‚­‚È‚Á‚Ä‚¢‚Ü‚·
-- ¶‰E‚ÌØ‚è‘Ö‚¦Žž‚É•â•î•ñ•\Ž¦ƒ‚[ƒh‚ª“KØ‚ÉXV‚³‚ê‚È‚¢•s‹ï‡‚ðC³
-- c‘‚«ƒRƒ“ƒgƒ[ƒ‹‚É‹ó•¶Žš—ñ‚ðÝ’è‚µ‚½Û‚É—áŠO‚ª”­¶‚·‚é•s‹ï‡‚ðC³
-- s˜Hî•ñƒGƒfƒBƒ^‚ðŽÀ‘•
-- ƒhƒ‰ƒbƒO‚Å‚ÌƒEƒBƒ“ƒhƒEƒTƒCƒY•ÏX‚ðŽÀ‘•
-- ˆÙíI—¹Žž‚ÌƒGƒ‰[î•ñƒtƒ@ƒCƒ‹o—Í‹@”\‚ðŽÀ‘•
-- c‘‚«ƒRƒ“ƒgƒ[ƒ‹‚ÉÅŒã‚Ì•¶Žš‚É•¶ŽšŠÔŠu‚ðÝ’è‚·‚é‚©‚ðŽw’è‚·‚éƒvƒƒpƒeƒB‚ð’Ç‰Á
-- ‰wƒiƒ“ƒoƒŠƒ“ƒO•\Ž¦‚É‘Î‰ž
-- æ‚èŠ·‚¦˜HüƒAƒCƒRƒ“‚Ì•¡”•\Ž¦‚É‘Î‰ž
-- “r’†‰wÈ—ª•\Ž¦‚Ì•¡”Ý’è‚É‘Î‰ž
-- •â•î•ñ•\Ž¦ƒ‚[ƒh‚ÉLˆæ˜Hü}ƒ‚[ƒh‚ð’Ç‰Á
-- Windows 10 Pro 64bit‚Å“®ìŠm”F v0.0.2.0 ˆÈ‘O‚à“®ì‚µ‚Ü‚·
-
-2015-07-22@v0.0.2.0
-- —ñŽÔó‘Ô‚Ü‚½‚Í•â•î•ñ•\Ž¦ƒ‚[ƒh‚ÆŒ¾Œêƒ‚[ƒh‚ÌØ‚è‘Ö‚¦‚É‚¸‚ê‚ª¶‚¶‚é‚±‚Æ‚ª‚ ‚é•s‹ï‡‚ðC³
-- ˆê•”‚ÌŠÂ‹«‚Åc‘‚«ƒRƒ“ƒgƒ[ƒ‹‚ð‘å—Ê¶¬‚µ‚½Û‚É—áŠO‚ª”­¶‚·‚é•s‹ï‡‚ðC³
-- •t‘®ƒtƒ@ƒCƒ‹‚ðˆê•”C³
-
-2015-07-04@v0.0.1.0
-- c‘‚«ƒRƒ“ƒgƒ[ƒ‹‚ÅŽg—p‚Å‚«‚È‚¢ƒtƒHƒ“ƒgƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚Þ•s‹ï‡‚ðC³
-- ƒL[ƒ{[ƒh‚Å‚Ì‘€ì•û–@‚ð•ÏX
-- •t‘®ƒtƒ@ƒCƒ‹‚ðˆê•”C³
-- Windows Vista SP2 32bit‚Å“®ìŠm”F
-
-2015-06-30@v0.0.0.0
-- ƒx[ƒ^”ÅŒöŠJ
+Lá»‹ch sá»­ cáº­p nháº­t
