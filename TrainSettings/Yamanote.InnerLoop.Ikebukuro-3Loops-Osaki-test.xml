@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NextStation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wataku-city.com/xml/schema/NextStation/Train">
+  <Title>山手線 内回り 池袋-大崎 3周_test</Title>
+  <FileInfo>
+    <DeviceSettingFile>DeviceSettings\YamanoteLine.E235-0.xml</DeviceSettingFile>
+  </FileInfo>
+  <Route Direction="Opposite" LoopOperation="true" LoopCount="2" LoopSectionStart="6" LoopSectionEnd="11" LoopEntryPos="0" LoopExitPos="0">
+    <Station Ref="29" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="28" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="27" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="26" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1" TransferRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" DestinationRef="7" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="25" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="2" Left="2" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="16" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="24" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="23" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="22" Stop="true" Door="Left" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="0" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="21" Stop="true" Door="Right" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="17" Left="0" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="20" Stop="true" Door="Right" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="17" Left="0" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="19" Stop="true" Door="Right" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="20" Main="0" Right="17" Left="0" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="7" Stop="true" Door="Right" ArrivalTime="2" PlatformRef="1" TransferRef="1">
+      <Running Duration="120" Main="1" Right="5" Left="5" />
+      <Arriving Duration="30" Main="0" Right="14" Left="14" />
+      <Stopping Duration="60" Main="0" Right="17" Left="17" />
+      <Departing Duration="-1" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+  </Route>
+</NextStation>

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NextStation"
+    targetNamespace="http://wataku-city.com/xml/schema/NextStation/Train"
+    elementFormDefault="qualified"
+    xmlns="http://wataku-city.com/xml/schema/NextStation/Train"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="NextStation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Title" type="xs:string"/>
+
+        <xs:element name="FileInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DeviceSettingFile" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="Route">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Station" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Running" type="TrainState_type"/>
+                    <xs:element name="Arriving" type="TrainState_type"/>
+                    <xs:element name="Stopping" type="TrainState_type"/>
+                    <xs:element name="Departing" type="TrainState_type"/>
+                    <xs:element name="Omissions" type="Omissions_type" minOccurs="0"/>
+                  </xs:sequence>
+                  <xs:attribute name="Ref" type="xs:unsignedShort" use="required"/>
+                  <xs:attribute name="Stop" type="xs:boolean" use="required"/>
+                  <xs:attribute name="StopPosOffset" type="xs:byte" default="1"/>
+                  <xs:attribute name="Door" type="Door_type" default="Left"/>
+                  <xs:attribute name="ArrivalTime" type="xs:unsignedByte" default="0"/>
+                  <xs:attribute name="PlatformRef" type="xs:unsignedByte" default="0"/>
+                  <xs:attribute name="TransferRef" type="xs:unsignedByte" default="0"/>
+                  <xs:attribute name="Use" type="UsingType_type" default="Always"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Direction" type="Direction_type" default="Forward"/>
+            <xs:attribute name="LoopOperation" type="xs:boolean" default="false"/>
+            <xs:attribute name="LoopCount" type="xs:unsignedByte" default="0"/>
+            <xs:attribute name="LoopSectionStart" type="xs:short" default="-1"/>
+            <xs:attribute name="LoopSectionEnd" type="xs:short" default="-1"/>
+            <xs:attribute name="LoopEntryPos" type="xs:short" default="-1"/>
+            <xs:attribute name="LoopExitPos" type="xs:short" default="-1"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Omissions_type">
+    <xs:sequence>
+      <xs:element name="Omission" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="Offset" type="xs:unsignedByte"/>
+          <xs:attribute name="Length" type="xs:unsignedByte"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="TrainState_type">
+    <xs:attribute name="Duration" type="xs:short" use="required"/>
+    <xs:attribute name="Main" type="xs:unsignedByte"/>
+    <xs:attribute name="Right" type="xs:unsignedByte"/>
+    <xs:attribute name="Left" type="xs:unsignedByte"/>
+    <xs:attribute name="TrainTypeRef" type="xs:short" default="-1"/>
+    <xs:attribute name="TrainNameRef" type="xs:short" default="-1"/>
+    <xs:attribute name="ServiceInfoRef" type="xs:short" default="-1"/>
+    <xs:attribute name="DestinationRef" type="xs:short" default="-1"/>
+  </xs:complexType>
+
+  <xs:simpleType name="Door_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Left"/>
+      <xs:enumeration value="Right"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Direction_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Forward"/>
+      <xs:enumeration value="Opposite"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="UsingType_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Always"/>
+      <xs:enumeration value="LastLoopOnly"/>
+      <xs:enumeration value="ExceptLastLoop"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

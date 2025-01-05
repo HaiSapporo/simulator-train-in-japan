@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NextStation"
+    targetNamespace="http://wataku-city.com/xml/schema/NextStation/Line"
+    elementFormDefault="qualified"
+    xmlns="http://wataku-city.com/xml/schema/NextStation/Line"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="Line">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="BranchDefinitions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BranchDefinition" type="BranchDefinition_type" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Stations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Station" type="Station_type" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="BranchDefinition_type">
+    <xs:attribute name="Title" type="xs:string"/>
+    <xs:attribute name="UpstreamEnd" type="xs:unsignedShort"/>
+    <xs:attribute name="DownstreamEnd" type="xs:unsignedShort"/>
+    <xs:attribute name="Priority" type="xs:unsignedByte"/>
+  </xs:complexType>
+
+  <xs:complexType name="Station_type">
+    <xs:sequence>
+      <xs:element name="Kanji" type="xs:string"/>
+      <xs:element name="Hiragana" type="xs:string"/>
+      <xs:element name="English" type="xs:string"/>
+      <xs:element name="Numberings" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Numbering" type="Numbering_type" maxOccurs="unbounded" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Platforms">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Platform" type="Platform_type" maxOccurs="unbounded" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Transfer" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Line" type="Line_type" maxOccurs="unbounded" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="UpdateYear" type="xs:string"/>
+    <xs:attribute name="UpdateMonth" type="xs:string"/>
+    <xs:attribute name="BranchDefinitionRef" type="xs:unsignedByte"/>
+  </xs:complexType>
+
+  <xs:complexType name="Numbering_type">
+    <xs:attribute name="LineLetter" type="xs:string"/>
+    <xs:attribute name="StationNumber" type="xs:string"/>
+    <xs:attribute name="Code" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="Platform_type">
+    <xs:sequence>
+      <xs:element name="PlatformBlock" type="PlatformBlock_type" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Title" type="xs:string"/>
+    <xs:attribute name="TargetDirection" type="TargetDirection"/>
+    <xs:attribute name="Length" type="xs:unsignedByte"/>
+    <xs:attribute name="WatchYourStep" type="xs:boolean"/>
+    <xs:attribute name="UpdateYear" type="xs:string"/>
+    <xs:attribute name="UpdateMonth" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="PlatformBlock_type">
+    <xs:sequence>
+      <xs:element name="Exits" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Exit" type="Exit_type" maxOccurs="unbounded" minOccurs="0">
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Units" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PlatformUnit" type="PlatformUnit_type" maxOccurs="unbounded" minOccurs="0">
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Length" type="xs:unsignedByte"/>
+  </xs:complexType>
+  
+  <xs:complexType name="Exit_type">
+    <xs:sequence>
+      <xs:element name="Kanji" type="xs:string" minOccurs="0"/>
+      <xs:element name="Hiragana" type="xs:string" minOccurs="0"/>
+      <xs:element name="English" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="Offset" type="xs:unsignedByte"/>
+    <xs:attribute name="Length" type="xs:unsignedByte"/>
+    <xs:attribute name="StartPos" type="ExitEndPos"/>
+    <xs:attribute name="EndPos" type="ExitEndPos"/>
+    <xs:attribute name="IsConnectedDirectly" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="PlatformUnit_type">
+    <xs:sequence>
+      <xs:element name="ObjectGroup" maxOccurs="unbounded" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="PlatformObject" type="PlatformObject_type" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="TargetExit" type="xs:byte" default="-1"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="PlatformObject_type">
+    <xs:attribute name="Key" type="PlatformObjectKey"/>
+    <xs:attribute name="Direction" type="PlatformObjectDirection"/>
+    <xs:attribute name="Pos" type="PlatformObjectPos"/>
+    <xs:attribute name="ConnectToExit" type="xs:byte" default="-1"/>
+    <xs:attribute name="ConnectorPos" type="ConnectorPos"/>
+  </xs:complexType>
+  
+  <xs:complexType name="Line_type">
+    <xs:sequence>
+      <xs:element name="Kanji" type="xs:string" minOccurs="0"/>
+      <xs:element name="Hiragana" type="xs:string" minOccurs="0"/>
+      <xs:element name="English" type="xs:string" minOccurs="0"/>
+      <xs:element name="Icons">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Icon" type="TransferIcon_type" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TransferIcon_type">
+    <xs:sequence>
+      <xs:element name="LineColor" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="Alpha" type="xs:unsignedByte" default="255"/>
+          <xs:attribute name="Red" type="xs:unsignedByte" default="255"/>
+          <xs:attribute name="Green" type="xs:unsignedByte" default="255"/>
+          <xs:attribute name="Blue" type="xs:unsignedByte" default="255"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SecondaryLineColor" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute name="Alpha" type="xs:unsignedByte" default="0"/>
+          <xs:attribute name="Red" type="xs:unsignedByte" default="0"/>
+          <xs:attribute name="Green" type="xs:unsignedByte" default="0"/>
+          <xs:attribute name="Blue" type="xs:unsignedByte" default="0"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Type" type="LineIconKey"/>
+    <xs:attribute name="LineLetter" type="xs:string"/>    
+  </xs:complexType>
+
+  <xs:simpleType name="TargetDirection">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Both"/>
+      <xs:enumeration value="Forward"/>
+      <xs:enumeration value="Opposite"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TransferUsingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OriginOnly"/>
+      <xs:enumeration value="TerminalOnly"/>
+      <xs:enumeration value="IntermediateOnly"/>
+      <xs:enumeration value="ExceptOrigin"/>
+      <xs:enumeration value="ExceptTerminal"/>
+      <xs:enumeration value="ExceptIntermediate"/>
+      <xs:enumeration value="Always"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ExitEndPos">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Border"/>
+      <xs:enumeration value="Front"/>
+      <xs:enumeration value="Center"/>
+      <xs:enumeration value="Back"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PlatformObjectKey">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Stairs"/>
+      <xs:enumeration value="UpStairs"/>
+      <xs:enumeration value="DownStairs"/>
+      <xs:enumeration value="Elevator"/>
+      <xs:enumeration value="UpElevator"/>
+      <xs:enumeration value="DownElevator"/>
+      <xs:enumeration value="Escalator"/>
+      <xs:enumeration value="UpEscalator"/>
+      <xs:enumeration value="DownEscalator"/>
+      <xs:enumeration value="UserDef1"/>
+      <xs:enumeration value="UserDef2"/>
+      <xs:enumeration value="UserDef3"/>
+      <xs:enumeration value="UserDef4"/>
+      <xs:enumeration value="UserDef5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PlatformObjectPos">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Border"/>
+      <xs:enumeration value="Front"/>
+      <xs:enumeration value="Center"/>
+      <xs:enumeration value="Back"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ConnectorPos">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Front"/>
+      <xs:enumeration value="MiddleFront"/>
+      <xs:enumeration value="Center"/>
+      <xs:enumeration value="Back"/>
+      <xs:enumeration value="MiddleBack"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="LineIconKey">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LineColor"/>
+      <xs:enumeration value="TrainIcon"/>
+      <xs:enumeration value="Subway"/>
+      <xs:enumeration value="ShinkansenE5"/>
+      <xs:enumeration value="Shinkansen700"/>
+      <xs:enumeration value="Monorail"/>
+      <xs:enumeration value="Yurikamome"/>
+      <xs:enumeration value="UserDef1"/>
+      <xs:enumeration value="UserDef2"/>
+      <xs:enumeration value="UserDef3"/>
+      <xs:enumeration value="UserDef4"/>
+      <xs:enumeration value="UserDef5"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PlatformObjectDirection">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Forward"/>
+      <xs:enumeration value="Opposite"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

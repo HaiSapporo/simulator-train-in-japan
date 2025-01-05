@@ -1,0 +1,1009 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DeviceSetting xmlns="http://wataku-city.com/xml/schema/NextStation/Device" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Title>埼京・川越・りんかい線 E233系7000番台</Title>
+  
+  <FileInfo>
+    <ThemeFile>Themes\E233-7000\E233-7000.xaml</ThemeFile>
+    <LineFile>Lines\Kawagoe-Saikyo-Rinkai.xml</LineFile>
+  </FileInfo>
+
+  <WindowSettings>
+    <Window Width="962" Height="542"/>
+  </WindowSettings>
+
+  <RoutineDefinition>
+    <MainAreaRoutines>
+      <Routine Title="日・英 交互表示">
+        <Steps>
+          <Step Language="Kanji" Duration="3"/>
+          <Step Language="English" Duration="3"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="日・英・かな">
+        <Steps>
+          <Step Language="Kanji" Duration="3"/>
+          <Step Language="English" Duration="3"/>
+          <Step Language="Hiragana" Duration="3"/>
+        </Steps>
+      </Routine>
+    </MainAreaRoutines>
+
+    <OptionalAreaRoutines>
+      <Routine Title="[始発駅停車・途中駅停車（ホーム反対側）] 全区間・詳細交互表示">
+        <Steps>
+          <Step Mode="RouteMap" Duration="6"/>
+          <Step Mode="DetailedRouteMap" Duration="6"/>
+          <Step Mode="RouteMap" Duration="6" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="6" Language="English"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[始発駅停車・途中駅停車（ホーム反対側）] 詳細路線表示のみ">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="6"/>
+          <Step Mode="DetailedRouteMap" Duration="6" Language="English"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要2分 全区間表示あり 乗り換えなし">
+        <Steps>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要3分 全区間表示あり 乗り換えなし">
+        <Steps>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要4分以上 全区間表示あり 乗り換えなし">
+        <Steps>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要2分 全区間表示あり 乗り換えあり">
+        <Steps>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要3分 全区間表示あり 乗り換えあり">
+        <Steps>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要4分以上 全区間表示あり 乗り換えあり">
+        <Steps>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+          <Step Mode="RouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="RouteMap" Duration="12" Language="English"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要2分 全区間表示なし 乗り換えなし">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要3分 全区間表示なし 乗り換えなし">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要4分以上 全区間表示なし 乗り換えなし">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要2分 全区間表示なし 乗り換えあり">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要3分 全区間表示なし 乗り換えあり">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[走行] 所要4分以上 全区間表示なし 乗り換えあり">
+        <Steps>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="PrioritySeat" Duration="6"/>
+          <Step Mode="MobilePhone" Duration="6"/>
+          <Step Mode="DetailedRouteMap" Duration="12"/>
+          <Step Mode="DetailedRouteMap" Duration="12" Language="English"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+          <Step Mode="Alert" Duration="12"/>
+          <Step Mode="Alert" Duration="12" Language="English"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[到着]">
+        <Steps>
+          <Step Mode="Door" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[到着] 乗り換え路線表示">
+        <Steps>
+          <Step Mode="Door" Duration="12"/>
+          <Step Mode="Transfers" Duration="12"/>
+          <Step Mode="Platform" Duration="12"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[停車（ホーム側）] 乗り換えなし">
+        <Steps>
+          <Step Mode="Platform" Duration="6"/>
+        </Steps>
+      </Routine>
+
+      <Routine Title="[停車（ホーム側）] 乗り換えあり">
+        <Steps>
+          <Step Mode="Transfers" Duration="6"/>
+          <Step Mode="Platform" Duration="6"/>
+        </Steps>
+      </Routine>
+    </OptionalAreaRoutines>
+  </RoutineDefinition>
+
+  <TrainInfoDefinition>
+    <TrainTypes>
+      <TrainType ColorIndex="0">
+        <Kanji>各駅停車</Kanji>
+        <English>Local</English>
+      </TrainType>
+      <TrainType ColorIndex="1">
+        <Kanji>快速</Kanji>
+        <English>Rapid</English>
+      </TrainType>
+      <TrainType ColorIndex="2">
+        <Kanji>通勤快速</Kanji>
+        <English>Commuter Rapid</English>
+      </TrainType>
+      <TrainType ColorIndex="0">
+        <Kanji>回送</Kanji>
+        <English>Out of Service</English>
+      </TrainType>
+      <TrainType ColorIndex="0">
+        <Kanji>試運転</Kanji>
+        <English>Test Run</English>
+      </TrainType>
+      <TrainType ColorIndex="0">
+        <Kanji>臨時</Kanji>
+        <English>Extra</English>
+      </TrainType>
+      <TrainType ColorIndex="0">
+        <Kanji>団体</Kanji>
+        <English>Party</English>
+      </TrainType>
+    </TrainTypes>
+    <TrainNames>
+      <TrainName ColorIndex="0">
+        <Kanji>埼京線</Kanji>
+        <English>Saikyō Line</English>
+      </TrainName>
+      <TrainName ColorIndex="0">
+        <Kanji>川越線</Kanji>
+        <English>Kawagoe Line</English>
+      </TrainName>
+      <TrainName ColorIndex="0">
+        <Kanji>埼京・川越線</Kanji>
+        <English>Saikyō・&#xA;Kawagoe Line</English>
+      </TrainName>
+      <TrainName ColorIndex="1">
+        <Kanji>りんかい線</Kanji>
+        <English>Rinkai Line</English>
+      </TrainName>
+    </TrainNames>
+    <ServiceInfos>
+      <ServiceInfo>
+        <Kanji>埼京線直通</Kanji>
+        <English>-Saikyō Line through service</English>
+      </ServiceInfo>
+      <ServiceInfo>
+        <Kanji>埼京・川越線直通</Kanji>
+        <English>-Saikyō Kawagoe Line&#xA;through service</English>
+      </ServiceInfo>
+      <ServiceInfo>
+        <Kanji>りんかい線直通</Kanji>
+        <English>-Rinkai Line through service</English>
+      </ServiceInfo>
+    </ServiceInfos>
+    <Destinations>
+      <Destination>
+        <Kanji>川越</Kanji>
+        <Hiragana>かわごえ</Hiragana>
+        <English>Kawagoe</English>
+      </Destination>
+      <Destination>
+        <Kanji>南古谷</Kanji>
+        <Hiragana>みなみふるや</Hiragana>
+        <English>Minami-Furuya</English>
+      </Destination>
+      <Destination>
+        <Kanji>指扇</Kanji>
+        <Hiragana>さしおうぎ</Hiragana>
+        <English>Sashiōgi</English>
+      </Destination>
+      <Destination>
+        <Kanji>大宮</Kanji>
+        <Hiragana>おおみや</Hiragana>
+        <English>Ōmiya</English>
+      </Destination>
+      <Destination>
+        <Kanji>武蔵浦和</Kanji>
+        <Hiragana>むさしうらわ</Hiragana>
+        <English>Musashi-Urawa</English>
+      </Destination>
+      <Destination>
+        <Kanji>赤羽</Kanji>
+        <Hiragana>あかばね</Hiragana>
+        <English>Akabane</English>
+      </Destination>
+      <Destination>
+        <Kanji>板橋</Kanji>
+        <Hiragana>いたばし</Hiragana>
+        <English>Itabashi</English>
+      </Destination>
+      <Destination>
+        <Kanji>池袋</Kanji>
+        <Hiragana>いけぶくろ</Hiragana>
+        <English>Ikebukuro</English>
+      </Destination>
+      <Destination>
+        <Kanji>新宿</Kanji>
+        <Hiragana>しんじゅく</Hiragana>
+        <English>Shinjuku</English>
+      </Destination>
+      <Destination>
+        <Kanji>恵比寿</Kanji>
+        <Hiragana>えびす</Hiragana>
+        <English>Ebisu</English>
+      </Destination>
+      <Destination>
+        <Kanji>大崎</Kanji>
+        <Hiragana>おおさき</Hiragana>
+        <English>Ōsaki</English>
+      </Destination>
+      <Destination>
+        <Kanji>東京テレポート</Kanji>
+        <Hiragana>とうきょうてれぽーと</Hiragana>
+        <English>Tōkyō Teleport</English>
+      </Destination>
+      <Destination>
+        <Kanji>新木場</Kanji>
+        <Hiragana>しんきば</Hiragana>
+        <English>Shin-kiba</English>
+      </Destination>
+    </Destinations>
+    <CarsDefinition>
+      <Cars Title="10両編成">
+        <Car>10</Car>
+        <Car>9</Car>
+        <Car>8</Car>
+        <Car>7</Car>
+        <Car>6</Car>
+        <Car>5</Car>
+        <Car>4</Car>
+        <Car>3</Car>
+        <Car>2</Car>
+        <Car>1</Car>
+      </Cars>
+    </CarsDefinition>
+  </TrainInfoDefinition>
+
+  <ColorDefinition>
+    <LineColor>
+      <LineColorSetting BranchRef="0" LineColorIndex="0"/>
+      <LineColorSetting BranchRef="1" LineColorIndex="0"/>
+      <LineColorSetting BranchRef="2" LineColorIndex="1"/>
+    </LineColor>
+  </ColorDefinition>
+
+  <DetailedRouteMap MaxLength="8" FillToMaxLength="true">
+    <Running StartFromPrev="true"/>
+    <Arriving StartFromPrev="true"/>
+    <Stopping StartFromPrev="false"/>
+    <Departing StartFromPrev="false"/>
+  </DetailedRouteMap>
+
+  <RouteMapDisplayDefinitions>
+    <RouteMapDisplayDef Page="0">
+      <RouteMapBlock Direction="Forward">
+        <Station Ref="0"/>
+        <Station Ref="1"/>
+        <Station Ref="2"/>
+        <Station Ref="3"/>
+        <Station Ref="4"/>
+        <Station Ref="5"/>
+        <Station Ref="6"/>
+        <Station Ref="7"/>
+        <Station Ref="8"/>
+        <Station Ref="9"/>
+        <Station Ref="10"/>
+        <Station Ref="11"/>
+        <Station Ref="12"/>
+        <Station Ref="13"/>
+        <Station Ref="14"/>
+      </RouteMapBlock>
+      <RouteMapBlock Direction="Forward">
+        <Station Ref="15"/>
+        <Station Ref="16"/>
+        <Station Ref="17"/>
+        <Station Ref="18"/>
+        <Station Ref="19"/>
+        <Station Ref="20"/>
+        <Station Ref="21"/>
+        <Station Ref="22"/>
+        <Station Ref="23"/>
+        <Station Ref="24"/>
+        <Station Ref="25"/>
+        <Station Ref="26"/>
+        <Station Ref="27"/>
+        <Station Ref="28"/>
+        <Station Ref="29"/>
+        <Station Ref="30"/>
+      </RouteMapBlock>
+    </RouteMapDisplayDef>
+  </RouteMapDisplayDefinitions>
+
+  <AdditionalStationInfos>
+    <Station Ref="0">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="川越駅" TargetDirection="Both" Use="Always">
+          <TransferDisplay TargetMode="Transfers" Rows="2" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Rows="2" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0">
+              <Alias>
+                <English>Kawagoe・Hachikō&#xA;Line</English>
+              </Alias>
+            </Line>
+            <Line Ref="1"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="1">
+      <Aliases>
+        <Alias TargetMode="DetailedRouteMap">
+          <English>Minami-&#xA;Furuya</English>
+        </Alias>
+      </Aliases>
+    </Station>
+
+    <Station Ref="5">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="大宮駅 直通列車用" TargetDirection="Both" Use="IntermediateOnly">
+          <TransferDisplay TargetMode="Transfers" Rows="4" Columns="3">
+            <Line Ref="0" Row="0" Column="0" ColumnSpan="3"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="2" Row="1" Column="1"/>
+            <Line Ref="3" Row="2" Column="0"/>
+            <Line Ref="6" Row="2" Column="1"/>
+            <Line Ref="7" Row="2" Column="2"/>
+            <Line Ref="8" Row="3" Column="0"/>
+            <Line Ref="9" Row="3" Column="1"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0">
+                <Alias>
+                  <Kanji>新幹線</Kanji>
+                  <English>Shinkansen</English>
+                </Alias>
+              </Line>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+              <Line Ref="3"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="6"/>
+              <Line Ref="7"/>
+              <Line Ref="8"/>
+              <Line Ref="9"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0">
+              <Alias>
+                <Kanji>新幹線</Kanji>
+                <English>Shinkansen</English>
+              </Alias>
+            </Line>
+            <Line Ref="1"/>
+            <Line Ref="2">
+              <Alias>
+                <English>Utsunomiya Line&#xA;(Tōhoku Line)</English>
+              </Alias>
+            </Line>
+            <Line Ref="3"/>
+            <Line Ref="6"/>
+            <Line Ref="7"/>
+            <Line Ref="8"/>
+            <Line Ref="9"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+
+        <TransferDisplayDef Title="大宮駅 川越線 終着列車用" TargetDirection="Forward" Use="TerminalOnly">
+          <TransferDisplay TargetMode="Transfers" Rows="4" Columns="3">
+            <Line Ref="0" Row="0" Column="0" ColumnSpan="3"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="2" Row="1" Column="1"/>
+            <Line Ref="3" Row="1" Column="2"/>
+            <Line Ref="4" Row="2" Column="0"/>
+            <Line Ref="6" Row="2" Column="1"/>
+            <Line Ref="7" Row="2" Column="2"/>
+            <Line Ref="8" Row="3" Column="0"/>
+            <Line Ref="9" Row="3" Column="1"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0">
+                <Alias>
+                  <Kanji>新幹線</Kanji>
+                  <English>Shinkansen</English>
+                </Alias>
+              </Line>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+              <Line Ref="3"/>
+              <Line Ref="4"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="6"/>
+              <Line Ref="7"/>
+              <Line Ref="8"/>
+              <Line Ref="9"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0">
+              <Alias>
+                <Kanji>新幹線</Kanji>
+                <English>Shinkansen</English>
+              </Alias>
+            </Line>
+            <Line Ref="1"/>
+            <Line Ref="2">
+              <Alias>
+                <English>Utsunomiya Line&#xA;(Tōhoku Line)</English>
+              </Alias>
+            </Line>
+            <Line Ref="3"/>
+            <Line Ref="4"/>
+            <Line Ref="6"/>
+            <Line Ref="7"/>
+            <Line Ref="8"/>
+            <Line Ref="9"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+
+        <TransferDisplayDef Title="大宮駅 埼京線 終着列車用" TargetDirection="Opposite" Use="TerminalOnly">
+          <TransferDisplay TargetMode="Transfers" Rows="4" Columns="3">
+            <Line Ref="0" Row="0" Column="0" ColumnSpan="3"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="2" Row="1" Column="1"/>
+            <Line Ref="3" Row="1" Column="2"/>
+            <Line Ref="5" Row="2" Column="0"/>
+            <Line Ref="6" Row="2" Column="1"/>
+            <Line Ref="7" Row="2" Column="2"/>
+            <Line Ref="8" Row="3" Column="0"/>
+            <Line Ref="9" Row="3" Column="1"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0">
+                <Alias>
+                  <Kanji>新幹線</Kanji>
+                  <English>Shinkansen</English>
+                </Alias>
+              </Line>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+              <Line Ref="3"/>
+              <Line Ref="5"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="6"/>
+              <Line Ref="7"/>
+              <Line Ref="8"/>
+              <Line Ref="9"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0">
+              <Alias>
+                <Kanji>新幹線</Kanji>
+                <English>Shinkansen</English>
+              </Alias>
+            </Line>
+            <Line Ref="1"/>
+            <Line Ref="2">
+              <Alias>
+                <English>Utsunomiya Line&#xA;(Tōhoku Line)</English>
+              </Alias>
+            </Line>
+            <Line Ref="3"/>
+            <Line Ref="5"/>
+            <Line Ref="6"/>
+            <Line Ref="7"/>
+            <Line Ref="8"/>
+            <Line Ref="9"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="10">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="武蔵浦和駅">
+          <TransferDisplay TargetMode="Transfers">
+            <Line Ref="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="16">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="赤羽駅">
+          <TransferDisplay TargetMode="Transfers" Rows="3" Columns="2">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="2" Row="1" Column="1"/>
+            <Line Ref="3" Row="2" Column="0"/>
+            <Line Ref="4" Row="2" Column="1"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0"/>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="3"/>
+              <Line Ref="4"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1">
+              <Alias>
+                <Kanji>宇都宮線&#xA;(東北線)</Kanji>
+                <English>Utsunomiya Line&#xA;(Tōhoku Line)</English>
+              </Alias>
+            </Line>
+            <Line Ref="2"/>
+            <Line Ref="3"/>
+            <Line Ref="4"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="19">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="池袋駅">
+          <TransferDisplay TargetMode="Transfers" Orientation="Vertical">
+            <LineGroup Rows="2" Columns="2">
+              <Line Ref="0" Row="0" Column="0"/>
+              <Line Ref="1" Row="0" Column="1"/>
+              <Line Ref="2" Row="1" Column="0"/>
+              <Line Ref="3" Row="1" Column="1"/>
+            </LineGroup>
+            <LineGroup Rows="1" Columns="3">
+              <Line Ref="4" Row="0" Column="0"/>
+              <Line Ref="5" Row="0" Column="1"/>
+              <Line Ref="6" Row="0" Column="2"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0"/>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+              <Line Ref="3"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="4"/>
+              <Line Ref="5"/>
+              <Line Ref="6"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+            <Line Ref="3"/>
+            <Line Ref="4"/>
+            <Line Ref="5"/>
+            <Line Ref="6"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="20">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="新宿駅">
+          <TransferDisplay TargetMode="Transfers" Orientation="Vertical">
+            <LineGroup Rows="3" Columns="2">
+              <Line Ref="0" Row="0" Column="0"/>
+              <Line Ref="1" Row="0" Column="1"/>
+              <Line Ref="2" Row="1" Column="0"/>
+              <Line Ref="3" Row="1" Column="1"/>
+              <Line Ref="4" Row="2" Column="0"/>
+              <Line Ref="5" Row="2" Column="1"/>
+            </LineGroup>
+            <LineGroup Rows="1" Columns="3">
+              <Line Ref="6" Row="0" Column="0"/>
+              <Line Ref="7" Row="0" Column="1"/>
+              <Line Ref="8" Row="0" Column="2"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0"/>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+              <Line Ref="3"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="4"/>
+              <Line Ref="5"/>
+              <Line Ref="6"/>
+              <Line Ref="7"/>
+              <Line Ref="8"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2">
+              <Alias>
+                <Kanji>中央線(各駅停車)</Kanji>
+                <English>Chūō Line(Local)</English>
+              </Alias>
+            </Line>
+            <Line Ref="3"/>
+            <Line Ref="4"/>
+            <Line Ref="5"/>
+            <Line Ref="6"/>
+            <Line Ref="7"/>
+            <Line Ref="8"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+    
+    <Station Ref="21">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="渋谷駅">
+          <TransferDisplay TargetMode="Transfers" Orientation="Vertical">
+            <LineGroup Rows="3" Columns="3">
+              <Line Ref="0" Row="0" Column="0"/>
+              <Line Ref="1" Row="0" Column="1"/>
+              <Line Ref="2" Row="1" Column="0"/>
+              <Line Ref="3" Row="1" Column="1"/>
+              <Line Ref="4" Row="1" Column="2"/>
+              <Line Ref="5" Row="2" Column="0"/>
+              <Line Ref="6" Row="2" Column="1"/>
+              <Line Ref="7" Row="2" Column="2"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Orientation="Vertical">
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="0"/>
+              <Line Ref="1"/>
+              <Line Ref="2"/>
+              <Line Ref="3"/>
+            </LineGroup>
+            <LineGroup Orientation="Horizontal">
+              <Line Ref="4"/>
+              <Line Ref="5"/>
+              <Line Ref="6"/>
+              <Line Ref="7"/>
+            </LineGroup>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+            <Line Ref="3"/>
+            <Line Ref="4"/>
+            <Line Ref="5"/>
+            <Line Ref="6"/>
+            <Line Ref="7"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="22">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="恵比寿駅">
+          <TransferDisplay TargetMode="Transfers" Rows="2" Columns="2">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="0" Column="1"/>
+            <Line Ref="2" Row="1" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="23">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="大崎駅 直通列車用" TargetDirection="Both" Use="IntermediateOnly">
+          <TransferDisplay TargetMode="Transfers" Rows="2" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+
+        <TransferDisplayDef Title="大崎駅 埼京線 終着列車用" TargetDirection="Forward" Use="TerminalOnly">
+          <TransferDisplay TargetMode="Transfers" Rows="3" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="3" Row="2" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="3"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="3"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+
+        <TransferDisplayDef Title="大崎駅 りんかい線 終着列車用" TargetDirection="Opposite" Use="TerminalOnly">
+          <TransferDisplay TargetMode="Transfers" Rows="3" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="2" Row="2" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="24">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="大井町駅">
+          <TransferDisplay TargetMode="Transfers" Rows="2" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="25">
+      <Aliases>
+        <Alias TargetMode="DetailedRouteMap">
+          <English>Shinagawa&#xA;Seaside</English>
+        </Alias>
+        <Alias TargetMode="RouteMap">
+          <English>Shinagawa&#xA;Seaside</English>
+        </Alias>
+      </Aliases>
+    </Station>
+
+    <Station Ref="26">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="天王洲アイル駅">
+          <TransferDisplay TargetMode="Transfers" Rows="1" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Rows="1" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0">
+              <Alias>
+                <Kanji>東京モノレール&#xA;羽田空港線</Kanji>
+                <English>Tōkyō Monorail&#xA;Haneda&#xA;Airport Line</English>
+              </Alias>
+            </Line>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="27">
+      <Aliases>
+        <Alias TargetMode="DetailedRouteMap">
+          <English>Tōkyō&#xA;Teleport</English>
+        </Alias>
+      </Aliases>
+    </Station>
+
+    <Station Ref="28">
+      <Aliases>
+        <Alias TargetMode="DetailedRouteMap">
+          <English>Kokusai-&#xA;tenjijō</English>
+        </Alias>
+      </Aliases>
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="国際展示場駅">
+          <TransferDisplay TargetMode="Transfers" Rows="1" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform" Rows="1" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+
+    <Station Ref="30">
+      <TransferDisplayDefinitions>
+        <TransferDisplayDef Title="新木場駅">
+          <TransferDisplay TargetMode="Transfers" Rows="3" Columns="1">
+            <Line Ref="0" Row="0" Column="0"/>
+            <Line Ref="1" Row="1" Column="0"/>
+            <Line Ref="2" Row="2" Column="0"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="Platform">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+          </TransferDisplay>
+          <TransferDisplay TargetMode="DetailedRouteMap">
+            <Line Ref="0"/>
+            <Line Ref="1"/>
+            <Line Ref="2"/>
+          </TransferDisplay>
+        </TransferDisplayDef>
+      </TransferDisplayDefinitions>
+    </Station>
+  </AdditionalStationInfos>
+</DeviceSetting>

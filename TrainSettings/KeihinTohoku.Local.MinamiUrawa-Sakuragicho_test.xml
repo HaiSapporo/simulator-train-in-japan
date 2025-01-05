@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NextStation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://wataku-city.com/xml/schema/NextStation/Train">
+  <Title>test keihin</Title>
+  <FileInfo>
+    <DeviceSettingFile>DeviceSettings\KeihinTohokuLine.E233-1000.xml</DeviceSettingFile>
+  </FileInfo>
+  <Route Direction="Opposite">
+    
+    <Station Ref="18" Stop="true" Door="Right" ArrivalTime="2">
+      <Running Duration="70" Main="1" Right="3" Left="3" />
+      <Arriving Duration="30" Main="0" Right="14" Left="15" />
+      <Stopping Duration="20" Main="0" Right="17" Left="0" />
+      <Departing Duration="6" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+    <Station Ref="19" Stop="true" Door="Right" ArrivalTime="2">
+      <Running Duration="75" Main="1" Right="3" Left="3" />
+      <Arriving Duration="30" Main="0" Right="14" Left="15" />
+      <Stopping Duration="20" Main="0" Right="17" Left="0" />
+      <Departing Duration="6" Main="0" Right="0" Left="0" />
+      <Omissions />
+    </Station>
+   
+   
+  </Route>
+</NextStation>

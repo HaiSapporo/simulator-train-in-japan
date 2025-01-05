@@ -1,0 +1,2481 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Line xmlns="http://wataku-city.com/xml/schema/NextStation/Line" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BranchDefinitions>
+    <BranchDefinition Title="川越-日進" Priority="1" UpstreamEnd="0" DownstreamEnd="5"/>
+    <BranchDefinition Title="大宮-大崎" Priority="0" UpstreamEnd="5" DownstreamEnd="23"/>
+    <BranchDefinition Title="大井町-新木場" Priority="1" UpstreamEnd="23" DownstreamEnd="30"/>
+  </BranchDefinitions>
+  
+  <Stations>
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="0">
+      <Kanji>川越</Kanji>
+      <Hiragana>かわごえ</Hiragana>
+      <English>Kawagoe</English>
+      <Platforms>
+        <Platform Length="12" WatchYourStep="true" Title="上下線共通" TargetDirection="Both">
+          <PlatformBlock Length="8">
+            <Exits>
+              <Exit Offset="4" Length="4" StartPos="Front" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Escalator" Direction="Opposite" Pos="Front"/>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>川越・八高線</Kanji>
+          <English>Kawagoe・Hachikō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="127" Green="127" Blue="127"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>東武東上線</Kanji>
+          <English>Tōbu Tōjō Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="0">
+      <Kanji>南古谷</Kanji>
+      <Hiragana>みなみふるや</Hiragana>
+      <English>Minami-Furuya</English>
+      <Platforms>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="7">
+            <Exits>
+              <Exit Offset="5" Length="2" StartPos="Front" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="川越方面">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Back" IsConnectedDirectly="true">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units/>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="0">
+      <Kanji>指扇</Kanji>
+      <Hiragana>さしおうぎ</Hiragana>
+      <English>Sashiōgi</English>
+      <Platforms>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="7"/>
+          <PlatformBlock Length="1">
+            <Exits>
+              <Exit Offset="0" Length="1" StartPos="Front" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="川越方面">
+          <PlatformBlock Length="7"/>
+          <PlatformBlock Length="2">
+            <Exits>
+              <Exit Offset="0" Length="2" StartPos="Center" EndPos="Center" IsConnectedDirectly="true">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="0">
+      <Kanji>西大宮</Kanji>
+      <Hiragana>にしおおみや</Hiragana>
+      <English>Nishi-Ōmiya</English>
+      <Platforms>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Center" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="川越方面">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Center" EndPos="Center">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="0">
+      <Kanji>日進</Kanji>
+      <Hiragana>にっしん</Hiragana>
+      <English>Nisshin</English>
+      <Platforms>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="2">
+            <Exits>
+              <Exit Offset="0" Length="2" StartPos="Back" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Back"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="川越方面">
+          <PlatformBlock Length="3"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>大宮</Kanji>
+      <Hiragana>おおみや</Hiragana>
+      <English>Ōmiya</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="0" Length="5" StartPos="Front" EndPos="Front">
+                <Kanji>中央改札(北)・北改札・LUMINE北改札口</Kanji>
+                <English>Central Gate (North), North Gate &#x26; LUMINE North Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="6">
+            <Exits>
+              <Exit Offset="1" Length="5" StartPos="Border" EndPos="Center">
+                <Kanji>中央改札(南)・南改札・LUMINE南改札口</Kanji>
+                <English>Central Gate (South), South Gate &#x26; LUMINE South Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="1"/>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>東北・山形・秋田・北海道・上越・北陸新幹線</Kanji>
+          <English>Tōhoku・Yamagata・Akita・Hokkaidō・Jōetsu・Hokuriku Shinkansen</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="160" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>京浜東北線</Kanji>
+          <English>Keihin-Tōhoku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="200" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>宇都宮線(東北線)</Kanji>
+          <English>Utsunomiya Line(Tōhoku Line)</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>高崎線</Kanji>
+          <English>Takasaki Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>埼京線</Kanji>
+          <English>Saikyō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="155" Blue="139"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>川越線</Kanji>
+          <English>Kawagoe Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="155" Blue="139"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>上野東京ライン</Kanji>
+          <English>Ueno-Tōkyō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>東武野田線</Kanji>
+          <English>Tōbu Noda Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>ニューシャトル</Kanji>
+          <English>New Shuttle</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>北与野</Kanji>
+      <Hiragana>きたよの</Hiragana>
+      <English>Kita-Yono</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="6"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Center">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>与野本町</Kanji>
+      <Hiragana>よのほんまち</Hiragana>
+      <English>Yono-Hommachi</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="3"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="6"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>南与野</Kanji>
+      <Hiragana>みなみよの</Hiragana>
+      <English>Minami-Yono</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="2"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Front" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="6"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>中浦和</Kanji>
+      <Hiragana>なかうらわ</Hiragana>
+      <English>Naka-Urawa</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="5"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Center" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>武蔵浦和</Kanji>
+      <Hiragana>むさしうらわ</Hiragana>
+      <English>Musashi-Urawa</English>
+      <Platforms>
+        <Platform Length="12" Title="新宿方面">
+          <PlatformBlock Length="3"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Back" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Escalator" Direction="Forward" Pos="Back"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="3"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Back" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                  <PlatformObject Key="Escalator" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>武蔵野線</Kanji>
+          <English>Musashino Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="64" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>北戸田</Kanji>
+      <Hiragana>きたとだ</Hiragana>
+      <English>Kita-Toda</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Back" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="4"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>戸田</Kanji>
+      <Hiragana>とだ</Hiragana>
+      <English>Toda</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="5"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Front" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>戸田公園</Kanji>
+      <Hiragana>とだこうえん</Hiragana>
+      <English>Toda-Kōen</English>
+      <Platforms>
+        <Platform Length="12" Title="新宿方面">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Back"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="5"/>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="4"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="5"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>浮間舟渡</Kanji>
+      <Hiragana>うきまふなど</Hiragana>
+      <English>Ukimafunado</English>
+      <Platforms>
+        <Platform Length="12" WatchYourStep="true" Title="新宿方面">
+          <PlatformBlock Length="5"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Center" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3"/>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="5"/>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Center" EndPos="Back">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3"/>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>北赤羽</Kanji>
+      <Hiragana>きたあかばね</Hiragana>
+      <English>Kita-Akabane</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="1">
+            <Exits>
+              <Exit Offset="0" Length="1" StartPos="Back" EndPos="Front">
+                <Kanji>浮間口</Kanji>
+                <English>Ukima Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Center"/>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="10"/>
+          <PlatformBlock Length="1">
+            <Exits>
+              <Exit Offset="0" Length="1" StartPos="Back" EndPos="Front">
+                <Kanji>赤羽口</Kanji>
+                <English>Akabane Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Forward" Pos="Center"/>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>赤羽</Kanji>
+      <Hiragana>あかばね</Hiragana>
+      <English>Akabane</English>
+      <Platforms>
+        <Platform Length="12" Title="新宿方面">
+          <PlatformBlock Length="8">
+            <Exits>
+              <Exit Offset="1" Length="7" StartPos="Back" EndPos="Center">
+                <Kanji>北改札口</Kanji>
+                <English>North Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Back"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Back" EndPos="Border">
+                <Kanji>南改札口</Kanji>
+                <English>South Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="1"/>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="8">
+            <Exits>
+              <Exit Offset="1" Length="7" StartPos="Back" EndPos="Front">
+                <Kanji>北改札口</Kanji>
+                <English>North Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Back"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Back" EndPos="Border">
+                <Kanji>南改札口</Kanji>
+                <English>South Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="1"/>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>京浜東北線</Kanji>
+          <English>Keihin-Tōhoku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="200" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>宇都宮線(東北線)</Kanji>
+          <English>Utsunomiya Line(Tōhoku Line)</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>高崎線</Kanji>
+          <English>Takasaki Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>上野東京ライン</Kanji>
+          <English>Ueno-Tōkyō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>十条</Kanji>
+      <Hiragana>じゅうじょう</Hiragana>
+      <English>Jūjō</English>
+      <Platforms>
+        <Platform Length="12" Title="新宿方面">
+          <PlatformBlock Length="8">
+            <Exits>
+              <Exit Offset="5" Length="3" StartPos="Border" EndPos="Back">
+                <Kanji>北口</Kanji>
+                <English>North Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="1" Length="2" StartPos="Center" EndPos="Back" IsConnectedDirectly="true">
+                <Kanji>南口</Kanji>
+                <English>South Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="4" Length="1" StartPos="Center" EndPos="Border" IsConnectedDirectly="true">
+                <Kanji>北口</Kanji>
+                <English>North Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="1">
+            <Exits>
+              <Exit Offset="0" Length="1" StartPos="Front" EndPos="Front">
+                <Kanji>南口</Kanji>
+                <English>South Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>板橋</Kanji>
+      <Hiragana>いたばし</Hiragana>
+      <English>Itabashi</English>
+      <Platforms>
+        <Platform Length="12" Title="新宿方面">
+          <PlatformBlock Length="2">
+            <Exits>
+              <Exit Offset="0" Length="2" StartPos="Center" EndPos="Front">
+                <Kanji>西口(板橋口)</Kanji>
+                <English>West Exit</English>
+              </Exit>
+              <Exit Offset="0" Length="2" StartPos="Center" EndPos="Front">
+                <Kanji>東口(滝野川口)</Kanji>
+                <English>East Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="2">
+            <Exits>
+              <Exit Offset="0" Length="2" StartPos="Center" EndPos="Front">
+                <Kanji>西口(板橋口)</Kanji>
+                <English>West Exit</English>
+              </Exit>
+              <Exit Offset="0" Length="2" StartPos="Center" EndPos="Front">
+                <Kanji>東口(滝野川口)</Kanji>
+                <English>East Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>池袋</Kanji>
+      <Hiragana>いけぶくろ</Hiragana>
+      <English>Ikebukuro</English>
+      <Platforms>
+        <Platform Length="12" Title="新宿方面">
+          <PlatformBlock Length="1">
+            <Exits>
+              <Exit Offset="0" Length="1" StartPos="Back" EndPos="Front">
+                <Kanji>北改札</Kanji>
+                <English>North Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="2">
+            <Exits>
+              <Exit Offset="0" Length="2" StartPos="Center" EndPos="Back">
+                <Kanji>中央2改札</Kanji>
+                <English>Central Gate 2</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="6">
+            <Exits>
+              <Exit Offset="1" Length="5" StartPos="Border" EndPos="Center">
+                <Kanji>南改札・中央1改札</Kanji>
+                <English>South Gate &#x26; Central Gate 1</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Forward" Pos="Center"/>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="1" Length="2" StartPos="Back" EndPos="Front">
+                <Kanji>メトロポリタン改札</Kanji>
+                <English>Metropolitan Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="1">
+            <Exits>
+              <Exit Offset="0" Length="1" StartPos="Back" EndPos="Front">
+                <Kanji>北改札</Kanji>
+                <English>North Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="1" Length="2" StartPos="Border" EndPos="Front">
+                <Kanji>中央2改札</Kanji>
+                <English>Central Gate 2</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="1" Length="4" StartPos="Center" EndPos="Border">
+                <Kanji>南改札・中央1改札</Kanji>
+                <English>South Gate &#x26; Central Gate 1</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="1" Length="2" StartPos="Back" EndPos="Front">
+                <Kanji>メトロポリタン改札</Kanji>
+                <English>Metropolitan Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>山手線</Kanji>
+          <English>Yamanote Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="120" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>東武東上線</Kanji>
+          <English>Tōbu Tōjō Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>西武池袋線</Kanji>
+          <English>Seibu Ikebukuro Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>丸ノ内線</Kanji>
+          <English>Marunouchi Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="M">
+              <LineColor Alpha="255" Red="255" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>有楽町線</Kanji>
+          <English>Yūrakuchō Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="Y">
+              <LineColor Alpha="255" Red="240" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>副都心線</Kanji>
+          <English>Fukutoshin Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="F">
+              <LineColor Alpha="255" Red="192" Green="96" Blue="32"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>新宿</Kanji>
+      <Hiragana>しんじゅく</Hiragana>
+      <English>Shinjuku</English>
+      <Platforms>
+        <Platform Length="12" Title="大崎方面">
+          <PlatformBlock Length="2">
+            <Exits>
+              <Exit Offset="0" Length="2" StartPos="Back" EndPos="Center">
+                <Kanji>中央西口・西口・&#xA;東口・中央東口</Kanji>
+                <English>Central West Exit, West Exit,&#xA;East Exit &#x26; Central East Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="1" Length="3" StartPos="Border" EndPos="Border">
+                <Kanji>南口・東南口</Kanji>
+                <English>South Exit &#x26; South East Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Border"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="6">
+            <Exits>
+              <Exit Offset="3" Length="3" StartPos="Front" EndPos="Front">
+                <Kanji>新南口・サザンテラス口</Kanji>
+                <English>New South Exit &#x26; Southern Terrace Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="大宮方面">
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Center" EndPos="Back">
+                <Kanji>中央西口・西口・東口・中央東口</Kanji>
+                <English>Central West Exit, West Exit, East Exit &#x26; Central East Exit</English>
+              </Exit>
+              <Exit Offset="0" Length="3" StartPos="Border" EndPos="Back">
+                <Kanji>南口・東南口</Kanji>
+                <English>South Exit &#x26; South East Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center" ConnectToExit="0" ConnectorPos="MiddleBack"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Escalator" Direction="Opposite" Pos="Border"/>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit/>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="2"/>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Center" EndPos="Center">
+                <Kanji>新南口・サザンテラス口</Kanji>
+                <English>New South Exit &#x26; Southern Terrace Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3"/>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>山手線</Kanji>
+          <English>Yamanote Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="120" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>中央線</Kanji>
+          <English>Chūō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="64" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>中央・総武線(各駅停車)</Kanji>
+          <English>Chūō・Sōbu Line(Local)</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="247" Green="247" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>小田急線</Kanji>
+          <English>Odakyū Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>京王線</Kanji>
+          <English>Keiō Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>丸ノ内線</Kanji>
+          <English>Marunouchi Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="M">
+              <LineColor Alpha="255" Red="255" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>都営新宿線</Kanji>
+          <English>Toei Shinjuku Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="S">
+              <LineColor Alpha="255" Red="175" Green="200" Blue="80"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>都営大江戸線</Kanji>
+          <English>Toei Ōedo Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="E">
+              <LineColor Alpha="255" Red="192" Green="0" Blue="112"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>渋谷</Kanji>
+      <Hiragana>しぶや</Hiragana>
+      <English>Shibuya</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="0" Length="5" StartPos="Center" EndPos="Border">
+                <Kanji>中央改札・玉川改札・ハチ公改札・南改札</Kanji>
+                <English>Central Exit, Tamagawa Exit, Hachikō Exit &#x26; South Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Border"/>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="2" Length="3" StartPos="Back" EndPos="Back">
+                <Kanji>新南改札</Kanji>
+                <English>New South Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="2"/>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>山手線</Kanji>
+          <English>Yamanote Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="120" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>東急東横線</Kanji>
+          <English>Tōkyū Tōyoko Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>東急田園都市線</Kanji>
+          <English>Tōkyū Den-en-Toshi Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>京王井の頭線</Kanji>
+          <English>Keiō Inokashira Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>銀座線</Kanji>
+          <English>Ginza Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="G">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>半蔵門線</Kanji>
+          <English>Hanzōmon Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="Z">
+              <LineColor Alpha="255" Red="160" Green="127" Blue="192"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>副都心線</Kanji>
+          <English>Fukutoshin Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="F">
+              <LineColor Alpha="255" Red="192" Green="96" Blue="32"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>恵比寿</Kanji>
+      <Hiragana>えびす</Hiragana>
+      <English>Ebisu</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="6">
+            <Exits>
+              <Exit Offset="2" Length="4" StartPos="Front" EndPos="Center">
+                <Kanji>西口</Kanji>
+                <English>West Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="DownEscalator" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="4">
+            <Exits>
+              <Exit Offset="0" Length="4" StartPos="Center" EndPos="Back">
+                <Kanji>東口</Kanji>
+                <English>East Exit</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="2"/>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>山手線</Kanji>
+          <English>Yamanote Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="120" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>日比谷線</Kanji>
+          <English>Hibiya Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="H">
+              <LineColor Alpha="255" Red="140" Green="140" Blue="140"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="1">
+      <Kanji>大崎</Kanji>
+      <Hiragana>おおさき</Hiragana>
+      <English>Ōsaki</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="2" Length="3" StartPos="Back" EndPos="Border">
+                <Kanji>北改札口</Kanji>
+                <English>North Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="3">
+            <Exits>
+              <Exit Offset="0" Length="3" StartPos="Front" EndPos="Front">
+                <Kanji>南改札口</Kanji>
+                <English>South Gate</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+          <PlatformBlock Length="4"/>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>山手線</Kanji>
+          <English>Yamanote Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="120" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>湘南新宿ライン</Kanji>
+          <English>Shōnan-Shinjuku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="140" Blue="0"/>
+              <SecondaryLineColor Alpha="255" Red="0" Green="0" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>埼京線</Kanji>
+          <English>Saikyō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="155" Blue="139"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>りんかい線</Kanji>
+          <English>Rinkai Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>大井町</Kanji>
+      <Hiragana>おおいまち</Hiragana>
+      <English>Ōimachi</English>
+      <Platforms>
+        <Platform Length="12" Title="新木場方面">
+          <PlatformBlock Length="7">
+            <Exits>
+              <Exit Offset="5" Length="2" StartPos="Back" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+        <Platform Length="12" Title="大崎方面">
+          <PlatformBlock Length="7">
+            <Exits>
+              <Exit Offset="5" Length="2" StartPos="Back" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Border"/>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>京浜東北線</Kanji>
+          <English>Keihin-Tōhoku Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="0" Green="200" Blue="255"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>東急大井町線</Kanji>
+          <English>Tōkyū Ōimachi Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>品川シーサイド</Kanji>
+      <Hiragana>しながわしーさいど</Hiragana>
+      <English>Shinagawa Seaside</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="9">
+            <Exits>
+              <Exit Offset="2" Length="7" StartPos="Back" EndPos="Border">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>天王洲アイル</Kanji>
+      <Hiragana>てんのうずあいる</Hiragana>
+      <English>Tennōzu Isle</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="10">
+            <Exits>
+              <Exit Offset="2" Length="8" StartPos="Back" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>東京モノレール羽田空港線</Kanji>
+          <English>Tōkyō Monorail Haneda Airport Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>東京テレポート</Kanji>
+      <Hiragana>とうきょうてれぽーと</Hiragana>
+      <English>Tōkyō Teleport</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="10">
+            <Exits>
+              <Exit Offset="2" Length="8" StartPos="Back" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>国際展示場</Kanji>
+      <Hiragana>こくさいてんじじょう</Hiragana>
+      <English>Kokusai-tenjijō</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="10">
+            <Exits>
+              <Exit Offset="2" Length="8" StartPos="Back" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Back"/>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>ゆりかもめ</Kanji>
+          <English>Yurikamome Line</English>
+          <Icons>
+            <Icon Type="TrainIcon">
+              <LineColor Alpha="255" Red="0" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>東雲</Kanji>
+      <Hiragana>しののめ</Hiragana>
+      <English>Shinonome</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="5">
+            <Exits>
+              <Exit Offset="3" Length="2" StartPos="Back" EndPos="Center">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Back"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer/>
+    </Station>
+
+    <Station UpdateYear="2013" UpdateMonth="6" BranchDefinitionRef="2">
+      <Kanji>新木場</Kanji>
+      <Hiragana>しんきば</Hiragana>
+      <English>Shin-kiba</English>
+      <Platforms>
+        <Platform Length="12" Title="上下線共通">
+          <PlatformBlock Length="10">
+            <Exits>
+              <Exit Offset="6" Length="4" StartPos="Center" EndPos="Front">
+                <Kanji>出口</Kanji>
+                <English>EXIT</English>
+              </Exit>
+            </Exits>
+            <Units>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Forward" Pos="Center"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit/>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="UpEscalator" Direction="Opposite" Pos="Back"/>
+                </ObjectGroup>
+                <ObjectGroup>
+                  <PlatformObject Key="Elevator" Direction="None" Pos="Border"/>
+                </ObjectGroup>
+              </PlatformUnit>
+              <PlatformUnit>
+                <ObjectGroup>
+                  <PlatformObject Key="Stairs" Direction="Opposite" Pos="Front"/>
+                </ObjectGroup>
+              </PlatformUnit>
+            </Units>
+          </PlatformBlock>
+        </Platform>
+      </Platforms>
+      <Transfer>
+        <Line>
+          <Kanji>京葉線</Kanji>
+          <English>Keiyō Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="240" Green="0" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>武蔵野線</Kanji>
+          <English>Musashino Line</English>
+          <Icons>
+            <Icon Type="LineColor">
+              <LineColor Alpha="255" Red="255" Green="64" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+        <Line>
+          <Kanji>有楽町線</Kanji>
+          <English>Yūrakuchō Line</English>
+          <Icons>
+            <Icon Type="Subway" LineLetter="Y">
+              <LineColor Alpha="255" Red="240" Green="240" Blue="0"/>
+            </Icon>
+          </Icons>
+        </Line>
+      </Transfer>
+    </Station>
+  </Stations>
+</Line>

@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NextStation xmlns="http://wataku-city.com/xml/schema/NextStation/Train" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Title>埼京線 各駅停車 新木場-大宮</Title>
+
+  <FileInfo>
+    <DeviceSettingFile>DeviceSettings\SaikyoLine.E233-7000.xml</DeviceSettingFile>
+  </FileInfo>
+
+  <Route Direction="Opposite">
+    <Station Ref="30" Stop="true" StopPosOffset="1" Door="Right">
+      <Running Duration="-1"/>
+      <Arriving Duration="-1"/>
+      <Stopping Duration="60" Main="0" Right="0" Left="0" TrainTypeRef="0" TrainNameRef="3" ServiceInfoRef="0" DestinationRef="3"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="29" Stop="true" StopPosOffset="1" Door="Left" ArrivalTime="3">
+      <Running Duration="120" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="0" Left="16"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="28" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="85" Main="1" Right="5" Left="5"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="27" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="90" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="26" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3">
+      <Running Duration="110" Main="1" Right="6" Left="6"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="25" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="95" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="24" Stop="true" StopPosOffset="1" Door="Left" ArrivalTime="3" PlatformRef="1">
+      <Running Duration="110" Main="1" Right="6" Left="6"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="0" Left="17"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="23" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3">
+      <Running Duration="120" Main="1" Right="6" Left="6"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="30" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="22" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="4">
+      <Running Duration="150" Main="1" Right="7" Left="7"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="21" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="95" Main="1" Right="5" Left="5"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="20" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="6" PlatformRef="1">
+      <Running Duration="220" Main="1" Right="7" Left="7"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="30" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="19" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="5" PlatformRef="1">
+      <Running Duration="200" Main="1" Right="7" Left="7"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="30" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="18" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="17" Stop="true" StopPosOffset="1" Door="Left" ArrivalTime="3" PlatformRef="1">
+      <Running Duration="115" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="0" Left="16"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="16" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3" PlatformRef="1">
+      <Running Duration="120" Main="1" Right="6" Left="6"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="30" Main="0" Right="17" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="15" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3">
+      <Running Duration="110" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="14" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2" PlatformRef="1">
+      <Running Duration="90" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="13" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3">
+      <Running Duration="110" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="12" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3">
+      <Running Duration="120" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="11" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="95" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="10" Stop="true" StopPosOffset="1" Door="Left" ArrivalTime="3">
+      <Running Duration="120" Main="1" Right="6" Left="6"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="80" Main="0" Right="0" Left="17"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="9" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="90" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="8" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="3">
+      <Running Duration="115" Main="1" Right="3" Left="3"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="7" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="90" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+
+    <Station Ref="6" Stop="true" StopPosOffset="1" Door="Right" ArrivalTime="2">
+      <Running Duration="95" Main="1" Right="2" Left="2"/>
+      <Arriving Duration="30" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="20" Main="0" Right="16" Left="0"/>
+      <Departing Duration="6" Main="0" Right="0" Left="0"/>
+    </Station>
+  
+    <Station Ref="5" Stop="true" StopPosOffset="1" Door="Left" ArrivalTime="3" TransferRef="2">
+      <Running Duration="120" Main="1" Right="7" Left="7"/>
+      <Arriving Duration="35" Main="0" Right="14" Left="14"/>
+      <Stopping Duration="60" Main="0" Right="16" Left="16"/>
+      <Departing Duration="-1"/>
+    </Station>
+  </Route>
+</NextStation>

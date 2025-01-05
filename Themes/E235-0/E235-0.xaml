@@ -1,0 +1,2648 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 
+                    xmlns:c="clr-namespace:WatakuCity.NextStation;assembly=NextStation"
+                    xmlns:ctrl="clr-namespace:WatakuCity.NextStation.Controls;assembly=NextStation"
+                    xmlns:cvt="clr-namespace:WatakuCity.NextStation.Converter;assembly=NextStation">
+    
+    <!-- Brushes -->
+
+    <!-- 路線図用ブラシ -->
+    <x:Array x:Key="LineColorBrushes" Type="SolidColorBrush">
+        <!-- 山手線 -->
+        <SolidColorBrush Color="#FF40C000" PresentationOptions:Freeze="True"/>
+    </x:Array>
+
+    <!-- 通過駅などの無効化されたテキストの文字色 -->
+    <SolidColorBrush x:Key="InactiveText" Color="#FFC0C0C0" PresentationOptions:Freeze="True"/>
+
+    <!-- 停車駅などの有効なテキストの文字色 -->
+    <SolidColorBrush x:Key="ActiveText" Color="#FF000000" PresentationOptions:Freeze="True"/>
+
+    <!-- 路線図用ブラシ デフォルト -->
+    <SolidColorBrush x:Key="DefaultLineColor" Color="#FF40C000" PresentationOptions:Freeze="True"/>
+
+    <!-- Converters -->
+
+    <cvt:BrushSelector x:Key="BrushSelector"/>
+    <cvt:EquivalenceConverter x:Key="EquivalenceConverter"/>
+    <cvt:ExitPositionConverter x:Key="ExitPositionConverter" CarWidth="76" PlatformObjectWidth="36"/>
+    <cvt:ExitPositionConverter x:Key="ExitPositionConverterAtAkihabara" CarWidth="76" PlatformObjectWidth="32"/>
+    <cvt:PlatformWidthConverter x:Key="PlatformWidthConverter" CarWidth="76"/>
+    <cvt:RemoveLinefeed x:Key="RemoveLinefeed"/>
+    <cvt:ReverseSignConverter x:Key="ReverseSignConverter"/>
+    <cvt:RouteMapSelector x:Key="RouteMapSelector" TargetPage="0"/>
+    <cvt:SplitWithLinefeed x:Key="SplitWithLinefeed"/>
+    <cvt:TrainOffsetConverter x:Key="TrainOffsetConverter" CarWidth="76"/>
+    <cvt:TrainStateConverter x:Key="TrainStateConverter"/>
+    <cvt:IsBiggerConverter x:Key="IsBiggerConverter"/>
+    <cvt:IsSmallerConverter x:Key="IsSmallerConverter"/>
+
+    <!-- ControlStyles -->
+    
+    <Style x:Key="Destination" TargetType="Control">
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Grid Height="95">
+                        <StackPanel Name="Japanese" VerticalAlignment="Bottom">
+                            <TextBlock Foreground="{TemplateBinding Foreground}" FontFamily="Microsoft Sans Serif" FontSize="48" FontWeight="Bold" HorizontalAlignment="Left" Text="{Binding TrainInfo.Destination.Kanji}"/>
+                            <TextBlock Name="AdditionalTextJapanese" Foreground="{TemplateBinding Foreground}" FontFamily="Microsoft Sans Serif" FontSize="26" FontWeight="Bold" HorizontalAlignment="Right" Text="方面"/>
+                        </StackPanel>
+                        <StackPanel Name="English" VerticalAlignment="Top" Opacity="0">
+                            <TextBlock Name="AdditionalTextEnglish" Foreground="#FFD0D0D0" FontFamily="Microsoft Sans Serif" FontSize="26" FontWeight="Bold" HorizontalAlignment="Left" Text="Bound for"/>
+                            <TextBlock Foreground="{TemplateBinding Foreground}" FontFamily="Microsoft Sans Serif" FontSize="32" FontWeight="Bold" HorizontalAlignment="Left" Text="{Binding TrainInfo.Destination.English}" LineHeight="30" LineStackingStrategy="BlockLineHeight"/>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding MainArea.Language}" Value="English"/>
+                                <Condition Binding="{Binding StationInfo.IsTerminal}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Japanese" Property="Opacity" Value="0"/>
+                            <Setter TargetName="English" Property="Opacity" Value="1"/>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding TrainInfo.Destination.DestinationType}" Value="Terminal">
+                            <Setter TargetName="AdditionalTextJapanese" Property="Text" Value="ゆき"/>
+                            <Setter TargetName="AdditionalTextEnglish" Property="Text" Value="for"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="Numbering" TargetType="Control">
+        <Viewbox Stretch="Uniform">
+            <Border Width="68" Height="70" Background="{StaticResource DefaultLineColor}" CornerRadius="6">
+                <Border Width="52" Height="54" Background="#FFFFFFFF" CornerRadius="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Margin="0,2,0,-4" Foreground="#FF000000" FontFamily="Microsoft Sans Serif" FontWeight="SemiBold" FontSize="20" Text="{Binding LineLetter}" TextAlignment="Center"/>
+                        <TextBlock Foreground="#FF000000" FontFamily="Microsoft Sans Serif" FontSize="28" FontWeight="SemiBold" Text="{Binding StationNumber}" TextAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Viewbox>
+    </ControlTemplate>
+
+    <Style x:Key="StationName" TargetType="Control">
+        <Style.Resources>
+            <ControlTemplate x:Key="NumberingWithCode" TargetType="Control">
+                <Border Width="84" Background="#FF000000" CornerRadius="8">
+                    <StackPanel Name="NumberingContainer" Margin="8,0,8,8">
+                        <TextBlock Name="Code" Foreground="#FFFFFFFF" FontFamily="Microsoft Sans Serif" FontSize="26" Text="{Binding Code}" TextAlignment="Center"/>
+                        <Control Template="{StaticResource Numbering}"/>
+                    </StackPanel>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Code}" Value="{x:Null}">
+                        <Setter TargetName="Code" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="NumberingContainer" Property="Margin" Value="8"/>
+                    </DataTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Style.Resources>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Grid Height="160">
+                        <TextBlock Name="Caption" Margin="10,0,0,0" Height="50" Foreground="#FFFFFFFF" FontFamily="Meiryo" FontSize="32" FontWeight="Bold" Text="次は" VerticalAlignment="Top"/>
+                        <ContentControl Margin="5,0,0,0" Height="150" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal">
+                                <Control Margin="0,6" Width="84" DataContext="{Binding StationInfo.Numberings[0]}" Template="{StaticResource NumberingWithCode}" VerticalAlignment="Bottom"/>
+                                <Viewbox Name="StationNameViewBox" Stretch="Fill" StretchDirection="DownOnly" Margin="8,0,0,-8" Width="510" Height="150" VerticalAlignment="Bottom">
+                                    <ctrl:VerticalTextControl x:Name="StationName" FontFamily="Meiryo UI" FontSize="115" BoldSimulation="True" Foreground="#FFFFFFFF" TextAlignment="Center" Text="{Binding StationInfo.Name.Kanji, Converter={StaticResource RemoveLinefeed}}"/>
+                                </Viewbox>
+                            </StackPanel>
+                        </ContentControl>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger  Binding="{Binding Text.Length, ElementName=StationName}" Value="2">
+                            <Setter TargetName="StationName" Property="AdvanceWidth" Value="180"/>
+                        </DataTrigger>
+                        
+                        <DataTrigger  Binding="{Binding Text.Length, ElementName=StationName}" Value="3">
+                            <Setter TargetName="StationName" Property="AdvanceWidth" Value="140"/>
+                        </DataTrigger>
+                        
+                        <DataTrigger Binding="{Binding MainArea.Language}" Value="English">
+                            <Setter TargetName="StationName" Property="Text" Value="{Binding StationInfo.Name.English, Converter={StaticResource RemoveLinefeed}}"/>
+                            <Setter TargetName="StationName" Property="FontFamily" Value="Microsoft Sans Serif"/>
+                            <Setter TargetName="StationName" Property="FontSize" Value="105"/>
+                            <Setter TargetName="StationNameViewBox" Property="Margin" Value="8,0,0,2"/>
+                            <Setter TargetName="StationNameViewBox" Property="Width" Value="540"/>
+                            <Setter TargetName="StationNameViewBox" Property="Height" Value="138"/>
+                            <Setter TargetName="Caption" Property="FontFamily" Value="Microsoft Sans Serif"/>
+                            <Setter TargetName="Caption" Property="FontSize" Value="38"/>
+                            <Setter TargetName="Caption" Property="LineHeight" Value="36"/>
+                        </DataTrigger>
+                        
+                        <DataTrigger Binding="{Binding MainArea.Language}" Value="Hiragana">
+                            <Setter TargetName="StationName" Property="Text" Value="{Binding StationInfo.Name.Hiragana, Converter={StaticResource RemoveLinefeed}}"/>
+                            <Setter TargetName="Caption" Property="Text" Value="つぎは"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding TrainInfo.TrainState}" Value="Arriving">
+                            <Setter TargetName="Caption" Property="Text" Value="まもなく"/>
+                        </DataTrigger>
+                        
+                        <DataTrigger Binding="{Binding TrainInfo.TrainState}" Value="Stopping">
+                            <Setter TargetName="Caption" Property="Text" Value="ただいま"/>
+                        </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Running"/>
+                                <Condition Binding="{Binding StationInfo.IsTerminal}" Value="True"/>
+                                <Condition Binding="{Binding MainArea.Language}" Value="Kanji"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="次は終点"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Running"/>
+                                <Condition Binding="{Binding StationInfo.IsTerminal}" Value="True"/>
+                                <Condition Binding="{Binding MainArea.Language}" Value="Hiragana"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="つぎは終点"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Arriving"/>
+                                <Condition Binding="{Binding StationInfo.IsTerminal}" Value="True"/>
+                                <Condition Binding="{Binding MainArea.Language}" Value="Kanji"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="まもなく終点"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Stopping"/>
+                                <Condition Binding="{Binding StationInfo.IsTerminal}" Value="True"/>
+                                <Condition Binding="{Binding MainArea.Language}" Value="Kanji"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="ただいま終点"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding MainArea.Language}" Value="English"/>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Running"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="Next"/>
+                        </MultiDataTrigger>
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding MainArea.Language}" Value="English"/>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Arriving"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="Arriving at"/>
+                        </MultiDataTrigger>
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding MainArea.Language}" Value="English"/>
+                                <Condition Binding="{Binding TrainInfo.TrainState}" Value="Stopping"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="Caption" Property="Text" Value="Now stopping at"/>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CurrentTime" TargetType="Control">
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <StackPanel Width="100">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock FontFamily="Microsoft Sans Serif" FontSize="38" Foreground="{TemplateBinding Foreground}" Width="42" TextAlignment="Right" Text="{Binding Time.Hour}"/>
+                            <TextBlock FontFamily="Microsoft Sans Serif" FontSize="38" Foreground="{TemplateBinding Foreground}" Text=":"/>
+                            <TextBlock FontFamily="Microsoft Sans Serif" FontSize="38" Foreground="{TemplateBinding Foreground}" Width="42" TextAlignment="Right" Text="{Binding Time.Minute}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CarNumber" TargetType="Control">
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Grid Width="150">
+                        <ContentControl Width="60" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <TextBlock FontFamily="Microsoft Sans Serif" FontSize="48" FontStyle="Italic" Foreground="{TemplateBinding Foreground}" TextAlignment="Center" Text="{Binding CarNumber}"/>
+                        </ContentControl>
+                        <TextBlock Name="Caption" Margin="0,52,0,0" Foreground="#FFD0D0D0" FontFamily="Microsoft Sans Serif" FontSize="20" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Top" TextAlignment="Right" Text="号車"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding MainArea.Language}" Value="English">
+                            <Setter TargetName="Caption" Property="Margin" Value="0,0,65,0"/>
+                            <Setter TargetName="Caption" Property="Text" Value="Car No."/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LineIcon" TargetType="ctrl:LineIcon">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:LineIcon">
+                    <Viewbox>
+                        <Border Width="64" Height="64" Background="#FFFFFFFF" BorderBrush="{TemplateBinding PrimaryLineColor}" BorderThickness="6" CornerRadius="3">
+                            <TextBlock Foreground="#FF000000" FontFamily="Microsoft Sans Serif" FontSize="34" Text="{TemplateBinding LineLetter}" TextAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Viewbox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IconType" Value="TrainIcon">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ctrl:LineIcon">
+                            <Viewbox>
+                                <Border Name="Base" Width="64" Height="64" CornerRadius="3" Background="{TemplateBinding PrimaryLineColor}">
+                                    <Grid>
+                                        <Border Width="36" Height="40" Background="#FFFFFFFF" CornerRadius="6" Margin="0,6" VerticalAlignment="Top">
+                                            <Canvas>
+                                                <Line Stroke="{Binding ElementName=Base, Path=Background}" StrokeThickness="3" X1="11" X2="25" Y1="4" Y2="4"></Line>
+                                                <Line Stroke="{Binding ElementName=Base, Path=Background}" StrokeThickness="14" X1="4" X2="32" Y1="16" Y2="16"></Line>
+                                                <Ellipse Fill="{Binding ElementName=Base, Path=Background}" Width="4" Height="4" Canvas.Left="5" Canvas.Top="30"></Ellipse>
+                                                <Ellipse Fill="{Binding ElementName=Base, Path=Background}" Width="4" Height="4" Canvas.Right="5" Canvas.Top="30"></Ellipse>
+                                            </Canvas>
+                                        </Border>
+                                        <Polygon Fill="#FFFFFFFF" Points="22,45,42,45,52,58,48,58,41,49,23,49,16,58,12,58"></Polygon>
+                                    </Grid>
+                                </Border>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IconType" Value="Subway">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ctrl:LineIcon">
+                            <Viewbox>
+                                <Grid Width="64" Height="64">
+                                    <Ellipse Width="64" Height="64" StrokeThickness="13" Stroke="{TemplateBinding PrimaryLineColor}"/>
+                                    <TextBlock FontFamily="Microsoft Sans Serif" FontSize="30" FontWeight="Bold" Foreground="{TemplateBinding LineLetterColor}" Text="{TemplateBinding LineLetter}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IconType" Value="ShinkansenE5">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ctrl:LineIcon">
+                            <Viewbox>
+                                <Border Width="64" Height="64" Background="{TemplateBinding PrimaryLineColor}">
+                                    <Border Width="64" Height="32" VerticalAlignment="Bottom" Background="{TemplateBinding SecondaryLineColor}"/>
+                                </Border>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IconType" Value="Shinkansen700">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ctrl:LineIcon">
+                            <Viewbox>
+                                <Border Width="64" Height="64" Background="{TemplateBinding PrimaryLineColor}">
+                                    <Border Width="64" Height="32" VerticalAlignment="Bottom" Background="{TemplateBinding SecondaryLineColor}"/>
+                                </Border>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DetailedRouteMapList" TargetType="ItemsControl">
+        <Setter Property="AlternationCount" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ItemsControl">
+                    <StackPanel IsItemsHost="True" Width="740" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+                        <StackPanel.RenderTransform>
+                            <ScaleTransform ScaleY="-1"/>
+                        </StackPanel.RenderTransform>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <DataTemplate.Resources>
+                        <cvt:TransferDisplaySelector x:Key="TransferDisplaySelectorKanji" TargetMode="DetailedRouteMap" TargetLanguage="Kanji"/>
+                        <cvt:TransferDisplaySelector x:Key="TransferDisplaySelectorEnglish" TargetMode="DetailedRouteMap" TargetLanguage="English"/>
+                        <TranslateTransform x:Key="MarkerOffset" X="-54" PresentationOptions:Freeze="True"/>
+                        <ControlTemplate x:Key="Marker" TargetType="Control">
+                            <Canvas Width="48" Height="34">
+                                <Polygon Fill="#FF00C800" Stroke="#FFFFFFFF" StrokeLineJoin="Round" StrokeThickness="2.5" Points="0,0, 35,0, 48,17, 35,34, 0,34"/>
+                            </Canvas>
+                        </ControlTemplate>
+                    </DataTemplate.Resources>
+                    <StackPanel Name="Container" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5" FlowDirection="RightToLeft">
+                        <Control Name="Spacer"/>
+                        <Grid Name="StationInfo">
+                            <Ellipse Name="ArrivalTimeBackground" Width="{Binding Width, ElementName=StationInfo}" Height="{Binding Height, ElementName=StationInfo}" Fill="#FFFFFFFF" Stroke="#FFFFFFFF" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Viewbox Name="ArrivalTimeContainer" Height="{Binding Width, ElementName=StationInfo}" Width="{Binding Height, ElementName=StationInfo}" Stretch="Fill" StretchDirection="DownOnly">
+                                <TextBlock Name="ArrivalTime" FontFamily="Microsoft Sans Serif" FontSize="24" FontWeight="Bold" Foreground="{StaticResource ActiveText}" Text="{Binding ArrivalTime}" TextAlignment="Center"/>
+                            </Viewbox>
+                        </Grid>
+                        <Viewbox Name="StationNameContainer" Stretch="Uniform" Width="272">
+                            <StackPanel Orientation="Horizontal">
+                                <Control Name="Numbering" Height="60" DataContext="{Binding Numberings[0]}" Template="{StaticResource Numbering}"/>
+                                <Viewbox Name="StationNameViewBox" Margin="3,0,0,0" Width="210" Height="75" Stretch="Fill" StretchDirection="DownOnly">
+                                    <ctrl:VerticalTextMultiLine x:Name="StationName"
+                                                                ItemsSource="{Binding StationName.Kanji, Converter={StaticResource SplitWithLinefeed}}"
+                                                                AlternationCount="2"
+                                                                FontFamily="Meiryo"
+                                                                FontSize="60"
+                                                                Foreground="{StaticResource InactiveText}"
+                                                                MinWidth="{Binding Width, ElementName=StationNameViewBox}">
+                                        <ctrl:VerticalTextMultiLine.Template>
+                                            <ControlTemplate TargetType="ctrl:VerticalTextMultiLine">
+                                                <StackPanel IsItemsHost="True"/>
+                                            </ControlTemplate>
+                                        </ctrl:VerticalTextMultiLine.Template>
+                                        <ctrl:VerticalTextMultiLine.ItemContainerStyle>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Items.Count, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}" Value="2">
+                                                        <Setter Property="Margin" Value="0,-8"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ctrl:VerticalTextMultiLine.ItemContainerStyle>
+                                        <ctrl:VerticalTextMultiLine.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight">
+                                                    <Control Name="Spacer" Width="100" Visibility="Collapsed"/>
+                                                    <ctrl:VerticalTextControl x:Name="Text"
+                                                                              AdvanceWidth="{Binding AdvanceWidth, RelativeSource={RelativeSource  Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                              ApplyAdvanceWidthToLastChar="{Binding ApplyAdvanceWidthToLastChar, RelativeSource={RelativeSource  Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                              BoldSimulation="True"
+                                                                              FontFamily="{Binding FontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                              FontSize="{Binding FontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                              Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                              IsVertical="False"
+                                                                              Text="{Binding}"
+                                                                              TextAlignment="Right"/>
+                                                </StackPanel>
+                                                <DataTemplate.Triggers>
+                                                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                                        <Setter TargetName="Spacer" Property="Visibility" Value="Visible"/>
+                                                    </Trigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ctrl:VerticalTextMultiLine.ItemTemplate>
+                                    </ctrl:VerticalTextMultiLine>
+                                </Viewbox>
+                            </StackPanel>
+                        </Viewbox>
+                        <StackPanel.RenderTransform>
+                            <ScaleTransform ScaleY="-1"/>
+                        </StackPanel.RenderTransform>
+                    </StackPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding FlowDirection, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="RightToLeft">
+                            <Setter TargetName="Container" Property="FlowDirection" Value="LeftToRight"/>
+                        </DataTrigger>
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding StationName.Kanji.Length}" Value="2"/>
+                                <Condition Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="Kanji"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="StationName" Property="AdvanceWidth" Value="200"/>
+                        </MultiDataTrigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter TargetName="Spacer" Property="Width" Value="285"/>
+                            <Setter TargetName="StationInfo" Property="Margin" Value="52,10"/>
+                            <Setter TargetName="StationInfo" Property="Width" Value="72"/>
+                            <Setter TargetName="StationInfo" Property="Height" Value="72"/>
+                            <Setter TargetName="ArrivalTime" Property="FontSize" Value="45"/>
+                            <Setter TargetName="StationNameContainer" Property="Width" Value="272"/>
+                            <Setter TargetName="StationNameContainer" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="0" Y="-4"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter TargetName="Spacer" Property="Width" Value="205"/>
+                            <Setter TargetName="StationInfo" Property="Margin" Value="64,10"/>
+                            <Setter TargetName="StationInfo" Property="Width" Value="59"/>
+                            <Setter TargetName="StationInfo" Property="Height" Value="59"/>
+                            <Setter TargetName="ArrivalTime" Property="FontSize" Value="38"/>
+                            <Setter TargetName="StationNameContainer" Property="Width" Value="236"/>
+                            <Setter TargetName="StationNameContainer" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="-2" Y="-8"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="2">
+                            <Setter TargetName="Spacer" Property="Width" Value="135"/>
+                            <Setter TargetName="Spacer" Property="Height" Value="58"/>
+                            <Setter TargetName="StationInfo" Property="Margin" Value="57,0"/>
+                            <Setter TargetName="StationInfo" Property="Width" Value="52"/>
+                            <Setter TargetName="StationInfo" Property="Height" Value="52"/>
+                            <Setter TargetName="ArrivalTime" Property="FontSize" Value="32"/>
+                            <Setter TargetName="StationNameContainer" Property="Width" Value="204"/>
+                            <Setter TargetName="StationNameContainer" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="-2" Y="-18"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="3">
+                            <Setter TargetName="Container" Property="Margin" Value="0,-5"/>
+                            <Setter TargetName="Spacer" Property="Width" Value="72"/>
+                            <Setter TargetName="Spacer" Property="Height" Value="50"/>
+                            <Setter TargetName="StationInfo" Property="Margin" Value="40,0"/>
+                            <Setter TargetName="StationInfo" Property="Width" Value="46"/>
+                            <Setter TargetName="StationInfo" Property="Height" Value="46"/>
+                            <Setter TargetName="ArrivalTime" Property="FontSize" Value="28"/>
+                            <Setter TargetName="StationNameContainer" Property="Width" Value="181"/>
+                            <Setter TargetName="StationNameContainer" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="-25"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="4">
+                            <Setter TargetName="Container" Property="Margin" Value="0,-6"/>
+                            <Setter TargetName="Spacer" Property="Width" Value="0"/>
+                            <Setter TargetName="Spacer" Property="Height" Value="47"/>
+                            <Setter TargetName="StationInfo" Property="Margin" Value="32,0"/>
+                            <Setter TargetName="StationInfo" Property="Width" Value="44"/>
+                            <Setter TargetName="StationInfo" Property="Height" Value="44"/>
+                            <Setter TargetName="ArrivalTime" Property="FontSize" Value="24"/>
+                            <Setter TargetName="StationNameContainer" Property="Width" Value="163"/>
+                            <Setter TargetName="StationNameContainer" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="-30"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding StationState}" Value="Stop">
+                            <Setter TargetName="StationName" Property="Foreground" Value="{StaticResource ActiveText}"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding StationState}" Value="Pass">
+                            <Setter TargetName="ArrivalTimeContainer" Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsCurrent}" Value="True"/>
+                                <Condition Binding="{Binding DataContext.TrainInfo.TrainState, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="Running"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="ArrivalTimeBackground" Property="Fill" Value="#FFFFE000"/>
+                            <Setter TargetName="ArrivalTimeBackground" Property="StrokeThickness" Value="4"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsCurrent}" Value="True"/>
+                                <Condition Binding="{Binding DataContext.TrainInfo.TrainState, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="Stopping"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="StationInfo" Property="Visibility" Value="Hidden"/>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Value="English">
+                            <Setter TargetName="StationName" Property="ItemsSource" Value="{Binding StationName.English, Converter={StaticResource SplitWithLinefeed}}"/>
+                            <Setter TargetName="StationName" Property="FontFamily" Value="Microsoft Sans Serif"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RouteMapList" TargetType="ItemsControl">
+        <Style.Resources>
+            <ControlTemplate x:Key="RunningMarker" TargetType="Control">
+                <Grid Name="Container">
+                    <Canvas Width="24" Height="40" VerticalAlignment="Center">
+                        <Polygon Points="0,0 16,0 24,20 16,40 0,40 8,20" Fill="#FFFFFFFF"/>
+                        <Polygon Points="2,0 14,0 22,20 14,40 2,40 10,20" Fill="#FFA00000"/>
+                    </Canvas>
+                    <Grid.RenderTransform>
+                        <TranslateTransform x:Name="Transform" X="-28"/>
+                    </Grid.RenderTransform>
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard Duration="0:0:1.2" RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetName="Transform" Storyboard.TargetProperty="(TranslateTransform.X)" From="-48" To="-28" BeginTime="0:0:0" Duration="0:0:0.6"/>
+                                    <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="0:0:0" Duration="0:0:0.2"/>
+                                    <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="Opacity" From="1" To="0" BeginTime="0:0:0.9" Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="StoppingMarker" TargetType="Control">
+                <Grid>
+                    <Canvas Width="56" Height="42" VerticalAlignment="Center">
+                        <Polygon Points="0,0 50,0 56,21 50,42 0,42" Fill="#FFFFFFFF"/>
+                        <Grid Width="56" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Viewbox Name="MarkerForeground" Stretch="Uniform" MaxHeight="42" VerticalAlignment="Center">
+                                <Canvas Width="48" Height="40">
+                                    <Polygon Points="0,0 42,0 48,20 42,40 0,40" Fill="#FFA00000"/>
+                                </Canvas>
+                                <Viewbox.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard Duration="0:0:1" RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="MarkerForeground" Storyboard.TargetProperty="Height" From="34" To="42" BeginTime="0:0:0" Duration="0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetName="MarkerForeground" Storyboard.TargetProperty="Height" From="42" To="34" BeginTime="0:0:0.5" Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Viewbox.Triggers>
+                            </Viewbox>
+                        </Grid>
+                    </Canvas>
+                    <Ellipse Fill="#FFFFFFFF" Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </ControlTemplate>
+            <DataTemplate x:Key="Upper">
+                <Canvas Margin="-0.2,0,-0.2,2" Height="185" MinWidth="54">
+                    <Canvas Name="BeforeStationCanvas" Canvas.Top="125" Canvas.Right="27" Width="27" Height="60">
+                        <Path Name="BeforeStation">
+                            <Path.Fill>
+                                <MultiBinding Converter="{StaticResource BrushSelector}">
+                                    <Binding Source="{StaticResource LineColorBrushes}"/>
+                                    <Binding Path="LineColorIndexAtBeforeStation"/>
+                                </MultiBinding>
+                            </Path.Fill>
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <LineSegment Point="27.5,0" IsStroked="True"/>
+                                        <LineSegment Point="27.5,36" IsStroked="True"/>
+                                        <LineSegment Point="0,36" IsStroked="True"/>
+                                        <LineSegment Point="0,0" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                    <Canvas Name="AfterStationCanvas" Canvas.Top="125" Canvas.Left="27" Width="27" Height="60">
+                        <Path Name="AfterStation">
+                            <Path.Fill>
+                                <MultiBinding Converter="{StaticResource BrushSelector}">
+                                    <Binding Source="{StaticResource LineColorBrushes}"/>
+                                    <Binding Path="LineColorIndexAtAfterStation"/>
+                                </MultiBinding>
+                            </Path.Fill>
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <LineSegment Point="27.5,0" IsStroked="True"/>
+                                        <LineSegment Point="27.5,36" IsStroked="True"/>
+                                        <LineSegment Point="0,36" IsStroked="True"/>
+                                        <LineSegment Point="0,0" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                    <StackPanel Name="Container" Canvas.Top="0" HorizontalAlignment="Center" Width="54" FlowDirection="LeftToRight">
+                        <ContentControl Name="StationNameArea" Height="120" Margin="0,0,0,5">
+                            <Viewbox Name="StationNameViewBox" Width="120" Height="39" Stretch="Fill" StretchDirection="DownOnly" VerticalAlignment="Bottom">
+                                <ctrl:VerticalTextMultiLine x:Name="StationName" ItemsSource="{Binding StationName.Kanji, Converter={StaticResource SplitWithLinefeed}}"
+                                                                AlternationCount="2"
+                                                                FontFamily="Meiryo"
+                                                                FontSize="25"
+                                                                Foreground="{StaticResource InactiveText}"
+                                                                IsVertical="True">
+                                    <ctrl:VerticalTextMultiLine.Template>
+                                        <ControlTemplate TargetType="ctrl:VerticalTextMultiLine">
+                                            <StackPanel IsItemsHost="True"/>
+                                        </ControlTemplate>
+                                    </ctrl:VerticalTextMultiLine.Template>
+                                    <ctrl:VerticalTextMultiLine.ItemContainerStyle>
+                                        <Style TargetType="ContentPresenter">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Items.Count, RelativeSource={RelativeSource AncestorType={x:Type ctrl:VerticalTextMultiLine}}}" Value="2">
+                                                    <Setter Property="Margin" Value="0,-3"/>
+                                                </DataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding Items.Count, RelativeSource={RelativeSource AncestorType={x:Type ctrl:VerticalTextMultiLine}}}" Value="2"/>
+                                                        <Condition Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="English"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Margin" Value="0,-2"/>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ctrl:VerticalTextMultiLine.ItemContainerStyle>
+                                    <ctrl:VerticalTextMultiLine.ItemTemplate>
+                                        <DataTemplate>
+                                            <ctrl:VerticalTextControl x:Name="Text"
+                                                                  AdvanceWidth="{Binding AdvanceWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  FontFamily="{Binding FontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  FontSize="{Binding FontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  IsVertical="{Binding IsVertical, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  Text="{Binding}"
+                                                                  TextAlignment="Right"/>
+                                        </DataTemplate>
+                                    </ctrl:VerticalTextMultiLine.ItemTemplate>
+                                </ctrl:VerticalTextMultiLine>
+                                <Viewbox.LayoutTransform>
+                                    <RotateTransform Angle="90"/>
+                                </Viewbox.LayoutTransform>
+                            </Viewbox>
+                        </ContentControl>
+                        <Canvas Width="54" Height="36" FlowDirection="{Binding FlowDirection, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Grid Name="StationInfo" Width="54" Height="36">
+                                <Ellipse Name="ArrivalTimeBackground" Width="16" Height="16" Fill="#FFFFFFFF" Stroke="#FFFFFFFF" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Name="ArrivalTimeContainer" Height="22" Width="24" Visibility="Collapsed">
+                                    <Viewbox Stretch="Fill" StretchDirection="DownOnly">
+                                        <TextBlock Name="ArrivalTime" FontFamily="Microsoft Sans Serif" FontSize="24" FontWeight="Bold" Foreground="{StaticResource ActiveText}" Text="{Binding ArrivalTime}" TextAlignment="Center"/>
+                                    </Viewbox>
+                                </Border>
+                            </Grid>
+                            <Control Name="Marker" Width="54" Height="36" RenderTransformOrigin="0.5,0.5"/>
+                        </Canvas>
+                    </StackPanel>
+                </Canvas>
+                <DataTemplate.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockStart}" Value="True"/>
+                            <Condition Binding="{Binding IsLineEnd}" Value="False"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Forward"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="BeforeStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="BeforeStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,60">
+                                        <LineSegment Point="0,56" IsStroked="True"/>
+                                        <ArcSegment Point="56,0" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="90.5,0" IsStroked="True"/>
+                                        <LineSegment Point="90.5,36" IsStroked="True"/>
+                                        <LineSegment Point="56,36" IsStroked="True"/>
+                                        <ArcSegment Point="36,56" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="36,60" IsStroked="True"/>
+                                        <LineSegment Point="18,52" IsStroked="True"/>
+                                        <LineSegment Point="0,60" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockStart}" Value="True"/>
+                            <Condition Binding="{Binding IsLineEnd}" Value="False"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Opposite"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="BeforeStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="BeforeStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,60">
+                                        <LineSegment Point="0,56" IsStroked="True"/>
+                                        <ArcSegment Point="56,0" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="90.5,0" IsStroked="True"/>
+                                        <LineSegment Point="90.5,36" IsStroked="True"/>
+                                        <LineSegment Point="56,36" IsStroked="True"/>
+                                        <ArcSegment Point="36,56" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="36,60" IsStroked="True"/>
+                                        <LineSegment Point="18,68" IsStroked="True"/>
+                                        <LineSegment Point="0,60" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockEnd}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Forward"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="AfterStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="AfterStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="-0.5,0">
+                                        <LineSegment Point="34,0" IsStroked="True"/>
+                                        <ArcSegment Point="90,56" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="90,60" IsStroked="True"/>
+                                        <LineSegment Point="72,68" IsStroked="True"/>
+                                        <LineSegment Point="54,60" IsStroked="True"/>
+                                        <LineSegment Point="54,56" IsStroked="True"/>
+                                        <ArcSegment Point="34,36" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="-0.5,36" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockEnd}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Opposite"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="AfterStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="AfterStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="-0.5,0">
+                                        <LineSegment Point="34,0" IsStroked="True"/>
+                                        <ArcSegment Point="90,56" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="90,60" IsStroked="True"/>
+                                        <LineSegment Point="72,52" IsStroked="True"/>
+                                        <LineSegment Point="54,60" IsStroked="True"/>
+                                        <LineSegment Point="54,56" IsStroked="True"/>
+                                        <ArcSegment Point="34,36" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="-0.5,36" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    
+                    <DataTrigger Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Opposite">
+                        <Setter TargetName="Marker" Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding StationState}" Value="Stop">
+                        <Setter TargetName="StationName" Property="Foreground" Value="{StaticResource ActiveText}"/>
+                    </DataTrigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding StationState}" Value="Stop"/>
+                            <Condition Binding="{Binding IsArrivalTimeEnabled}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrivalTimeContainer" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Width" Value="32"/>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Height" Value="32"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsCurrent}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.TrainState, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Running"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Fill" Value="#FFFFE000"/>
+                        <Setter TargetName="ArrivalTimeBackground" Property="StrokeThickness" Value="2"/>
+                        <Setter TargetName="Marker" Property="Template" Value="{StaticResource RunningMarker}"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsCurrent}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.TrainState, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Stopping"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="Marker" Property="Template" Value="{StaticResource StoppingMarker}"/>
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="English">
+                        <Setter TargetName="StationName" Property="ItemsSource" Value="{Binding StationName.English, Converter={StaticResource SplitWithLinefeed}}"/>
+                        <Setter TargetName="StationName" Property="IsVertical" Value="False"/>
+                        <Setter TargetName="StationName" Property="FontFamily" Value="Microsoft Sans Serif"/>
+                        <Setter TargetName="StationName" Property="FontSize" Value="20"/>
+                        <Setter TargetName="StationName" Property="HorizontalAlignment" Value="Left"/>
+                        <Setter TargetName="StationNameViewBox" Property="LayoutTransform">
+                            <Setter.Value>
+                                <RotateTransform Angle="270"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="StationNameArea" Property="RenderTransformOrigin" Value="0,0.5"/>
+                        <Setter TargetName="StationNameArea" Property="RenderTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="30"/>
+                                    <TranslateTransform X="36" Y="-8"/>
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+            <DataTemplate x:Key="Lower">
+                <Canvas Margin="-0.2,2,-0.2,0" MinWidth="54">
+                    <Canvas Name="BeforeStationCanvas" Canvas.Top="0" Canvas.Right="27" Width="27" Height="60">
+                        <Path Name="BeforeStation" Canvas.Top="24">
+                            <Path.Fill>
+                                <MultiBinding Converter="{StaticResource BrushSelector}">
+                                    <Binding Source="{StaticResource LineColorBrushes}"/>
+                                    <Binding Path="LineColorIndexAtBeforeStation"/>
+                                </MultiBinding>
+                            </Path.Fill>
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <LineSegment Point="27.5,0" IsStroked="True"/>
+                                        <LineSegment Point="27.5,36" IsStroked="True"/>
+                                        <LineSegment Point="0,36" IsStroked="True"/>
+                                        <LineSegment Point="0,0" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                    <Canvas Name="AfterStationCanvas" Canvas.Top="0" Canvas.Left="27" Width="27" Height="60">
+                        <Path Name="AfterStation" Canvas.Top="24">
+                            <Path.Fill>
+                                <MultiBinding Converter="{StaticResource BrushSelector}">
+                                    <Binding Source="{StaticResource LineColorBrushes}"/>
+                                    <Binding Path="LineColorIndexAtAfterStation"/>
+                                </MultiBinding>
+                            </Path.Fill>
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <LineSegment Point="27.5,0" IsStroked="True"/>
+                                        <LineSegment Point="27.5,36" IsStroked="True"/>
+                                        <LineSegment Point="0,36" IsStroked="True"/>
+                                        <LineSegment Point="0,0" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                    <StackPanel Name="Container" Canvas.Top="24" HorizontalAlignment="Center" Width="54" FlowDirection="LeftToRight">
+                        <Canvas Width="54" Height="36" FlowDirection="{Binding FlowDirection, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Grid Name="StationInfo" Width="54" Height="36">
+                                <Ellipse Name="ArrivalTimeBackground" Width="16" Height="16" Fill="#FFFFFFFF" Stroke="#FFFFFFFF" StrokeThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Name="ArrivalTimeContainer" Height="22" Width="24" Visibility="Collapsed">
+                                    <Viewbox Stretch="Fill" StretchDirection="DownOnly">
+                                        <TextBlock Name="ArrivalTime" FontFamily="Microsoft Sans Serif" FontSize="24" FontWeight="Bold" Foreground="{StaticResource ActiveText}" Text="{Binding ArrivalTime}" TextAlignment="Center"/>
+                                    </Viewbox>
+                                </Border>
+                            </Grid>
+                            <Control Name="Marker" Width="54" Height="36" RenderTransformOrigin="0.5,0.5"/>
+                        </Canvas>
+                        <ContentControl Name="StationNameArea" Margin="0,5">
+                            <Viewbox Name="StationNameViewBox" Width="115" Height="39" Stretch="Fill" StretchDirection="DownOnly" VerticalAlignment="Top">
+                                <ctrl:VerticalTextMultiLine x:Name="StationName" ItemsSource="{Binding StationName.Kanji, Converter={StaticResource SplitWithLinefeed}}"
+                                                                AlternationCount="2"
+                                                                FontFamily="Meiryo"
+                                                                FontSize="25"
+                                                                Foreground="{StaticResource InactiveText}"
+                                                                IsVertical="True">
+                                    <ctrl:VerticalTextMultiLine.Template>
+                                        <ControlTemplate TargetType="ctrl:VerticalTextMultiLine">
+                                            <StackPanel IsItemsHost="True"/>
+                                        </ControlTemplate>
+                                    </ctrl:VerticalTextMultiLine.Template>
+                                    <ctrl:VerticalTextMultiLine.ItemContainerStyle>
+                                        <Style TargetType="ContentPresenter">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Items.Count, RelativeSource={RelativeSource AncestorType={x:Type ctrl:VerticalTextMultiLine}}}" Value="2">
+                                                    <Setter Property="Margin" Value="0,-3"/>
+                                                </DataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding Items.Count, RelativeSource={RelativeSource AncestorType={x:Type ctrl:VerticalTextMultiLine}}}" Value="2"/>
+                                                        <Condition Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="English"/>
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Margin" Value="0,-2"/>
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ctrl:VerticalTextMultiLine.ItemContainerStyle>
+                                    <ctrl:VerticalTextMultiLine.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Control Name="Spacer" Width="20" Visibility="Collapsed"/>
+                                                <ctrl:VerticalTextControl x:Name="Text"
+                                                                  AdvanceWidth="{Binding AdvanceWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  FontFamily="{Binding FontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  FontSize="{Binding FontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  IsVertical="{Binding IsVertical, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:VerticalTextMultiLine}}}"
+                                                                  Text="{Binding}"
+                                                                  TextAlignment="Right"/>
+                                            </StackPanel>
+                                            <DataTemplate.Triggers>
+                                                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                                    <Setter TargetName="Spacer" Property="Visibility" Value="Visible"/>
+                                                </Trigger>
+                                                <DataTrigger Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="English">
+                                                    <Setter TargetName="Spacer" Property="Width" Value="40"/>
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ctrl:VerticalTextMultiLine.ItemTemplate>
+                                </ctrl:VerticalTextMultiLine>
+                                <Viewbox.LayoutTransform>
+                                    <RotateTransform Angle="90"/>
+                                </Viewbox.LayoutTransform>
+                            </Viewbox>
+                        </ContentControl>
+                    </StackPanel>
+                </Canvas>
+                <DataTemplate.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockStart}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Forward"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="BeforeStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="BeforeStation" Property="Canvas.Top" Value="0"/>
+                        <Setter TargetName="BeforeStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <LineSegment Point="0,4" IsStroked="True"/>
+                                        <ArcSegment Point="56,60" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="90.5,60" IsStroked="True"/>
+                                        <LineSegment Point="90.5,24" IsStroked="True"/>
+                                        <LineSegment Point="56,24" IsStroked="True"/>
+                                        <ArcSegment Point="36,4" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="36,0" IsStroked="True"/>
+                                        <LineSegment Point="18,8" IsStroked="True"/>
+                                        <LineSegment Point="0,0" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockStart}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Opposite"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="BeforeStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="BeforeStation" Property="Canvas.Top" Value="0"/>
+                        <Setter TargetName="BeforeStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="0,0">
+                                        <LineSegment Point="0,4" IsStroked="True"/>
+                                        <ArcSegment Point="56,60" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="90.5,60" IsStroked="True"/>
+                                        <LineSegment Point="90.5,24" IsStroked="True"/>
+                                        <LineSegment Point="56,24" IsStroked="True"/>
+                                        <ArcSegment Point="36,4" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="36,0" IsStroked="True"/>
+                                        <LineSegment Point="18,-8" IsStroked="True"/>
+                                        <LineSegment Point="0,0" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockEnd}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Forward"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="AfterStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="AfterStation" Property="Canvas.Top" Value="0"/>
+                        <Setter TargetName="AfterStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="-0.5,60">
+                                        <LineSegment Point="34,60" IsStroked="True"/>
+                                        <ArcSegment Point="90,4" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="90,0" IsStroked="True"/>
+                                        <LineSegment Point="72,-8" IsStroked="True"/>
+                                        <LineSegment Point="54,0" IsStroked="True"/>
+                                        <LineSegment Point="54,4" IsStroked="True"/>
+                                        <ArcSegment Point="34,24" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="-0.5,24" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsRouteMapBlockEnd}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Opposite"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="AfterStationCanvas" Property="Width" Value="90"/>
+                        <Setter TargetName="AfterStation" Property="Canvas.Top" Value="0"/>
+                        <Setter TargetName="AfterStation" Property="Data">
+                            <Setter.Value>
+                                <PathGeometry>
+                                    <PathFigure StartPoint="-0.5,60">
+                                        <LineSegment Point="34,60" IsStroked="True"/>
+                                        <ArcSegment Point="90,4" IsStroked="True" Size="56,56" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                        <LineSegment Point="90,0" IsStroked="True"/>
+                                        <LineSegment Point="72,8" IsStroked="True"/>
+                                        <LineSegment Point="54,0" IsStroked="True"/>
+                                        <LineSegment Point="54,4" IsStroked="True"/>
+                                        <ArcSegment Point="34,24" IsStroked="True" Size="20,20" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                        <LineSegment Point="-0.5,24" IsStroked="True"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+
+                    <DataTrigger Binding="{Binding DataContext.TrainInfo.Direction, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Opposite">
+                        <Setter TargetName="Marker" Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding StationState}" Value="Stop">
+                        <Setter TargetName="StationName" Property="Foreground" Value="{StaticResource ActiveText}"/>
+                    </DataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding StationState}" Value="Stop"/>
+                            <Condition Binding="{Binding IsArrivalTimeEnabled}" Value="True"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrivalTimeContainer" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Width" Value="32"/>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Height" Value="32"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsCurrent}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.TrainState, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Running"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Fill" Value="#FFFFE000"/>
+                        <Setter TargetName="ArrivalTimeBackground" Property="StrokeThickness" Value="2"/>
+                        <Setter TargetName="Marker" Property="Template" Value="{StaticResource RunningMarker}"/>
+                    </MultiDataTrigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsCurrent}" Value="True"/>
+                            <Condition Binding="{Binding DataContext.TrainInfo.TrainState, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="Stopping"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="ArrivalTimeBackground" Property="Visibility" Value="Collapsed"/>
+                        <Setter TargetName="Marker" Property="Template" Value="{StaticResource StoppingMarker}"/>
+                    </MultiDataTrigger>
+                    
+                    <DataTrigger Binding="{Binding DataContext.OptionalArea.Language, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}, AncestorLevel=2}}" Value="English">
+                        <Setter TargetName="StationName" Property="ItemsSource" Value="{Binding StationName.English, Converter={StaticResource SplitWithLinefeed}}"/>
+                        <Setter TargetName="StationName" Property="IsVertical" Value="False"/>
+                        <Setter TargetName="StationName" Property="FontFamily" Value="Microsoft Sans Serif"/>
+                        <Setter TargetName="StationName" Property="FontSize" Value="20"/>
+                        <Setter TargetName="StationName" Property="HorizontalAlignment" Value="Right"/>
+                        <Setter TargetName="StationNameViewBox" Property="Width" Value="115"/>
+                        <Setter TargetName="StationNameViewBox" Property="LayoutTransform">
+                            <Setter.Value>
+                                <RotateTransform Angle="270"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="StationNameArea" Property="RenderTransformOrigin" Value="0,0"/>
+                        <Setter TargetName="StationNameArea" Property="RenderTransform">
+                            <Setter.Value>
+                                <TransformGroup>
+                                    <RotateTransform Angle="30"/>
+                                    <TranslateTransform X="0" Y="-10"/>
+                                </TransformGroup>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </Style.Resources>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ItemsControl">
+                    <StackPanel Name="Host" IsItemsHost="True" Orientation="Horizontal"/>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Direction}" Value="Opposite">
+                            <Setter TargetName="Host" Property="FlowDirection" Value="RightToLeft"/>                            
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Panel.ZIndex" Value="-1"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsCurrent}" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="1"/>
+                        </DataTrigger>                        
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate" Value="{StaticResource Upper}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Direction}" Value="Opposite">
+                <Setter Property="ItemTemplate" Value="{StaticResource Lower}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="DetailedRouteMap" TargetType="Control">
+        <ControlTemplate.Resources>
+            <ControlTemplate x:Key="RunningMarker" TargetType="Control">
+                <Grid Name="Container" Margin="300,0,0,20" Width="80" Height="100" RenderTransformOrigin="1,1">
+                    <Canvas Width="75" Height="40" VerticalAlignment="Center">
+                        <Polygon Points="0,14 37.5,0 75,14 75,40 37.5,26 0,40" Fill="#FFA00000" Stroke="#FFFFFFFF" StrokeThickness="3" StrokeLineJoin="Round"/>
+                    </Canvas>
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform x:Name="Transform" Y="85"/>
+                            <RotateTransform Angle="26"/>
+                        </TransformGroup>
+                    </Grid.RenderTransform>
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard Duration="0:0:1.3" RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetName="Transform" Storyboard.TargetProperty="(TranslateTransform.Y)" From="85" To="52" BeginTime="0:0:0" Duration="0:0:0.6"/>
+                                    <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="0:0:0" Duration="0:0:0.2"/>
+                                    <DoubleAnimation Storyboard.TargetName="Container" Storyboard.TargetProperty="Opacity" From="1" To="0" BeginTime="0:0:1" Duration="0:0:0.3"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+            </ControlTemplate>
+            <ControlTemplate x:Key="StoppingMarker" TargetType="Control">
+                <Grid Margin="300,0,0,20" Width="80" Height="100" RenderTransformOrigin="1,1">
+                    <Canvas Width="80" Height="100" VerticalAlignment="Center">
+                        <Polygon Points="0,100 0,15 40,0 80,15 80,100" Fill="#FFFFFFFF"/>
+                        <Grid Width="80" Height="100">
+                            <Viewbox Name="MarkerForeground" Stretch="Uniform" MaxHeight="96" VerticalAlignment="Center">
+                                <Canvas Width="80" Height="100">
+                                    <Polygon Points="0,100 0,15 40,0 80,15 80,100" Fill="#FFA00000"/>
+                                </Canvas>
+                                <Viewbox.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard Duration="0:0:1" RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="MarkerForeground" Storyboard.TargetProperty="Height" From="86" To="96" BeginTime="0:0:0" Duration="0:0:0.5"/>
+                                                <DoubleAnimation Storyboard.TargetName="MarkerForeground" Storyboard.TargetProperty="Height" From="96" To="86" BeginTime="0:0:0.5" Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Viewbox.Triggers>
+                            </Viewbox>
+                        </Grid>
+                    </Canvas>
+                    <Ellipse Fill="#FFFFFFFF" Width="24" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Grid.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="30"/>
+                            <ScaleTransform ScaleY="0.8"/>
+                            <TranslateTransform Y="-10"/>
+                        </TransformGroup>
+                    </Grid.RenderTransform>
+                </Grid>
+            </ControlTemplate>
+
+            <cvt:TransferDisplaySelector x:Key="TransferDisplaySelectorKanji" TargetMode="DetailedRouteMap" TargetLanguage="Kanji"/>
+            <cvt:TransferDisplaySelector x:Key="TransferDisplaySelectorEnglish" TargetMode="DetailedRouteMap" TargetLanguage="English"/>
+
+            <ControlTemplate x:Key="TransferInfoJapanese" TargetType="Control">
+                <StackPanel>
+                    <TextBlock FontSize="24" FontFamily="Meiryo" FontWeight="Bold" Text="{Binding StationInfo.Name.Kanji, StringFormat={}{0}駅}" TextAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                    <TextBlock FontSize="24" FontFamily="Meiryo" Foreground="#FFA0A0A0" Text="乗換えのご案内" TextAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                    <ctrl:TransferInfoPresenter x:Name="TransferInfoContainer" Margin="0,5" MaxWidth="330" Source="{Binding StationInfo.Transfer, Converter={StaticResource TransferDisplaySelectorKanji}}" DistributesColumnWidthEqually="True" HorizontalAlignment="Right">
+                        <ctrl:TransferInfoPresenter.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="2,0,0,5">
+                                    <ctrl:LineIcon x:Name="Icon" DockPanel.Dock="Left" Style="{StaticResource LineIcon}" DataContext="{Binding ActiveIcon}" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" IconType="{Binding IconType}" PrimaryLineColor="{Binding LineColor}" SecondaryLineColor="{Binding LineColor2}" LineLetter="{Binding LineLetter}" LineLetterColor="{StaticResource ActiveText}"/>
+                                    <Viewbox Margin="5,0,10,0" MinHeight="24" Stretch="Fill" StretchDirection="DownOnly" HorizontalAlignment="Left">
+                                        <TextBlock FontFamily="Microsoft Sans Serif" FontSize="24" Foreground="#FF000000" Text="{Binding LineInfo.Kanji}" TextAlignment="Left" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                                    </Viewbox>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ctrl:TransferInfoPresenter.ItemTemplate>
+                    </ctrl:TransferInfoPresenter>
+                </StackPanel>
+            </ControlTemplate>
+            
+            <ControlTemplate x:Key="TransferInfoEnglish" TargetType="Control">
+                <StackPanel>
+                    <TextBlock FontSize="24" FontFamily="Microsoft Sans Serif" Foreground="#FFA0A0A0" Text="Transfer at" TextAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                    <TextBlock FontSize="24" FontFamily="Microsoft Sans Serif" FontWeight="Bold" Text="{Binding StationInfo.Name.English, StringFormat={}{0} Station}" TextAlignment="Right" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                    <ctrl:TransferInfoPresenter x:Name="TransferInfoContainer" Margin="0,5" MaxWidth="330" Source="{Binding StationInfo.Transfer, Converter={StaticResource TransferDisplaySelectorEnglish}}" DistributesColumnWidthEqually="True" HorizontalAlignment="Right">
+                        <ctrl:TransferInfoPresenter.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel Margin="2,0,0,5">
+                                    <ctrl:LineIcon x:Name="Icon" DockPanel.Dock="Left" Style="{StaticResource LineIcon}" DataContext="{Binding ActiveIcon}" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" IconType="{Binding IconType}" PrimaryLineColor="{Binding LineColor}" SecondaryLineColor="{Binding LineColor2}" LineLetter="{Binding LineLetter}" LineLetterColor="{StaticResource ActiveText}"/>
+                                    <Grid>
+                                        <TextBlock Visibility="Hidden" FontFamily="Microsoft Sans Serif" FontSize="24" Text="{Binding LineInfo.English}" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                                        <Viewbox Margin="5,0,10,0" Stretch="Fill" StretchDirection="DownOnly" HorizontalAlignment="Left">
+                                            <TextBlock FontFamily="Microsoft Sans Serif" FontSize="24" Foreground="#FF000000" Text="{Binding LineInfo.English}" TextAlignment="Left" LineStackingStrategy="BlockLineHeight" LineHeight="25"/>
+                                        </Viewbox>
+                                    </Grid>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ctrl:TransferInfoPresenter.ItemTemplate>
+                    </ctrl:TransferInfoPresenter>
+                </StackPanel>
+            </ControlTemplate>
+        </ControlTemplate.Resources>
+        <Grid Name="Container">
+            <Canvas Width="960" Height="380">
+                <Path Name="Line" Fill="{StaticResource DefaultLineColor}" Stroke="#FF00A000" StrokeThickness="5">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="250,380">
+                                <ArcSegment Size="1000,600" Point="750,0" IsStroked="False" IsLargeArc="False" SweepDirection="Clockwise"/>
+                                <LineSegment Point="960,0" IsStroked="False"/>
+                                <ArcSegment Size="900,500" Point="400,380" IsStroked="True" IsLargeArc="False" SweepDirection="Counterclockwise"/>
+                                <LineSegment Point="250,380" IsStroked="False"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            <ItemsControl ItemsSource="{Binding DetailedRouteMap}" Style="{StaticResource DetailedRouteMapList}" VerticalAlignment="Bottom" Margin="0,0,0,40"/>
+            <Control Name="Marker" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <Control Name="Transfer" Margin="0,85,10,0" Width="350" HorizontalAlignment="Right" Template="{StaticResource TransferInfoJapanese}"/>
+            <TextBlock Name="Caption" Margin="16,0" FontFamily="Meiryo" FontSize="12" VerticalAlignment="Bottom" TextAlignment="Right" FlowDirection="LeftToRight" Text="のりかえ、待合わせ時間は含まれません。電車により多少時間が異なります。"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding TrainInfo.Direction}" Value="Opposite">
+                <Setter TargetName="Container" Property="FlowDirection" Value="RightToLeft"/>
+                <Setter TargetName="Caption" Property="TextAlignment" Value="Left"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TrainInfo.TrainState}" Value="Running">
+                <Setter TargetName="Marker" Property="Template" Value="{StaticResource RunningMarker}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding TrainInfo.TrainState}" Value="Stopping">
+                <Setter TargetName="Marker" Property="Template" Value="{StaticResource StoppingMarker}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OptionalArea.Language}" Value="English">
+                <Setter TargetName="Caption" Property="Text" Value="Transfer and waiting times are not included. Times may differ by train."/>
+                <Setter TargetName="Caption" Property="FontSize" Value="13"/>
+                <Setter TargetName="Transfer" Property="Template" Value="{StaticResource TransferInfoEnglish}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding StationInfo.Transfer}" Value="{x:Null}">
+                <Setter TargetName="Transfer" Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <ControlTemplate x:Key="RouteMap" TargetType="Control">
+        <Grid>
+            <ItemsControl Margin="8,0,8,24" ItemsSource="{Binding RouteMaps, Converter={StaticResource RouteMapSelector}}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <StackPanel IsItemsHost="True" Orientation="Vertical"/>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ItemsControl Name="Block" ItemsSource="{Binding Stations}" Style="{StaticResource RouteMapList}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Name="Caption" Margin="16,0" FontFamily="Meiryo" FontSize="12" VerticalAlignment="Bottom" TextAlignment="Left" Text="のりかえ、待合わせ時間は含まれません。電車により多少時間が異なります。"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding OptionalArea.Language}" Value="English">
+                <Setter TargetName="Caption" Property="Text" Value="Transfer and waiting times are not included. Times may differ by train."/>
+                <Setter TargetName="Caption" Property="FontSize" Value="13"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Train" TargetType="Control">
+        <ItemsControl ItemsSource="{Binding Train}">
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <StackPanel Name="Container" Orientation="Horizontal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
+                        <Control Name="Offset" Width="{Binding StationInfo.StopPosOffset, Converter={StaticResource TrainOffsetConverter}}"/>
+                        <Grid Name="Spacer"/>
+                        <Grid>
+                            <StackPanel Name="Train" IsItemsHost="True" Orientation="Horizontal" FlowDirection="RightToLeft"/>
+                            <Canvas Name="Arrow" Width="17" Height="30" Margin="-24,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Polygon Fill="#FF404040" Points="17,0, 0,15, 17,30"/>
+                            </Canvas>
+                        </Grid>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Side}" Value="Right">
+                            <Setter TargetName="Container" Property="FlowDirection" Value="LeftToRight"/>
+                            <Setter TargetName="Container" Property="HorizontalAlignment" Value="Left"/>
+                            <Setter TargetName="Train" Property="FlowDirection" Value="LeftToRight"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Name="Container" Margin="2,1" Width="72" Height="36">
+                        <Canvas>
+                            <Path Name="CarBody" Fill="#FFD0D9E0" Stroke="#FF000000" StrokeThickness="0.6" StrokeLineJoin="Round">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,0">
+                                            <LineSegment Point="72,0" IsStroked="True"/>
+                                            <LineSegment Point="72,36" IsStroked="True"/>
+                                            <LineSegment Point="0,36" IsStroked="True"/>
+                                            <LineSegment Point="0,0" IsStroked="True"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Path Name="ActiveCarBody">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="3,3">
+                                            <LineSegment Point="71,3" IsStroked="False"/>
+                                            <LineSegment Point="71,35" IsStroked="False"/>
+                                            <LineSegment Point="3,35" IsStroked="False"/>
+                                            <LineSegment Point="3,3" IsStroked="False"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                        <TextBlock Name="CarNumber" Foreground="#FF000000" FontFamily="Microsoft Sans Serif" FontStyle="Italic" FontWeight="Bold" FontSize="32" Text="{Binding CarNumber}" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock.RenderTransform>
+                                <TranslateTransform X="4"/>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.Side, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" Value="Right">
+                            <Setter TargetName="CarNumber" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform X="-4"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource EquivalenceConverter}">
+                                    <Binding Path="CarNumber"/>
+                                    <Binding Path="DataContext.CarNumber" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter TargetName="Container" Property="Margin" Value="1,0"/>
+                            <Setter TargetName="Container" Property="Width" Value="74"/>
+                            <Setter TargetName="Container" Property="Height" Value="38"/>
+                            <Setter TargetName="CarBody" Property="Fill" Value="#FFFFFFFF"/>
+                            <Setter TargetName="CarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,0">
+                                            <LineSegment Point="74,0" IsStroked="True"/>
+                                            <LineSegment Point="74,38" IsStroked="True"/>
+                                            <LineSegment Point="0,38" IsStroked="True"/>
+                                            <LineSegment Point="0,0" IsStroked="True"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="ActiveCarBody" Property="Fill" Value="#FFD00000"/>
+                            <Setter TargetName="CarNumber" Property="Foreground" Value="#FFFFFFFF"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsTrainHead}" Value="True">
+                            <Setter TargetName="CarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="12,0">
+                                            <LineSegment Point="72,0" IsStroked="True"/>
+                                            <LineSegment Point="72,36" IsStroked="True"/>
+                                            <LineSegment Point="12,36" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="0,22" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="0,14" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="12,0" IsStroked="True" SweepDirection="Clockwise"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsTrainHead}" Value="True"/>
+                                <Condition Value="True">
+                                    <Condition.Binding>
+                                        <MultiBinding Converter="{StaticResource EquivalenceConverter}">
+                                            <Binding Path="CarNumber"/>
+                                            <Binding Path="DataContext.CarNumber" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                        </MultiBinding>
+                                    </Condition.Binding>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="CarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="12,0">
+                                            <LineSegment Point="74,0" IsStroked="True"/>
+                                            <LineSegment Point="74,38" IsStroked="True"/>
+                                            <LineSegment Point="12,38" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="0,24" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="0,14" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="12,0" IsStroked="True" SweepDirection="Clockwise"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="ActiveCarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="12,3">
+                                            <LineSegment Point="71,3" IsStroked="True"/>
+                                            <LineSegment Point="71,35" IsStroked="True"/>
+                                            <LineSegment Point="12,35" IsStroked="True"/>
+                                            <ArcSegment Size="9,11" Point="3,24" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="3,14" IsStroked="True"/>
+                                            <ArcSegment Size="9,11" Point="12,3" IsStroked="True" SweepDirection="Clockwise"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding IsTrainTail}" Value="True">
+                            <Setter TargetName="CarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,0">
+                                            <LineSegment Point="60,0" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="72,14" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="72,22" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="60,36" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="0,36" IsStroked="True"/>
+                                            <LineSegment Point="0,0" IsStroked="True"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsTrainTail}" Value="True"/>
+                                <Condition Value="True">
+                                    <Condition.Binding>
+                                        <MultiBinding Converter="{StaticResource EquivalenceConverter}">
+                                            <Binding Path="CarNumber"/>
+                                            <Binding Path="DataContext.CarNumber" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}"/>
+                                        </MultiBinding>
+                                    </Condition.Binding>
+                                </Condition>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="CarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="0,0">
+                                            <LineSegment Point="62,0" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="74,14" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="74,22" IsStroked="True"/>
+                                            <ArcSegment Size="12,14" Point="62,38" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="0,38" IsStroked="True"/>
+                                            <LineSegment Point="0,0" IsStroked="True"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="ActiveCarBody" Property="Data">
+                                <Setter.Value>
+                                    <PathGeometry>
+                                        <PathFigure StartPoint="3,3">
+                                            <LineSegment Point="62,3" IsStroked="True"/>
+                                            <ArcSegment Size="9,11" Point="71,14" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="71,22" IsStroked="True"/>
+                                            <ArcSegment Size="9,11" Point="62,35" IsStroked="True" SweepDirection="Clockwise"/>
+                                            <LineSegment Point="3,35" IsStroked="True"/>
+                                            <LineSegment Point="3,3" IsStroked="True"/>
+                                        </PathFigure>
+                                    </PathGeometry>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="PlatformBase" TargetType="Control">
+        <ControlTemplate.Resources>
+            <VisualBrush x:Key="Line" Stretch="None" TileMode="Tile" Viewport="0,0,15,3" ViewportUnits="Absolute">
+                <VisualBrush.Visual>
+                    <Canvas Width="15" Height="3">
+                        <Rectangle Width="8" Height="3" Fill="#FFE0E080"/>
+                    </Canvas>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </ControlTemplate.Resources>
+        <StackPanel Width="{Binding StationInfo.Platform.Length, Converter={StaticResource PlatformWidthConverter}}" Height="148">
+            <Border Height="138" Background="#FFC0C9D0">
+                <DockPanel LastChildFill="False">
+                    <Border DockPanel.Dock="Top" Margin="0,5" Height="3" Background="{StaticResource Line}"/>
+                    <Border DockPanel.Dock="Bottom" Margin="0,5" Height="3" Background="{StaticResource Line}"/>
+                </DockPanel>
+            </Border>
+            <Border Height="10" Background="#FF607080"/>
+        </StackPanel>
+    </ControlTemplate>
+
+    <Style x:Key="PlatformBlocks" TargetType="ItemsControl">
+        <Style.Resources>
+            <Style x:Key="PlatformObject" TargetType="Control">
+                <Style.Resources>
+                    <ControlTemplate x:Key="UpStairs" TargetType="Control">
+                        <Viewbox Width="36" Height="50" Stretch="Uniform">
+                            <ctrl:SvgPresenter Source="Themes\E235-0\SVG\UpStairs.svg"/>
+                        </Viewbox>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="DownStairs" TargetType="Control">
+                        <Grid Width="36" Height="26" Background="#FF808080" ClipToBounds="True">
+                            <Viewbox Width="45" Height="60" Stretch="Uniform" Margin="-3,1,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\DownStairs.svg"/>
+                            </Viewbox>
+                        </Grid>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="UpEscalator" TargetType="Control">
+                        <Viewbox Width="36" Height="45" Stretch="Uniform">
+                            <ctrl:SvgPresenter Source="Themes\E235-0\SVG\UpEscalator.svg"/>
+                        </Viewbox>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="DownEscalator" TargetType="Control">
+                        <Grid Width="36" Height="30" ClipToBounds="True">
+                            <Border Width="24" Height="26" Background="#FF808080" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                            <Viewbox Width="50" Height="55" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\DownEscalator.svg"/>
+                            </Viewbox>
+                        </Grid>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="Elevator" TargetType="Control">
+                        <Viewbox Width="36" Height="60" Stretch="Uniform">
+                            <ctrl:SvgPresenter Source="Themes\E235-0\SVG\Elevator.svg"/>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Style.Resources>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="DataContext" Value="{Binding Objects[0]}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Control">
+                            <Control Name="ObjectIcon" Template="{StaticResource UpStairs}" RenderTransformOrigin="0.5,0.5"/>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Key}" Value="DownStairs">
+                                    <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource DownStairs}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Key}" Value="UpEscalator">
+                                    <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource UpEscalator}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Key}" Value="DownEscalator">
+                                    <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource DownEscalator}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Key}" Value="Elevator">
+                                    <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource Elevator}"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Direction}" Value="Opposite">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Direction}" Value="None">
+                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="PlatformObjectDoubleIcon" TargetType="Control">
+                <Style.Resources>
+                    <ControlTemplate x:Key="UpStairsAndEscalator" TargetType="Control">
+                        <Canvas Width="36" Height="60">
+                            <Viewbox Width="36" Stretch="Uniform" Canvas.Top="0">
+                                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\UpStairs.svg"/>
+                            </Viewbox>
+                            <Viewbox Width="38" Stretch="Uniform" Canvas.Bottom="0" Canvas.Left="-1">
+                                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\UpEscalator.svg"/>
+                            </Viewbox>
+                        </Canvas>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="UpEscalatorAndStairs" TargetType="Control">
+                        <Canvas Width="36" Height="60">
+                            <Viewbox Width="38" Stretch="Uniform" Canvas.Top="0" Canvas.Left="-1">
+                                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\UpEscalator.svg"/>
+                            </Viewbox>
+                            <Viewbox Width="36" Stretch="Uniform" Canvas.Bottom="0">
+                                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\UpStairs_small.svg"/>
+                            </Viewbox>
+                        </Canvas>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="DownStairsAndEscalator" TargetType="Control">
+                        <Canvas Width="36" Height="50">
+                            <Border Width="34" Height="20" Background="#FF808080" Canvas.Top="0" Canvas.Left="2"/>
+                            <Border Width="27" Height="50" Background="#FF808080" Canvas.Bottom="0" Canvas.Right="0"/>
+                            <Canvas Width="34" Height="50" ClipToBounds="True" Canvas.Left="2">
+                                <Viewbox Height="60" Stretch="Uniform" Canvas.Top="1" Canvas.Left="-3">
+                                    <ctrl:SvgPresenter Source="Themes\E235-0\SVG\DownStairs.svg"/>
+                                </Viewbox>
+                            </Canvas>
+                            <Canvas Width="37" Height="50" ClipToBounds="True" Canvas.Left="-1">
+                                <Viewbox Width="44" Stretch="Uniform" Canvas.Top="18" Canvas.Left="0">
+                                    <ctrl:SvgPresenter Source="Themes\E235-0\SVG\DownEscalator.svg"/>
+                                </Viewbox>
+                            </Canvas>
+                        </Canvas>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="DownEscalatorAndStairs" TargetType="Control">
+                        <Canvas Width="36" Height="54">
+                            <Border Width="30" Height="40" Background="#FF808080" Canvas.Top="4" Canvas.Right="0"/>
+                            <Canvas Width="37" Height="50" ClipToBounds="True" Canvas.Top="0" Canvas.Left="-1">
+                                <Viewbox Width="46" Stretch="Uniform" Canvas.Top="0" Canvas.Left="0">
+                                    <ctrl:SvgPresenter Source="Themes\E235-0\SVG\DownEscalator.svg"/>
+                                </Viewbox>
+                            </Canvas>
+                            <Canvas Width="34" Height="31" ClipToBounds="True" Canvas.Top="23" Canvas.Left="2">
+                                <Viewbox Height="60" Stretch="Uniform" Canvas.Top="0" Canvas.Left="-3">
+                                    <ctrl:SvgPresenter Source="Themes\E235-0\SVG\DownStairs.svg"/>
+                                </Viewbox>
+                            </Canvas>
+                        </Canvas>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="LeftToRight" TargetType="Control">
+                        <Control Name="ObjectIcon" RenderTransformOrigin="0.5,0.5"/>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="UpStairs"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="UpEscalator"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource UpStairsAndEscalator}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="UpEscalator"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="UpStairs"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource UpEscalatorAndStairs}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="DownStairs"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="DownEscalator"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource DownStairsAndEscalator}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="DownEscalator"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="DownStairs"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource DownEscalatorAndStairs}"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+                    <ControlTemplate x:Key="RightToLeft" TargetType="Control">
+                        <Control Name="ObjectIcon" RenderTransformOrigin="0.5,0.5"/>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="UpStairs"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="UpEscalator"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource UpEscalatorAndStairs}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="UpEscalator"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="UpStairs"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource UpStairsAndEscalator}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="DownStairs"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="DownEscalator"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource DownEscalatorAndStairs}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Objects[0].Key}" Value="DownEscalator"/>
+                                    <Condition Binding="{Binding Objects[1].Key}" Value="DownStairs"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter TargetName="ObjectIcon" Property="Template" Value="{StaticResource DownStairsAndEscalator}"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Style.Resources>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                <Setter Property="Template" Value="{StaticResource LeftToRight}"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Style.Triggers>
+                    <Trigger Property="FlowDirection" Value="RightToLeft">
+                        <Setter Property="Template" Value="{StaticResource RightToLeft}"/>
+                    </Trigger>
+                    <DataTrigger Binding="{Binding Objects[0].Direction}" Value="Opposite">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Objects[0].Direction}" Value="None">
+                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ObjectGroup" TargetType="ItemsControl">
+                <Style.Resources>
+                    <cvt:PlatformObjectPackingConverter x:Key="ObjectPacker"/>
+                </Style.Resources>
+                <Setter Property="ItemsSource" Value="{Binding Objects, Converter={StaticResource ObjectPacker}}"/>
+                <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <StackPanel IsItemsHost="True"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+                            <Style.Triggers>
+                                <Trigger Property="FlowDirection" Value="RightToLeft">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <ScaleTransform ScaleY="-1"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Control Name="PlatformObject" Style="{StaticResource PlatformObject}"/>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Objects.Count}" Value="2">
+                                    <Setter TargetName="PlatformObject" Property="Style" Value="{StaticResource PlatformObjectDoubleIcon}"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="FlowDirection" Value="RightToLeft">
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="-1"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ObjectGroups" TargetType="ItemsControl">
+                <Style.Resources>
+                    <DataTemplate x:Key="ThisSide">
+                        <Canvas Width="36" Height="60">
+                            <Border Name="Connector" Background="#FFFFFFFF" Width="6" Height="90" Canvas.Top="-50" Canvas.Left="15">
+                                <Border Background="#FF000000" Width="2"/>
+                            </Border>
+                            <ItemsControl Name="ObjectGroup" Style="{StaticResource ObjectGroup}" Canvas.Bottom="0"/>
+                        </Canvas>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Items.Count, ElementName=ObjectGroup}" Value="2">
+                                <Setter TargetName="ObjectGroup" Property="Canvas.Bottom" Value="-22"/>
+                                <Setter TargetName="Connector" Property="Height" Value="50"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TargetExit, Converter={StaticResource IsBiggerConverter}, ConverterParameter=0}" Value="True">
+                                <Setter TargetName="Connector" Property="Height" Value="50"/>
+                                <Setter TargetName="Connector" Property="Canvas.Top" Value="-10"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="OppositeSide">
+                        <Canvas Width="36" Height="60">
+                            <Border Name="Connector" Background="#FFFFFFFF" Width="6" Height="100" Canvas.Bottom="-80" Canvas.Left="15">
+                                <Border Background="#FF000000" Width="2"/>
+                            </Border>
+                            <ItemsControl Name="ObjectGroup" Style="{StaticResource ObjectGroup}" Canvas.Bottom="0"/>
+                        </Canvas>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Items.Count, ElementName=ObjectGroup}" Value="2">
+                                <Setter TargetName="ObjectGroup" Property="Canvas.Bottom" Value="-35"/>
+                                <Setter TargetName="Connector" Property="Height" Value="60"/>
+                                <Setter TargetName="Connector" Property="Canvas.Bottom" Value="-60"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TargetExit, Converter={StaticResource IsBiggerConverter}, ConverterParameter=0}" Value="True">
+                                <Setter TargetName="Connector" Property="Height" Value="60"/>
+                                <Setter TargetName="Connector" Property="Canvas.Bottom" Value="-40"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="ThisSideAtAkihabara">
+                        <Canvas Width="36" Height="60">
+                            <Border Name="Connector" Background="#FFFFFFFF" Width="6" Height="90" Canvas.Top="-50" Canvas.Left="15">
+                                <Border Background="#FF000000" Width="2"/>
+                            </Border>
+                            <ItemsControl Name="ObjectGroup" Style="{StaticResource ObjectGroup}" Canvas.Bottom="0"/>
+                        </Canvas>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Items.Count, ElementName=ObjectGroup}" Value="2">
+                                <Setter TargetName="ObjectGroup" Property="Canvas.Bottom" Value="-22"/>
+                                <Setter TargetName="Connector" Property="Height" Value="70"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TargetExit}" Value="1">
+                                <Setter TargetName="Connector" Property="Height" Value="50"/>
+                                <Setter TargetName="Connector" Property="Canvas.Top" Value="Auto"/>
+                                <Setter TargetName="Connector" Property="Canvas.Bottom" Value="-25"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+
+                    <DataTemplate x:Key="OppositeSideAtAkihabara">
+                        <Canvas Width="36" Height="60">
+                            <Border Name="Connector" Background="#FFFFFFFF" Width="6" Height="60" Canvas.Bottom="-40" Canvas.Left="15">
+                                <Border Background="#FF000000" Width="2"/>
+                            </Border>
+                            <ItemsControl Name="ObjectGroup" Style="{StaticResource ObjectGroup}" Canvas.Bottom="0"/>
+                        </Canvas>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Items.Count, ElementName=ObjectGroup}" Value="2">
+                                <Setter TargetName="ObjectGroup" Property="Canvas.Bottom" Value="-35"/>
+                                <Setter TargetName="Connector" Property="Height" Value="80"/>
+                                <Setter TargetName="Connector" Property="Canvas.Bottom" Value="-60"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding TargetExit}" Value="1">
+                                <Setter TargetName="Connector" Property="Height" Value="60"/>
+                                <Setter TargetName="Connector" Property="Canvas.Top" Value="-25"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </Style.Resources>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <Grid IsItemsHost="True"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="1,0"/>
+                            <Setter Property="Width" Value="36"/>
+                            <Setter Property="Height" Value="60"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Objects[0].Pos}" Value="Border">
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <TranslateTransform X="19"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Objects[0].Pos}" Value="Front">
+                                    <Setter Property="HorizontalAlignment" Value="Right"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Objects[0].Pos}" Value="Back">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemTemplate" Value="{StaticResource ThisSide}"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.ThisSideWillOpen, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="False">
+                        <Setter Property="ItemTemplate" Value="{StaticResource OppositeSide}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding DataContext.StationInfo.Name.Kanji, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="秋葉原">
+                        <Setter Property="ItemTemplate" Value="{StaticResource ThisSideAtAkihabara}"/>
+                    </DataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding DataContext.StationInfo.Name.Kanji, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="秋葉原"/>
+                            <Condition Binding="{Binding DataContext.ThisSideWillOpen, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="False"/>
+                        </MultiDataTrigger.Conditions>
+                        <Setter Property="ItemTemplate" Value="{StaticResource OppositeSideAtAkihabara}"/>
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="PlatformUnits" TargetType="ItemsControl">
+                <Setter Property="ItemsSource" Value="{Binding Units}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <StackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="1,0,0,0"/>
+                            <Setter Property="Width" Value="75"/>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <ItemsControl Name="ObjectGroups" ItemsSource="{Binding ObjectGroups}" Style="{StaticResource ObjectGroups}"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Exits" TargetType="ItemsControl">
+                <Setter Property="ItemsSource" Value="{Binding Exits}"/>
+                <Setter Property="AlternationCount" Value="255"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <Grid IsItemsHost="True"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ContentPresenter">
+                            <Setter Property="Margin" Value="0,44"/>
+                            <Setter Property="Height" Value="38"/>
+                            <Setter Property="VerticalAlignment" Value="Top"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding DataContext.ThisSideWillOpen, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="False">
+                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding DataContext.StationInfo.Name.Kanji, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="秋葉原">
+                                    <Setter Property="Margin" Value="0,130,0,0"/>
+                                </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding DataContext.StationInfo.Name.Kanji, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="秋葉原"/>
+                                        <Condition Binding="{Binding DataContext.ThisSideWillOpen, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Margin" Value="0,0,0,134"/>
+                                </MultiDataTrigger>
+                                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                    <Setter Property="Margin" Value="0,1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Control Width="{Binding Offset, Converter={StaticResource PlatformWidthConverter}}"/>
+                                <ContentControl Name="ExitContainer" Width="{Binding Length, Converter={StaticResource PlatformWidthConverter}}">
+                                    <Border Name="Exit" Height="38" Background="#FFF0F000" BorderBrush="#FF000000" BorderThickness="1">
+                                        <Border.Margin>
+                                            <MultiBinding Converter="{StaticResource ExitPositionConverter}">
+                                                <MultiBinding.Bindings>
+                                                    <Binding Path="StartPos"/>
+                                                    <Binding Path="EndPos"/>
+                                                </MultiBinding.Bindings>
+                                            </MultiBinding>
+                                        </Border.Margin>
+                                        <StackPanel FlowDirection="LeftToRight">
+                                            <Viewbox Margin="4,0" Stretch="Fill" StretchDirection="DownOnly">
+                                                <TextBlock Name="Japanese" Text="{Binding Kanji}" FontFamily="Microsoft Sans Serif" FontSize="18" TextAlignment="Center" Margin="0,5,0,0" LineStackingStrategy="BlockLineHeight" LineHeight="18"/>
+                                            </Viewbox>
+                                            <Viewbox Margin="4,0" Stretch="Fill" StretchDirection="DownOnly">
+                                                <TextBlock Name="English" Text="{Binding English}" FontFamily="Microsoft Sans Serif" FontSize="12" TextAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="12"/>
+                                            </Viewbox>
+                                        </StackPanel>
+                                    </Border>
+                                </ContentControl>
+                            </StackPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <DataTemplate x:Key="ThisSide">
+                <Grid Width="{Binding Length, Converter={StaticResource PlatformWidthConverter}}">
+                    <ContentControl Height="148" VerticalAlignment="Bottom">
+                        <ItemsControl Name="PlatformUnits" Style="{StaticResource PlatformUnits}" Margin="0,44" Height="60" VerticalAlignment="Bottom"/>
+                    </ContentControl>
+                    <ItemsControl Name="Exits" Style="{StaticResource Exits}" Margin="0,5" VerticalAlignment="Top"/>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.StationInfo.Name.Kanji, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="秋葉原">
+                        <Setter TargetName="PlatformUnits" Property="Margin" Value="0,0,0,75"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+            <DataTemplate x:Key="OppositeSide">
+                <Grid Width="{Binding Length, Converter={StaticResource PlatformWidthConverter}}">
+                    <ContentControl Height="148" VerticalAlignment="Top">
+                        <ItemsControl Name="PlatformUnits" Style="{StaticResource PlatformUnits}" Margin="0,30" Height="60" VerticalAlignment="Top"/>
+                    </ContentControl>
+                    <ItemsControl Name="Exits" Style="{StaticResource Exits}" Margin="0,5" VerticalAlignment="Bottom"/>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding DataContext.StationInfo.Name.Kanji, RelativeSource={RelativeSource AncestorType={x:Type ctrl:NextStationView}}}" Value="秋葉原">
+                        <Setter TargetName="PlatformUnits" Property="Margin" Value="0,58,0,0"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </Style.Resources>
+        <Setter Property="ItemsSource" Value="{Binding StationInfo.Platform.Blocks}"/>
+        <Setter Property="Width" Value="{Binding StationInfo.Platform.Length, Converter={StaticResource PlatformWidthConverter}}"/>
+        <Setter Property="Height" Value="194"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ItemsControl">
+                    <StackPanel Name="PlatformPresenter" IsItemsHost="True" Orientation="Horizontal"/>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TrainInfo.Direction}" Value="Forward"/>
+                                <Condition Binding="{Binding Side}" Value="Right"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PlatformPresenter" Property="FlowDirection" Value="RightToLeft"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TrainInfo.Direction}" Value="Opposite"/>
+                                <Condition Binding="{Binding Side}" Value="Left"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PlatformPresenter" Property="FlowDirection" Value="RightToLeft"/>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate" Value="{StaticResource ThisSide}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ThisSideWillOpen}" Value="False">
+                <Setter Property="ItemTemplate" Value="{StaticResource OppositeSide}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="PlatformOnThisSide" TargetType="Control">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="46"/>
+                <RowDefinition Height="148"/>
+                <RowDefinition Height="46"/>
+            </Grid.RowDefinitions>
+            <Control Grid.Row="1" Template="{StaticResource PlatformBase}"/>
+            <Control Name="Train" Grid.Row="2" Template="{StaticResource Train}" Margin="0,2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <ItemsControl Name="PlatformBlocks" Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource PlatformBlocks}" HorizontalAlignment="Right"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Side}" Value="Right">
+                <Setter TargetName="Train" Property="HorizontalAlignment" Value="Left"/>
+                <Setter TargetName="PlatformBlocks" Property="HorizontalAlignment" Value="Left"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="PlatformOnOppositeSide" TargetType="Control">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="46"/>
+                <RowDefinition Height="148"/>
+                <RowDefinition Height="46"/>
+            </Grid.RowDefinitions>
+            <Control Grid.Row="1" Template="{StaticResource PlatformBase}"/>
+            <Control Name="Train" Grid.Row="0" Template="{StaticResource Train}" Margin="0,2" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+            <ItemsControl Name="PlatformBlocks" Grid.Row="1" Grid.RowSpan="2" Style="{StaticResource PlatformBlocks}" HorizontalAlignment="Right"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Side}" Value="Right">
+                <Setter TargetName="Train" Property="HorizontalAlignment" Value="Left"/>
+                <Setter TargetName="PlatformBlocks" Property="HorizontalAlignment" Value="Left"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DoorsOnThisSide" TargetType="Control">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240"/>
+                <RowDefinition Height="140"/>
+            </Grid.RowDefinitions>
+            <Control Grid.Row="0" Template="{StaticResource PlatformOnThisSide}"/>
+            <StackPanel Grid.Row="1" Background="#FF0D50A6" Orientation="Horizontal">
+                <Grid Width="390" Height="125" Margin="0,10" VerticalAlignment="Top">
+                    <Border Margin="0,20" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FF5090E0" Offset="0.0"/>
+                                <GradientStop Color="#FF0D50A6" Offset="0.8"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Canvas Width="160" Height="20" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Polygon Fill="#FFC0C000" Points="0,12 18,0 142,0 160,12"/>
+                    </Canvas>
+                    <Canvas Margin="0,16" Width="63" Height="21" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Polygon Fill="#FFFFFFFF" Stroke="#FF000000" StrokeThickness="0.6" StrokeLineJoin="Round" Points="0,21 31.5,0 63,21"/>
+                        <Polygon Fill="#FFD00000" StrokeLineJoin="Round" Points="4.5,19.6 31.5,1.6 58.5,19.6"/>
+                        <Canvas.RenderTransform>
+                            <TranslateTransform x:Name="ArrowTransform" Y="120"/>
+                        </Canvas.RenderTransform>
+                    </Canvas>             
+                    <Grid Name="DoorContainer" Width="120" Height="105" MaxWidth="200" MinWidth="120" VerticalAlignment="Top">
+                        <Border Width="60" Height="105" Background="#FFE6EBF0" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" HorizontalAlignment="Left">
+                            <Grid>
+                                <Border HorizontalAlignment="Right" Width="4">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.2"/>
+                                            <GradientStop Color="#FFD0D000" Offset="0.4"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Bottom" Height="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.0"/>
+                                            <GradientStop Color="#5FB0C0D0" Offset="0.05"/>
+                                            <GradientStop Color="#DFB0C0D0" Offset="0.50"/>
+                                            <GradientStop Color="#EF7A90A0" Offset="0.55"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border Margin="0,8" Width="44" Height="52" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" VerticalAlignment="Top">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                                            <GradientStop Color="#FF0D50A6" Offset="0.4"/>
+                                            <GradientStop Color="#FFD0EDFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Canvas Width="26" Height="26" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Polygon Fill="#FFFFFFFF" Points="0,13 12,0 12,6 26,6 26,20 12,20 12,26"/>
+                                    <Canvas.RenderTransform>
+                                        <TranslateTransform X="-34"/>
+                                    </Canvas.RenderTransform>
+                                </Canvas>
+                            </Grid>
+                        </Border>
+                        <Border Width="60" Height="105" Background="#FFE6EBF0" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" HorizontalAlignment="Right">
+                            <Grid>
+                                <Border HorizontalAlignment="Left" Width="4">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="1,0" EndPoint="0,0">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.2"/>
+                                            <GradientStop Color="#FFD0D000" Offset="0.4"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Bottom" Height="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.0"/>
+                                            <GradientStop Color="#5FB0C0D0" Offset="0.05"/>
+                                            <GradientStop Color="#DFB0C0D0" Offset="0.50"/>
+                                            <GradientStop Color="#EF7A90A0" Offset="0.55"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border Margin="0,8" Width="44" Height="52" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" VerticalAlignment="Top">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                                            <GradientStop Color="#FF0D50A6" Offset="0.4"/>
+                                            <GradientStop Color="#FFD0EDFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Canvas Width="26" Height="26" HorizontalAlignment="Right" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                                    <Polygon Fill="#FFFFFFFF" Points="0,13 12,0 12,6 26,6 26,20 12,20 12,26"/>
+                                    <Canvas.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="-1"/>
+                                            <TranslateTransform X="34"/>
+                                        </TransformGroup>
+                                    </Canvas.RenderTransform>
+                                </Canvas>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="Grid.Loaded">
+                            <BeginStoryboard Name="BlinkBegin">
+                                <Storyboard Duration="0:0:6" RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetName="DoorContainer" Storyboard.TargetProperty="Width" BeginTime="0:0:1" Duration="0:0:2" From="120" To="200"/>
+                                    <DoubleAnimation Storyboard.TargetName="ArrowTransform" Storyboard.TargetProperty="Y" BeginTime="0:0:3" Duration="0:0:1" From="100" To="0"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
+                </Grid>
+                <Canvas>
+                    <TextBlock Canvas.Top="12" Foreground="#FFFFFFFF" FontSize="52" FontFamily="Meiryo UI" Text="こちら側のドアが開きます"/>
+                    <TextBlock Canvas.Top="72" Canvas.Left="50" Foreground="#FFFFFFFF" FontSize="28" FontFamily="Microsoft Sans Serif" Text="Doors on this side will open."/>
+                </Canvas>
+            </StackPanel>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="DoorsOnOppositeSide" TargetType="Control">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240"/>
+                <RowDefinition Height="140"/>
+            </Grid.RowDefinitions>
+            <Control Grid.Row="0" Template="{StaticResource PlatformOnOppositeSide}"/>
+            <StackPanel Grid.Row="1" Background="#FF000000" Orientation="Horizontal">
+                <Grid Width="390" Height="125" Margin="0,10" VerticalAlignment="Top">
+                    <Canvas Width="160" Height="20" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Polygon Fill="#FFC0C000" Points="0,12 18,0 142,0 160,12"/>
+                    </Canvas>
+                    <Grid Name="DoorContainer" Width="120" Height="105" MaxWidth="480" MinWidth="120" VerticalAlignment="Top">
+                        <Border Width="60" Height="105" Background="#FFE6EBF0" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" HorizontalAlignment="Left">
+                            <Grid>
+                                <Border HorizontalAlignment="Right" Width="4">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.2"/>
+                                            <GradientStop Color="#FFD0D000" Offset="0.4"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Bottom" Height="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.0"/>
+                                            <GradientStop Color="#5FB0C0D0" Offset="0.05"/>
+                                            <GradientStop Color="#DFB0C0D0" Offset="0.50"/>
+                                            <GradientStop Color="#EF7A90A0" Offset="0.55"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border Margin="0,8" Width="44" Height="52" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" VerticalAlignment="Top">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                                            <GradientStop Color="#FF000000" Offset="0.4"/>
+                                            <GradientStop Color="#FFD0E0FF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <Border Width="60" Height="105" Background="#FFE6EBF0" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" HorizontalAlignment="Right">
+                            <Grid>
+                                <Border HorizontalAlignment="Left" Width="4">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="1,0" EndPoint="0,0">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.2"/>
+                                            <GradientStop Color="#FFD0D000" Offset="0.4"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border VerticalAlignment="Bottom" Height="20">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#4FE6EBF0" Offset="0.0"/>
+                                            <GradientStop Color="#5FB0C0D0" Offset="0.05"/>
+                                            <GradientStop Color="#DFB0C0D0" Offset="0.50"/>
+                                            <GradientStop Color="#EF7A90A0" Offset="0.55"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                                <Border Margin="0,8" Width="44" Height="52" BorderBrush="#FF000000" BorderThickness="1" CornerRadius="3" VerticalAlignment="Top">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                                            <GradientStop Color="#FF000000" Offset="0.4"/>
+                                            <GradientStop Color="#FFD0E0FF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Canvas Margin="0,28" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Ellipse Canvas.Top="0" Canvas.Left="0" Width="60" Height="60" Fill="#FFFFFFFF" Stroke="#FF000000" StrokeThickness="1"/>
+                        <Ellipse Canvas.Top="4" Canvas.Left="4" Width="52" Height="52" Fill="#FFD00000" Stroke="#FFC00000" StrokeThickness="1"/>
+                        <Rectangle Canvas.Top="26" Canvas.Left="12" Width="36" Height="8" Fill="#FFFFFFFF"/>
+                    </Canvas>
+                </Grid>
+                <Canvas>
+                    <TextBlock Canvas.Top="12" Foreground="#FFFFFFFF" FontSize="52" FontFamily="Meiryo UI" Text="反対側のドアが開きます"/>
+                    <TextBlock Canvas.Top="72" Canvas.Left="5" Foreground="#FFFFFFFF" FontSize="28" FontFamily="Microsoft Sans Serif" Text="Doors on the opposite side will open."/>
+                </Canvas>
+            </StackPanel>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Transfers" TargetType="Control">
+        <ControlTemplate.Resources>
+            <cvt:TransferDisplaySelector x:Key="TransferDisplaySelector" TargetMode="Transfers" TargetLanguage="Kanji"/>
+        </ControlTemplate.Resources>
+        <DockPanel Margin="0,0,0,20">
+            <Border DockPanel.Dock="Top" Height="34" Background="#FFDAE0F0">
+                <TextBlock Height="32" FontFamily="Microsoft Sans Serif" FontSize="24" LineStackingStrategy="BlockLineHeight" LineHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Run FontFamily="Meiryo" FontSize="22">のりかえ案内　</Run><Run>Transfer</Run>
+                </TextBlock>
+            </Border>
+            <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="48,20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ctrl:TransferInfoPresenter Source="{Binding StationInfo.Transfer, Converter={StaticResource TransferDisplaySelector}}">
+                    <ctrl:TransferInfoPresenter.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="2,0,36,30" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <ctrl:LineIcon x:Name="Icon" Style="{StaticResource LineIcon}" DataContext="{Binding ActiveIcon}" Width="36" Height="36" HorizontalAlignment="Left" VerticalAlignment="Top" IconType="{Binding IconType}" PrimaryLineColor="{Binding LineColor}" SecondaryLineColor="{Binding LineColor2}" LineLetter="{Binding LineLetter}" LineLetterColor="{StaticResource ActiveText}"/>
+                                <StackPanel Margin="6,0,0,0">
+                                    <Viewbox Stretch="Fill" StretchDirection="DownOnly" MaxWidth="680" Height="40" HorizontalAlignment="Left">
+                                        <TextBlock Name="Japanese" FontFamily="Microsoft Sans Serif" FontSize="38" Foreground="#FF000000" Text="{Binding LineInfo.Kanji, Converter={StaticResource RemoveLinefeed}}" TextAlignment="Left" LineStackingStrategy="BlockLineHeight" LineHeight="40"/>
+                                    </Viewbox>
+                                    <Viewbox Stretch="Fill" StretchDirection="DownOnly" MaxWidth="680" Height="26" HorizontalAlignment="Left">
+                                        <TextBlock Name="English" FontFamily="Microsoft Sans Serif" FontSize="24" Foreground="#FF000000" Text="{Binding LineInfo.English, Converter={StaticResource RemoveLinefeed}}" TextAlignment="Left" LineStackingStrategy="BlockLineHeight" LineHeight="26"/>
+                                    </Viewbox>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ctrl:TransferInfoPresenter.ItemTemplate>
+                </ctrl:TransferInfoPresenter>
+            </Viewbox>
+        </DockPanel>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Platform" TargetType="Control">
+        <ControlTemplate.Resources>
+            <cvt:TransferDisplaySelector x:Key="TransferDisplaySelector" TargetMode="Platform" TargetLanguage="Kanji"/>
+        </ControlTemplate.Resources>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Control Name="PlatformPresenter" Grid.Row="0" Template="{StaticResource PlatformOnThisSide}"/>
+            <Viewbox Grid.Row="1" Stretch="Uniform" StretchDirection="DownOnly" Margin="45,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ctrl:TransferInfoPresenter Source="{Binding StationInfo.Transfer, Converter={StaticResource TransferDisplaySelector}}">
+                    <ctrl:TransferInfoPresenter.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Name="Container" Margin="0,5,18,5" MinWidth="130" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <ctrl:LineIcon x:Name="Icon" Style="{StaticResource LineIcon}" DataContext="{Binding ActiveIcon}" Width="30" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" IconType="{Binding IconType}" PrimaryLineColor="{Binding LineColor}" SecondaryLineColor="{Binding LineColor2}" LineLetter="{Binding LineLetter}" LineLetterColor="{StaticResource ActiveText}"/>
+                                <StackPanel Margin="4,0,0,0">
+                                    <TextBlock Name="Japanese" FontFamily="Microsoft Sans Serif" FontSize="28" Foreground="#FF000000" Text="{Binding LineInfo.Kanji, Converter={StaticResource RemoveLinefeed}, ConverterParameter=1}" TextAlignment="Left" LineStackingStrategy="BlockLineHeight" LineHeight="30"/>
+                                    <TextBlock Name="English" Margin="2,-2" FontFamily="Microsoft Sans Serif" FontSize="16" Foreground="#FF000000" Text="{Binding LineInfo.English, Converter={StaticResource RemoveLinefeed}, ConverterParameter=1}" TextAlignment="Left" LineStackingStrategy="BlockLineHeight" LineHeight="18"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ctrl:TransferInfoPresenter.ItemTemplate>
+                </ctrl:TransferInfoPresenter>
+            </Viewbox>
+            <StackPanel Grid.Row="2">
+                <TextBlock Margin="10,1" Foreground="#FF000000" FontFamily="Meiryo UI" FontSize="15" TextAlignment="Right">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}年{1}月現在">
+                            <MultiBinding.Bindings>
+                                <Binding Path="StationInfo.Platform.UpdateInfo.UpdateYear"/>
+                                <Binding Path="StationInfo.Platform.UpdateInfo.UpdateMonth"/>
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock Margin="10,0" Foreground="#FF000000" FontFamily="Microsoft Sans Serif" FontSize="15" TextAlignment="Right">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}As of {0}, {1}">
+                            <MultiBinding.Bindings>
+                                <Binding Path="StationInfo.Platform.UpdateInfo.UpdateMonthEnglish"/>
+                                <Binding Path="StationInfo.Platform.UpdateInfo.UpdateYearEnglish"/>
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding ThisSideWillOpen}" Value="False">
+                <Setter TargetName="PlatformPresenter" Property="Template" Value="{StaticResource PlatformOnOppositeSide}"/>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AlertJapanese" TargetType="Control">
+        <Border BorderBrush="#FFFF0000" BorderThickness="15">
+            <DockPanel VerticalAlignment="Top">
+                <Border Name="Title" DockPanel.Dock="Top" Margin="0,14" BorderBrush="#FFFF0000" BorderThickness="0,0,0,2" HorizontalAlignment="Center">
+                    <Viewbox Margin="12,-10" Width="340" Height="54" Stretch="Fill">
+                        <TextBlock Foreground="#FFFF0000" FontFamily="Meiryo" FontSize="34" FontWeight="Bold" Text="特別警戒実施のお知らせ"/>
+                    </Viewbox>
+                </Border>
+                <Viewbox Height="270" Stretch="Fill" Margin="24,2">
+                    <TextBlock FontFamily="Meiryo" FontSize="25" FontWeight="Bold" Text="" LineStackingStrategy="BlockLineHeight" LineHeight="42" HorizontalAlignment="Center">
+                        <Run>ただいま、</Run><Run FontFamily="Microsoft Sans Serif">JR</Run> <Run>東日本グループでは、警察と連携し、</Run><Run Foreground="#FFFF0000">特別警戒</Run><Run>を実施して</Run><LineBreak/>
+                        <Run>おります。防犯カメラを駅構内に設置しているほか、社員および警備員による</Run><LineBreak/>
+                        <Run>駅構内・列車内の巡回を強化して、お客さまに安心してご利用いただけるよう</Run><LineBreak/>
+                        <Run>に努めております。</Run><LineBreak/>
+                        <Run>駅構内で</Run><Run Foreground="#FFFF0000">不審物や気がかりなこと</Run><Run>がございましたら、お近くの駅係員、車掌</Run><LineBreak/>
+                        <Run>または警備員までお知らせください。お客さまのご協力をお願いいたします。</Run>
+                    </TextBlock>
+                </Viewbox>
+            </DockPanel>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="AlertEnglish" TargetType="Control">
+        <Border BorderBrush="#FFFF0000" BorderThickness="15">
+            <DockPanel VerticalAlignment="Top">
+                <Border Name="Title" DockPanel.Dock="Top" Margin="0,2,0,12" BorderBrush="#FFFF0000" BorderThickness="0,0,0,3" HorizontalAlignment="Center">
+                    <TextBlock Margin="5,2" Foreground="#FFFF0000" FontFamily="Arial" FontSize="42" FontWeight="Bold" Text="Security Notice"/>
+                </Border>
+                <TextBlock FontFamily="Arial" FontSize="32" FontWeight="Bold" Text="" LineStackingStrategy="BlockLineHeight" LineHeight="48" HorizontalAlignment="Center">
+                    <Run>JR East Group and the Police Department together are</Run><LineBreak/>
+                    <Run>now on</Run> <Run Foreground="#FFFF0000">a high alert</Run><Run>.</Run><LineBreak/>
+                    <Run>If you find</Run> <Run Foreground="#FFFF0000">something suspicious</Run> <Run>at a station or on a train,</Run><LineBreak/>
+                    <Run>please inform station staff, conductors or security guards</Run><LineBreak/>
+                    <Run>as soon as possible.</Run>
+                </TextBlock>
+            </DockPanel>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="PrioritySeat" TargetType="Control">
+        <StackPanel>
+            <Border Margin="0,5" Width="580" BorderBrush="#FFD0D0D0" BorderThickness="1" CornerRadius="8" HorizontalAlignment="Center">
+                <Viewbox Stretch="Uniform" Width="572" Margin="4">
+                    <ctrl:SvgPresenter Source="Themes\E235-0\SVG\PrioritySeat.svg"/>
+                </Viewbox>
+            </Border>
+            <Viewbox Width="580" Stretch="Fill" StretchDirection="DownOnly">
+                <TextBlock FontFamily="Meiryo" FontSize="18" Text="優先席を必要とされるお客さまがいらっしゃいましたら、席をお譲りください。" TextAlignment="Center"/>
+            </Viewbox>
+            <TextBlock Margin="0,-4" FontFamily="Microsoft Sans Serif" FontSize="14" Text="Please offer your seat to those who may need it." TextAlignment="Center"/>
+        </StackPanel>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="MobilePhone" TargetType="Control">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Viewbox Margin="60,0" Width="240" Stretch="Uniform">
+                <ctrl:SvgPresenter Source="Themes\E235-0\SVG\MobilePhone.svg"/>
+            </Viewbox>
+            <StackPanel Width="500" VerticalAlignment="Center">
+                <Viewbox Margin="0,16,0,0" Width="400" Height="80" Stretch="Fill" StretchDirection="DownOnly" HorizontalAlignment="Left">
+                    <TextBlock FontFamily="Meiryo" FontSize="42" LineStackingStrategy="BlockLineHeight" LineHeight="50">
+                        <Run>マナーモードに設定の上、</Run><LineBreak/><Run>通話はご遠慮ください。</Run>
+                    </TextBlock>
+                </Viewbox>
+                <Viewbox Width="500" Height="80" Stretch="Fill" StretchDirection="DownOnly" HorizontalAlignment="Left">
+                    <TextBlock FontFamily="Microsoft Sans Serif" FontSize="22" HorizontalAlignment="Center" LineStackingStrategy="BlockLineHeight" LineHeight="26">
+                        <Run>Please set your mobile phone to silent mode</Run><LineBreak/><Run>and refrain from talking on the phone.</Run>
+                    </TextBlock>
+                </Viewbox>
+            </StackPanel>
+        </StackPanel>
+    </ControlTemplate>
+
+    <Style x:Key="MainArea" TargetType="Control">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Border Background="#FF202020">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="410"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="160"/>
+                            </Grid.ColumnDefinitions>
+                            <Control Style="{StaticResource Destination}" Grid.Column="0" Margin="12,4"  HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                            <Border Grid.Column="1" Margin="2,0,2,8" Background="{StaticResource DefaultLineColor}"/>
+                            <Control Style="{StaticResource StationName}" Grid.Column="2" Grid.ColumnSpan="3" Margin="5,0" VerticalAlignment="Bottom"/>
+                            <Control Style="{StaticResource CurrentTime}" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <Control Style="{StaticResource CarNumber}" Grid.Column="4" HorizontalAlignment="Right" Margin="4" VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="OptionalArea" TargetType="Control">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding OptionalArea.Mode}" Value="DetailedRouteMap">
+                <Setter Property="Template" Value="{StaticResource DetailedRouteMap}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OptionalArea.Mode}" Value="RouteMap">
+                <Setter Property="Template" Value="{StaticResource RouteMap}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OptionalArea.Mode}" Value="Platform">
+                <Setter Property="Template" Value="{StaticResource Platform}"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding OptionalArea.Mode}" Value="Door"/>
+                    <Condition Binding="{Binding ThisSideWillOpen}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template" Value="{StaticResource DoorsOnThisSide}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding OptionalArea.Mode}" Value="Door"/>
+                    <Condition Binding="{Binding ThisSideWillOpen}" Value="False"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template" Value="{StaticResource DoorsOnOppositeSide}"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding OptionalArea.Mode}" Value="Transfers">
+                <Setter Property="Template" Value="{StaticResource Transfers}"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding OptionalArea.Mode}" Value="Alert"/>
+                    <Condition Binding="{Binding OptionalArea.Language}" Value="Kanji"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template" Value="{StaticResource AlertJapanese}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding OptionalArea.Mode}" Value="Alert"/>
+                    <Condition Binding="{Binding OptionalArea.Language}" Value="English"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Template" Value="{StaticResource AlertEnglish}"/>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding OptionalArea.Mode}" Value="PrioritySeat">
+                <Setter Property="Template" Value="{StaticResource PrioritySeat}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OptionalArea.Mode}" Value="MobilePhone">
+                <Setter Property="Template" Value="{StaticResource MobilePhone}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="ctrl:NextStationView">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:NextStationView">
+                    <StackPanel Width="960" Height="540" Background="#FFFFFFFF">
+                        <Control Name="MainArea" Style="{StaticResource MainArea}" Height="160" Panel.ZIndex="0"/>
+                        <Control Name="OptionalArea" Style="{StaticResource OptionalArea}" Height="380" Panel.ZIndex="-1"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

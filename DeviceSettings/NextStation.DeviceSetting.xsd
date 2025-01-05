@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="NextStation"
+    targetNamespace="http://wataku-city.com/xml/schema/NextStation/Device"
+    elementFormDefault="qualified"
+    xmlns="http://wataku-city.com/xml/schema/NextStation/Device"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="DeviceSetting">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Title" type="xs:string"/>
+        <xs:element name="FileInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BaseThemeFile" type="xs:string" minOccurs="0"/>
+              <xs:element name="ThemeFile" type="xs:string"/>
+              <xs:element name="LineFile" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="WindowSettings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Window">
+                <xs:complexType>
+                  <xs:attribute name="Width" type="xs:double" use="required"/>
+                  <xs:attribute name="Height" type="xs:double" use="required"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RoutineDefinition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MainAreaRoutines" type="MainAreaRoutine_type"/>
+              <xs:element name="OptionalAreaRoutines" type="OptionalAreaRoutine_type"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TrainInfoDefinition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TrainTypes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TrainType" type="MultiLanguageTextWithColorIndex_type" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TrainNames">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="TrainName" type="MultiLanguageTextWithColorIndex_type" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="ServiceInfos">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ServiceInfo" type="MultiLanguageTextWithColorIndex_type" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Destinations">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Destination" type="Destination_type" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="CarsDefinition">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Cars" type="Cars_type" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>        
+        <xs:element name="ColorDefinition">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LineColor">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LineColorSetting" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:attribute name="BranchRef" type="xs:unsignedByte"/>
+                        <xs:attribute name="LineColorIndex" type="xs:unsignedByte"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DetailedRouteMap">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Running">
+                <xs:complexType>
+                  <xs:attribute name="StartFromPrev" type="xs:boolean"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Arriving">
+                <xs:complexType>
+                  <xs:attribute name="StartFromPrev" type="xs:boolean"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Stopping">
+                <xs:complexType>
+                  <xs:attribute name="StartFromPrev" type="xs:boolean"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Departing">
+                <xs:complexType>
+                  <xs:attribute name="StartFromPrev" type="xs:boolean"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="MaxLength" type="xs:unsignedByte" default="8"/>
+            <xs:attribute name="FillToMaxLength" type="xs:boolean" default="true"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RouteMapDisplayDefinitions" type="RouteMapDisplayDef_type" minOccurs="0"/>
+        <xs:element name="AdditionalStationInfos" type="AdditionalStationInfo_type" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="MainAreaRoutine_type">
+    <xs:sequence>
+      <xs:element name="Routine" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Steps">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Step" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:attribute name="Duration" type="xs:unsignedByte" use="required"/>
+                      <xs:attribute name="Language" type="Language_type"/>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Title" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="OptionalAreaRoutine_type">
+    <xs:sequence>
+      <xs:element name="Routine" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Steps">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Step" maxOccurs="unbounded">
+                    <xs:complexType>
+                      <xs:attribute name="Mode" type="OptionalAreaMode_type" use="required"/>
+                      <xs:attribute name="Page" type="xs:unsignedByte"/>
+                      <xs:attribute name="Duration" type="xs:unsignedByte" use="required"/>
+                      <xs:attribute name="Language" type="Language_type"/>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Title" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MultiLanguageTextWithColorIndex_type">
+    <xs:sequence>
+      <xs:element name="Kanji" type="xs:string" minOccurs="0"/>
+      <xs:element name="Hiragana" type="xs:string" minOccurs="0"/>
+      <xs:element name="English" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="ColorIndex" type="xs:unsignedByte"/>
+  </xs:complexType>
+
+  <xs:complexType name="Numbering_type">
+    <xs:attribute name="LineLetter" type="xs:string"/>
+    <xs:attribute name="StationNumber" type="xs:string"/>
+    <xs:attribute name="Code" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="Destination_type">
+    <xs:sequence>
+      <xs:element name="Kanji" type="xs:string" minOccurs="0"/>
+      <xs:element name="Hiragana" type="xs:string" minOccurs="0"/>
+      <xs:element name="English" type="xs:string" minOccurs="0"/>
+      <xs:element name="Numberings" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Numbering" type="Numbering_type" maxOccurs="unbounded" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="DestinationType" type="DestinationTypes_type"/>
+  </xs:complexType>
+
+  <xs:complexType name="Cars_type">
+    <xs:sequence>
+      <xs:element name="Car" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute name="IsTrainHead" type="xs:boolean"/>
+              <xs:attribute name="IsTrainTail" type="xs:boolean"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Title" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="RouteMapDisplayDef_type">
+    <xs:sequence>
+      <xs:element name="RouteMapDisplayDef" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="RouteMapBlock" type="RouteMapBlock_type" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="Page" type="xs:unsignedByte"/>
+          <xs:attribute name="MaxArrivalTimeToDisplay" type="xs:unsignedByte"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RouteMapBlock_type">
+    <xs:sequence>
+      <xs:element name="Station" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="Ref" type="xs:unsignedShort" use="required"/>
+          <xs:attribute name="IsEntryPoint" type="xs:boolean" default="false"/>
+          <xs:attribute name="IsExitPoint" type="xs:boolean" default="false"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Direction" type="Direction_type"/>
+    <xs:attribute name="IgnoreBranchBorderAtBlockEnd" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="AdditionalStationInfo_type">
+    <xs:sequence>
+      <xs:element name="Station" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Aliases" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Alias" type="StationName_type" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="PlatformInfos" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="PlatformInfo" type="PlatformInfo_type" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="TransferDisplayDefinitions" minOccurs="0">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="TransferDisplayDef" type="TransferDisplayDef_type" maxOccurs="unbounded"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Ref" type="xs:unsignedShort" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PlatformInfo_type">
+    <xs:sequence>
+      <xs:element name="UpdateInfo" minOccurs="0">
+        <xs:complexType>
+          <xs:attribute  name="UpdateYear" type="xs:string"/>
+          <xs:attribute  name="UpdateMonth" type="xs:string"/>
+          <xs:attribute  name="UpdateYearEnglish" type="xs:string"/>
+          <xs:attribute  name="UpdateMonthEnglish" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Title" type="xs:string"/>
+    <xs:attribute name="Ref" type="xs:unsignedByte" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="StationName_type">
+    <xs:sequence>
+      <xs:element name="Kanji" type="xs:string" minOccurs="0"/>
+      <xs:element name="Hiragana" type="xs:string" minOccurs="0"/>
+      <xs:element name="English" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="TargetMode" type="OptionalAreaMode_type" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="TransferDisplayDef_type">
+    <xs:sequence>
+      <xs:element name="TransferDisplay" type="TransferDisplay_type" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Title" type="xs:string"/>
+    <xs:attribute name="TargetDirection" type="TargetDirection"/>
+    <xs:attribute name="Use" type="TransferDisplayDefinitionUsingType"/>
+  </xs:complexType>
+  
+  <xs:complexType name="TransferDisplayLine_type">
+    <xs:sequence>
+      <xs:element name="Alias" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Kanji" type="xs:string" minOccurs="0"/>
+            <xs:element name="Hiragana" type="xs:string" minOccurs="0"/>
+            <xs:element name="English" type="xs:string" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="Ref" type="xs:unsignedByte" use="required"/>
+    <xs:attribute name="Row" type="xs:unsignedByte"/>
+    <xs:attribute name="Column" type="xs:unsignedByte"/>
+    <xs:attribute name="RowSpan" type="xs:unsignedByte" default="1"/>
+    <xs:attribute name="ColumnSpan" type="xs:unsignedByte" default="1"/>
+    <xs:attribute name="IconRef" type="xs:unsignedByte"/>
+  </xs:complexType>
+
+  <xs:complexType name="TransferDisplayGroup_type">
+    <xs:choice>
+      <xs:element name="LineGroup" type="TransferDisplayGroup_type" maxOccurs="unbounded"/>
+      <xs:element name="Line" type="TransferDisplayLine_type" maxOccurs="unbounded"/>
+    </xs:choice>
+    <xs:attribute name="Orientation" type="Orientation_type" default="Vertical"/>
+    <xs:attribute name="Rows" type="xs:unsignedByte"/>
+    <xs:attribute name="Columns" type="xs:unsignedByte"/>
+    <xs:attribute name="Row" type="xs:unsignedByte"/>
+    <xs:attribute name="Column" type="xs:unsignedByte"/>
+    <xs:attribute name="RowSpan" type="xs:unsignedByte" default="1"/>
+    <xs:attribute name="ColumnSpan" type="xs:unsignedByte" default="1"/>
+  </xs:complexType>
+
+  <xs:complexType name="TransferDisplay_type">
+    <xs:choice>
+      <xs:element name="LineGroup" type="TransferDisplayGroup_type" maxOccurs="unbounded"/>
+      <xs:element name="Line" type="TransferDisplayLine_type" maxOccurs="unbounded"/>
+    </xs:choice>
+    <xs:attribute name="TargetMode" type="OptionalAreaMode_type" use="required"/>
+    <xs:attribute name="TargetLanguage" type="TransferDisplayTargetLanguage_type"/>
+    <xs:attribute name="Orientation" type="Orientation_type" default="Vertical"/>
+    <xs:attribute name="Rows" type="xs:unsignedByte"/>
+    <xs:attribute name="Columns" type="xs:unsignedByte"/>
+  </xs:complexType>
+  
+  <xs:simpleType name="Language_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Kanji"/>
+      <xs:enumeration value="Hiragana"/>
+      <xs:enumeration value="English"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DestinationTypes_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Terminal"/>
+      <xs:enumeration value="Direction"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TransferDisplayTargetLanguage_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Kanji"/>
+      <xs:enumeration value="Hiragana"/>
+      <xs:enumeration value="Japanese"/>
+      <xs:enumeration value="English"/>
+      <xs:enumeration value="All"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OptionalAreaMode_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DetailedRouteMap"/>
+      <xs:enumeration value="RouteMap"/>
+      <xs:enumeration value="AreaMap"/>
+      <xs:enumeration value="Transfers"/>
+      <xs:enumeration value="Platform"/>
+      <xs:enumeration value="Door"/>
+      <xs:enumeration value="Alert"/>
+      <xs:enumeration value="PrioritySeat"/>
+      <xs:enumeration value="MobilePhone"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TargetDirection">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Both"/>
+      <xs:enumeration value="Forward"/>
+      <xs:enumeration value="Opposite"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TransferDisplayDefinitionUsingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OriginOnly"/>
+      <xs:enumeration value="TerminalOnly"/>
+      <xs:enumeration value="IntermediateOnly"/>
+      <xs:enumeration value="ExceptOrigin"/>
+      <xs:enumeration value="ExceptTerminal"/>
+      <xs:enumeration value="ExceptIntermediate"/>
+      <xs:enumeration value="Always"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Orientation_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Horizontal"/>
+      <xs:enumeration value="Vertical"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Direction_type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Forward"/>
+      <xs:enumeration value="Opposite"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
